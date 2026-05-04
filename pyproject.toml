@@ -12,3 +12,6 @@ dev = [
     "black>=24.0.0",
     "pylint>=3.0.0",
 ]
+
+[tool.pylint."messages control"]
+disable = ["R0902"]
