@@ -1,0 +1,14 @@
+[project]
+name = "bd2"
+version = "0.1.0"
+description = "Weather API helper scripts"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.0.0",
+    "pylint>=3.0.0",
+]
