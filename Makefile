@@ -1,6 +1,6 @@
-PYTHON := python3
-BLACK := $(PYTHON) -m black
-PYLINT := $(PYTHON) -m pylint
+UV := uv
+BLACK := $(UV) run black
+PYLINT := $(UV) run pylint
 
 .PHONY: format lint
 
