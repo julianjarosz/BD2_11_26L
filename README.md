@@ -1,1 +1,3 @@
-### Yes
+### Data pipeline project for fetching and proccesing weather data
+---
+# In progress ...
