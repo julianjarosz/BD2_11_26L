@@ -1,0 +1,50 @@
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  formatting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --locked --group dev
+
+      - name: Format or check formatting
+        env:
+          IS_PIPELINE_FORMATTING: ${{ vars.IS_PIPELINE_FORMATTING }}
+        run: |
+          if [ "${IS_PIPELINE_FORMATTING}" = "YES" ]; then
+            make format
+          fi
+          uv run black --check scripts
+
+  linting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --locked --group dev
+
+      - name: Run pylint
+        run: make lint
