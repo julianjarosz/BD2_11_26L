@@ -1,6 +1,7 @@
 """Async helpers for fetching current weather data from OpenWeather."""
 
 import asyncio
+import os
 from configparser import ConfigParser
 from pathlib import Path
 from typing import Iterable, final
@@ -9,13 +10,31 @@ import requests
 
 
 CONFIG_PATH = Path(__file__).with_name("api.conf")
+EXAMPLE_CONFIG_PATH = Path(__file__).with_name("api.conf.example")
+API_KEY_ENV_VAR = "OPENWEATHER_API_KEY"
+
+
+def _load_config() -> ConfigParser:
+    """Load project configuration from the local or example config file."""
+    parser = ConfigParser()
+    parser.read([str(EXAMPLE_CONFIG_PATH), str(CONFIG_PATH)])
+    return parser
 
 
 def _load_base_url() -> str:
-    """Load the OpenWeather base URL from the local config file."""
-    parser = ConfigParser()
-    parser.read(CONFIG_PATH)
+    """Load the OpenWeather base URL from configuration."""
+    parser = _load_config()
     return parser["openweather"]["base_url"]
+
+
+def _load_api_key() -> str:
+    """Load the OpenWeather API key from environment or local config."""
+    api_key = os.getenv(API_KEY_ENV_VAR)
+    if api_key:
+        return api_key
+
+    parser = _load_config()
+    return parser["openweather"]["api_key"]
 
 
 OPENWEATHER_BASE_URL: str = _load_base_url()
