@@ -8,7 +8,6 @@ from typing import Iterable, final
 
 import requests
 
-
 CONFIG_PATH = Path(__file__).with_name("api.conf")
 EXAMPLE_CONFIG_PATH = Path(__file__).with_name("api.conf.example")
 API_KEY_ENV_VAR = "OPENWEATHER_API_KEY"
@@ -28,13 +27,22 @@ def _load_base_url() -> str:
 
 
 def _load_api_key() -> str:
-    """Load the OpenWeather API key from environment or local config."""
-    api_key = os.getenv(API_KEY_ENV_VAR)
+    """Load the OpenWeather API key from local config or environment."""
+    if CONFIG_PATH.exists():
+        parser = ConfigParser()
+        parser.read(CONFIG_PATH)
+        api_key = parser["openweather"].get("api_key", "").strip()
+        if api_key:
+            return api_key
+
+    api_key = os.getenv(API_KEY_ENV_VAR, "").strip()
     if api_key:
         return api_key
 
-    parser = _load_config()
-    return parser["openweather"]["api_key"]
+    raise ValueError(
+        "OpenWeather API key not found in scripts/api.conf or "
+        f"environment variable {API_KEY_ENV_VAR}."
+    )
 
 
 OPENWEATHER_BASE_URL: str = _load_base_url()
