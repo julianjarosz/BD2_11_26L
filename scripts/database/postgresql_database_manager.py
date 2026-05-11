@@ -1,8 +1,10 @@
-"""PostgreSQL implementation of the database manager interface.zw"""
+"""PostgreSQL implementation of the database manager interface."""
 
 from __future__ import annotations
 
 import collections.abc
+import dataclasses
+import logging
 import os
 import typing
 
@@ -16,8 +18,22 @@ from scripts.database.database_manager import (
     DatabaseRow,
     DatabaseRows,
 )
+from scripts.database.schema_metadata_store import (
+    ColumnMetadata,
+    SchemaMetadataStore,
+    TableSchemaMetadata,
+)
 
 POSTGRES_DSN_ENV_VAR = "POSTGRES_DSN"
+LOGGER = logging.getLogger(__name__)
+
+
+@dataclasses.dataclass(frozen=True, slots=True)
+class RejectedDatabaseRow:
+    """Row rejected before insertion and the reason why."""
+
+    row: DatabaseRow
+    reason: str
 
 
 class PostgreSQLDatabaseManager(DatabaseManager):
@@ -28,6 +44,8 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         dsn: str | None = None,
         *,
         autocommit: bool = False,
+        schema_metadata_store: SchemaMetadataStore | None = None,
+        logger: logging.Logger | None = None,
         **connection_kwargs: typing.Any,
     ) -> None:
         """Create a PostgreSQL manager.
@@ -37,8 +55,13 @@ class PostgreSQLDatabaseManager(DatabaseManager):
                 arguments such as ``host``, ``port``, ``dbname``, ``user`` and
                 ``password`` can be supplied.
             autocommit: Whether the connection should commit automatically.
+            schema_metadata_store: Optional metadata store used to validate rows
+                before inserting them.
+            logger: Optional logger for rejected row messages.
             connection_kwargs: Additional arguments forwarded to psycopg.
         """
+        self.schema_metadata_store = schema_metadata_store
+        self.logger = logger or LOGGER
         self.connection = psycopg.connect(
             dsn,
             autocommit=autocommit,
@@ -61,28 +84,69 @@ class PostgreSQLDatabaseManager(DatabaseManager):
     def push_data(self, table_name: str, data: DatabaseRows) -> int:
         """Insert one or more mapping rows into a PostgreSQL table."""
         rows = self._normalize_rows(data)
-        columns = tuple(rows[0].keys())
-        required_columns = set(columns)
+        rows, rejected_rows = self._filter_invalid_rows(table_name, rows)
+        self._log_rejected_rows(table_name, rejected_rows)
+        if not rows:
+            return 0
 
-        for row in rows:
-            if set(row.keys()) != required_columns:
-                raise ValueError("All rows must contain the same columns.")
-
-        query = sql.SQL("INSERT INTO {table} ({columns}) VALUES ({values})").format(
-            table=self._table_identifier(table_name),
-            columns=sql.SQL(", ").join(sql.Identifier(column) for column in columns),
-            values=sql.SQL(", ").join(sql.Placeholder(column) for column in columns),
-        )
+        rows_by_columns = self._group_rows_by_columns(rows)
 
         try:
             with self.connection.cursor() as cursor:
-                cursor.executemany(query, rows)
+                for columns, grouped_rows in rows_by_columns.items():
+                    query = sql.SQL(
+                        "INSERT INTO {table} ({columns}) VALUES ({values})"
+                    ).format(
+                        table=self._table_identifier(table_name),
+                        columns=sql.SQL(", ").join(
+                            sql.Identifier(column) for column in columns
+                        ),
+                        values=sql.SQL(", ").join(
+                            sql.Placeholder(column) for column in columns
+                        ),
+                    )
+                    cursor.executemany(query, grouped_rows)
             self.connection.commit()
         except Exception:
             self.connection.rollback()
             raise
 
         return len(rows)
+
+    def cache_table_schema(self, table_name: str) -> TableSchemaMetadata:
+        """Fetch table schema from PostgreSQL and cache it in the metadata store."""
+        if self.schema_metadata_store is None:
+            raise ValueError("Schema metadata store is not configured.")
+
+        schema_name, short_table_name = self._split_table_name(table_name)
+        rows = self.fetch_data(
+            """
+            SELECT column_name, data_type, is_nullable, column_default, is_identity
+            FROM information_schema.columns
+            WHERE table_schema = %(schema_name)s
+              AND table_name = %(table_name)s
+            ORDER BY ordinal_position
+            """,
+            {"schema_name": schema_name, "table_name": short_table_name},
+        )
+        if not rows:
+            raise ValueError(f"Table schema not found for {table_name}.")
+
+        schema = TableSchemaMetadata(
+            table_name=table_name,
+            columns=tuple(
+                ColumnMetadata(
+                    name=row["column_name"],
+                    data_type=row["data_type"],
+                    is_nullable=row["is_nullable"] == "YES",
+                    has_default=row["column_default"] is not None,
+                    is_identity=row["is_identity"] == "YES",
+                )
+                for row in rows
+            ),
+        )
+        self.schema_metadata_store.set_table_schema(schema)
+        return schema
 
     def fetch_data(
         self,
@@ -109,18 +173,65 @@ class PostgreSQLDatabaseManager(DatabaseManager):
     ) -> None:
         self.close()
 
+    def _filter_invalid_rows(
+        self, table_name: str, rows: list[DatabaseRow]
+    ) -> tuple[list[DatabaseRow], list[RejectedDatabaseRow]]:
+        if self.schema_metadata_store is None:
+            return rows, []
 
-    def _filter_columns(self, rows: list[DatabaseRow]) -> list[DatabaseRow]:
-        final_columns: list[DatabaseRow] = []
-        
+        schema = self.schema_metadata_store.get_table_schema(table_name)
+        if schema is None:
+            self.logger.warning(
+                "Schema metadata for table %s was not found. Skipping row validation.",
+                table_name,
+            )
+            return rows, []
+
+        valid_rows: list[DatabaseRow] = []
+        rejected_rows: list[RejectedDatabaseRow] = []
+        known_columns = schema.column_names
+        required_columns = schema.required_column_names
+
         for row in rows:
-            columns: set[str] = set(row.keys())
-            
-            
-        return final_columns
-            
-            
-            
+            row_columns = set(row.keys())
+            unknown_columns = row_columns - known_columns
+            missing_required_columns = required_columns - row_columns
+
+            if unknown_columns:
+                rejected_rows.append(
+                    RejectedDatabaseRow(
+                        row=row,
+                        reason=f"unknown columns: {', '.join(sorted(unknown_columns))}",
+                    )
+                )
+                continue
+
+            if missing_required_columns:
+                rejected_rows.append(
+                    RejectedDatabaseRow(
+                        row=row,
+                        reason=(
+                            "missing required columns: "
+                            f"{', '.join(sorted(missing_required_columns))}"
+                        ),
+                    )
+                )
+                continue
+
+            valid_rows.append(row)
+
+        return valid_rows, rejected_rows
+
+    def _log_rejected_rows(
+        self, table_name: str, rejected_rows: list[RejectedDatabaseRow]
+    ) -> None:
+        for rejected_row in rejected_rows:
+            self.logger.warning(
+                "Rejected row for table %s before insert: %s. Row: %s",
+                table_name,
+                rejected_row.reason,
+                rejected_row.row,
+            )
 
     @staticmethod
     def _normalize_rows(data: DatabaseRows) -> list[DatabaseRow]:
@@ -135,14 +246,20 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         if not all(isinstance(row, collections.abc.Mapping) for row in rows):
             raise TypeError("Rows must be mappings of column names to values.")
 
-        # Checking status of the columns 
-        # What is status in this meaning ?
-        # For example if not nullable columns are present in each row
-        # Or if even row has any columns
-        if not PostgreSQLDatabaseManager._check_for_columns(rows):
+        if not rows[0]:
             raise ValueError("Rows must contain at least one column.")
 
         return rows
+
+    @staticmethod
+    def _group_rows_by_columns(
+        rows: list[DatabaseRow],
+    ) -> dict[tuple[str, ...], list[DatabaseRow]]:
+        rows_by_columns: dict[tuple[str, ...], list[DatabaseRow]] = {}
+        for row in rows:
+            columns = tuple(row.keys())
+            rows_by_columns.setdefault(columns, []).append(row)
+        return rows_by_columns
 
     @staticmethod
     def _table_identifier(table_name: str) -> sql.Identifier:
@@ -150,3 +267,12 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         if not table_parts:
             raise ValueError("Table name cannot be empty.")
         return sql.Identifier(*table_parts)
+
+    @staticmethod
+    def _split_table_name(table_name: str) -> tuple[str, str]:
+        table_parts = [part.strip() for part in table_name.split(".") if part.strip()]
+        if len(table_parts) == 1:
+            return "public", table_parts[0]
+        if len(table_parts) == 2:
+            return table_parts[0], table_parts[1]
+        raise ValueError("Table name can contain at most schema and table parts.")
