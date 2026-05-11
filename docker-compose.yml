@@ -41,6 +41,41 @@ services:
     networks:
       - weather-net
 
+  redis:
+    image: redis:7-alpine
+    container_name: weather-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - weather-net
+
+  python-app:
+    build:
+      context: .
+      dockerfile: scripts/Dockerfile
+    container_name: weather-python-app
+    restart: unless-stopped
+    environment:
+      POSTGRES_DSN: postgresql://${OPERATIONAL_DB_USER}:${OPERATIONAL_DB_PASSWORD}@operational-db:5432/${OPERATIONAL_DB_NAME}
+      REDIS_URL: redis://redis:6379/0
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
+    depends_on:
+      operational-db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - weather-net
+
   pgadmin:
     image: dpage/pgadmin4:latest
     container_name: weather-pgadmin
@@ -70,3 +105,4 @@ volumes:
   operational_data:
   warehouse_data:
   pgadmin_data:
+  redis_data:

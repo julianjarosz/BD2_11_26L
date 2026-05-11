@@ -9,3 +9,4 @@ venv/
 env/
 .env
 scripts/api.conf
+scripts/api/api.conf
