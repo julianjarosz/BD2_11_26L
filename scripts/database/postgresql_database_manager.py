@@ -46,7 +46,7 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         autocommit: bool = False,
         schema_metadata_store: SchemaMetadataStore | None = None,
         logger: logging.Logger | None = None,
-        **connection_kwargs: typing.Any,
+        **connection_kwargs: dict[str, typing.Any],
     ) -> None:
         """Create a PostgreSQL manager.
 
@@ -60,50 +60,105 @@ class PostgreSQLDatabaseManager(DatabaseManager):
             logger: Optional logger for rejected row messages.
             connection_kwargs: Additional arguments forwarded to psycopg.
         """
-        self.schema_metadata_store = schema_metadata_store
-        self.logger = logger or LOGGER
-        self.connection = psycopg.connect(
+        self.schema_metadata_store: SchemaMetadataStore | None = schema_metadata_store
+        self.logger: logging.Logger = logger or LOGGER
+        self.connection: psycopg.Connection = psycopg.connect(
             dsn,
             autocommit=autocommit,
             row_factory=dict_row,
             **connection_kwargs,
         )
+        self.database_metadata_reddis = None  # TODO
 
     @classmethod
-    def from_env(
-        cls, env_var: str = POSTGRES_DSN_ENV_VAR
-    ) -> "PostgreSQLDatabaseManager":
-        """Create a manager from a PostgreSQL DSN stored in an environment variable."""
-        dsn = os.getenv(env_var, "").strip()
+    def create_from_env(cls, env_var: str = POSTGRES_DSN_ENV_VAR) -> "PostgreSQLDatabaseManager":
+        """Create a manager using a PostgreSQL DSN stored in an environment variable.
+
+        By default this method reads ``POSTGRES_DSN``. The value must be a
+        complete PostgreSQL connection string accepted by ``psycopg.connect``,
+        for example::
+
+            postgresql://postgres:postgres@localhost:5432/weather_operational
+
+        This is the preferred constructor for Docker Compose and cloud
+        deployments because the application can receive connection details from
+        environment variables instead of hardcoding credentials in source code.
+
+        Args:
+            env_var: Name of the environment variable containing the PostgreSQL
+                DSN. Defaults to ``POSTGRES_DSN``.
+
+        Raises:
+            ValueError: If the environment variable is missing or empty.
+
+        Returns:
+            A configured ``PostgreSQLDatabaseManager`` instance.
+        """
+
+        dsn: str = os.getenv(env_var, "").strip()
         if not dsn:
-            raise ValueError(
-                f"PostgreSQL DSN not found in environment variable {env_var}."
-            )
+            raise ValueError(f"PostgreSQL DSN not found in environment variable {env_var}.")
         return cls(dsn)
 
+    def fetch_table_metadata(self, table_name: str) -> DatabaseTableMetadata:
+        # TODO
+        pass
+
     def push_data(self, table_name: str, data: DatabaseRows) -> int:
-        """Insert one or more mapping rows into a PostgreSQL table."""
-        rows = self._normalize_rows(data)
-        rows, rejected_rows = self._filter_invalid_rows(table_name, rows)
+        """Validate and insert one or more rows into a PostgreSQL table.
+
+        ``data`` can be either a single mapping or a sequence of mappings. Each
+        mapping represents one database row, where keys are column names and
+        values are the values to insert, for example::
+
+            {
+                "city": "Warsaw",
+                "temperature": 18.5,
+                "measured_at": datetime.datetime(...),
+            }
+
+        Before writing to PostgreSQL, rows are normalized into a list and
+        validated against table metadata. Invalid rows are not inserted and are
+        logged with the reason for rejection. Valid rows are grouped by their
+        exact column set before insertion, which allows rows that omit optional
+        columns to keep PostgreSQL defaults instead of forcing explicit
+        ``NULL`` values.
+
+        The method commits the transaction after all grouped inserts succeed.
+        If any insert fails, the transaction is rolled back and the original
+        exception is re-raised.
+
+        Args:
+            table_name: Target table name. It can be unqualified, such as
+                ``weather_observations``, or schema-qualified, such as
+                ``public.weather_observations``.
+            data: A row mapping or a sequence of row mappings to insert.
+
+        Raises:
+            ValueError: If no rows are provided or a row has no columns.
+            TypeError: If ``data`` contains values that are not mappings.
+            psycopg.Error: If PostgreSQL rejects the generated insert query.
+
+        Returns:
+            Number of rows accepted for insertion.
+        """
+
+        rows: list[DatabaseRow] = self._normalize_rows(data)
+        valid_rows, rejected_rows = self._filter_invalid_row(self.fetch_table_metadata(table_name), rows)
         self._log_rejected_rows(table_name, rejected_rows)
-        if not rows:
+        if not valid_rows:
+            # TODO - logger informs that in this push there are not valid rows
             return 0
 
-        rows_by_columns = self._group_rows_by_columns(rows)
+        rows_by_columns = self._group_rows_by_columns(valid_rows)
 
         try:
             with self.connection.cursor() as cursor:
                 for columns, grouped_rows in rows_by_columns.items():
-                    query = sql.SQL(
-                        "INSERT INTO {table} ({columns}) VALUES ({values})"
-                    ).format(
+                    query = sql.SQL("INSERT INTO {table} ({columns}) VALUES ({values})").format(
                         table=self._table_identifier(table_name),
-                        columns=sql.SQL(", ").join(
-                            sql.Identifier(column) for column in columns
-                        ),
-                        values=sql.SQL(", ").join(
-                            sql.Placeholder(column) for column in columns
-                        ),
+                        columns=sql.SQL(", ").join(sql.Identifier(column) for column in columns),
+                        values=sql.SQL(", ").join(sql.Placeholder(column) for column in columns),
                     )
                     cursor.executemany(query, grouped_rows)
             self.connection.commit()
@@ -111,7 +166,7 @@ class PostgreSQLDatabaseManager(DatabaseManager):
             self.connection.rollback()
             raise
 
-        return len(rows)
+        return len(valid_rows)
 
     def cache_table_schema(self, table_name: str) -> TableSchemaMetadata:
         """Fetch table schema from PostgreSQL and cache it in the metadata store."""
@@ -210,10 +265,7 @@ class PostgreSQLDatabaseManager(DatabaseManager):
                 rejected_rows.append(
                     RejectedDatabaseRow(
                         row=row,
-                        reason=(
-                            "missing required columns: "
-                            f"{', '.join(sorted(missing_required_columns))}"
-                        ),
+                        reason=("missing required columns: " f"{', '.join(sorted(missing_required_columns))}"),
                     )
                 )
                 continue
@@ -222,9 +274,7 @@ class PostgreSQLDatabaseManager(DatabaseManager):
 
         return valid_rows, rejected_rows
 
-    def _log_rejected_rows(
-        self, table_name: str, rejected_rows: list[RejectedDatabaseRow]
-    ) -> None:
+    def _log_rejected_rows(self, table_name: str, rejected_rows: list[RejectedDatabaseRow]) -> None:
         for rejected_row in rejected_rows:
             self.logger.warning(
                 "Rejected row for table %s before insert: %s. Row: %s",
