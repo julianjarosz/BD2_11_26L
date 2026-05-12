@@ -1,0 +1,150 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B1B3A424-04B5-E2BE-E979-B8AF2A07A403" name="DIM_LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>6494E004-9875-D085-6EBB-12A29D9D6D5E</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LOCATION_KEY" id="8B60AD71-4E81-65E4-EE7A-48094CD959C7">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>EF657A4C-C1B2-7E20-C6FB-CC74F412A854</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CITY_NAME" id="6BC945EB-AA2F-F415-8357-99FAE0D6938F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>BF56B1E0-D17A-9882-D553-99DD086367A3</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY_CODE" id="657C1A77-8203-8724-0C18-85941FDA8CD4">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>EB49F7FF-38B9-B797-A782-B3509BCC3994</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LATITUDE" id="D7BC52CD-38D8-3C45-D8F1-A698CF935C0B">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>E15B2D77-D7CB-7F37-6DC6-AD8870350501</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LONGITUDE" id="9D2CD1C3-2674-6F93-C778-2CFF25B0B4A6">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>74013438-2B04-10BF-776D-087A7E34CA95</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE" id="B6638B47-7855-B1C3-4327-6B11519D3697">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>AAD717C7-284E-A8F9-E216-88511B88CCA5</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE_OFFSET" id="EF7A12BF-1A6E-690E-CA1E-FB3DCEC1F011">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>479622BC-2434-519B-D813-5D2EEF8C9DD7</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_FORECAST_ACCURACY_FORECAST_ACCURACY_FACT_KEY" id="C4CBBFFC-837F-3D5C-C325-D84D83ABC600">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>943B0AE6-8689-0478-33C3-D7E159C215D7</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0E530B86-90DD-A1AB-3E63-1160B862D9AE" referredColumn="7AFB067E-A50E-68F0-8925-BCEF7386CE6F"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="85DF09D5-5891-71B0-6BDC-D4DABF36A965" name="DIM_LOCATION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>5E666F61-5C94-4412-1684-7779CE932A29</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8B60AD71-4E81-65E4-EE7A-48094CD959C7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CD183658-3924-557B-30BA-452D6C1B9C6C" name="DIM_LOCATION__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>03AFCA83-296C-FEDC-1CEF-6CE48A06D521</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="C4CBBFFC-837F-3D5C-C325-D84D83ABC600"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EDCD2C86-C57F-D5DB-7FC8-3E0F4242A397" name="DIM_LOCATION_FACT_FORECAST_ACCURACY_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>03AFCA83-296C-FEDC-1CEF-6CE48A06D521</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C4CBBFFC-837F-3D5C-C325-D84D83ABC600"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
