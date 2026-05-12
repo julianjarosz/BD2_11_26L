@@ -43,7 +43,7 @@ class BaseDatabaseManager(DatabaseManager):
 
     This class provides common validation, normalization, and logging methods
     shared by concrete implementations like PostgreSQLDatabaseManager and
-    ReddisDatabaseManager. It handles:
+    RedisDatabaseManager. It handles:
 
     - Row data normalization and validation
     - Schema metadata fetching and caching

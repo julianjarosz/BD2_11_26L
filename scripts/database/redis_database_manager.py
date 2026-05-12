@@ -42,7 +42,7 @@ class RedisDatabaseManagerContext:
         }
 
 
-class ReddisDatabaseManager(BaseDatabaseManager):
+class RedisDatabaseManager(BaseDatabaseManager):
     """Database manager backed by a Redis connection for caching and temporary storage."""
 
     def __init__(
@@ -79,7 +79,7 @@ class ReddisDatabaseManager(BaseDatabaseManager):
     @classmethod
     def create_from_env(
         cls, context: RedisDatabaseManagerContext, env_var: str = REDIS_URL_ENV_VAR
-    ) -> "ReddisDatabaseManager":
+    ) -> "RedisDatabaseManager":
         """Create a manager using a Redis URL stored in an environment variable.
 
         By default this method reads ``REDIS_URL``. The value must be a valid
@@ -100,7 +100,7 @@ class ReddisDatabaseManager(BaseDatabaseManager):
             ValueError: If the environment variable is missing or empty.
 
         Returns:
-            A configured ``ReddisDatabaseManager`` instance.
+            A configured ``RedisDatabaseManager`` instance.
         """
         url: str = os.getenv(env_var, "").strip()
         if not url:
@@ -248,3 +248,6 @@ class ReddisDatabaseManager(BaseDatabaseManager):
             len(prepared_payload.valid_rows),
             len(prepared_payload.rejected_rows),
         )
+
+
+ReddisDatabaseManager = RedisDatabaseManager

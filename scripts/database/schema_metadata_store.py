@@ -4,14 +4,7 @@ from __future__ import annotations
 
 import abc
 import dataclasses
-import json
-import os
 import typing
-
-import redis
-
-REDIS_URL_ENV_VAR = "REDIS_URL"
-DEFAULT_SCHEMA_KEY_PREFIX = "database:schema"
 
 
 @dataclasses.dataclass(frozen=True, slots=True)
@@ -77,6 +70,34 @@ class TableSchemaMetadata:
         }
 
 
+@dataclasses.dataclass(frozen=True, slots=True)
+class DatabaseSchemaMetadata:
+    """Metadata describing the schema cache for one source database."""
+
+    database_name: str
+    tables: tuple[TableSchemaMetadata, ...]
+
+    @classmethod
+    def from_dict(cls, payload: dict[str, typing.Any]) -> "DatabaseSchemaMetadata":
+        """Create database schema metadata from a plain dictionary."""
+        return cls(
+            database_name=payload["database_name"],
+            tables=tuple(TableSchemaMetadata.from_dict(table) for table in payload["tables"]),
+        )
+
+    def to_dict(self) -> dict[str, typing.Any]:
+        """Convert database schema metadata to a JSON-serializable dictionary."""
+        return {
+            "database_name": self.database_name,
+            "tables": [table.to_dict() for table in self.tables],
+        }
+
+    @property
+    def table_names(self) -> set[str]:
+        """Return table names available in the metadata cache."""
+        return {table.table_name for table in self.tables}
+
+
 class SchemaMetadataStore(abc.ABC):
     """Interface for storing and reading database schema metadata."""
 
@@ -84,54 +105,46 @@ class SchemaMetadataStore(abc.ABC):
     def set_table_schema(self, schema: TableSchemaMetadata) -> None:
         """Store schema metadata for one table."""
 
+    def put_table_schema(self, schema: TableSchemaMetadata) -> None:
+        """Create or replace schema metadata for one table."""
+        self.set_table_schema(schema)
+
+    def update_table_schema(self, schema: TableSchemaMetadata) -> None:
+        """Update schema metadata for one table."""
+        self.set_table_schema(schema)
+
     @abc.abstractmethod
     def get_table_schema(self, table_name: str) -> TableSchemaMetadata | None:
         """Fetch schema metadata for one table."""
 
     @abc.abstractmethod
+    def delete_table_schema(self, table_name: str) -> bool:
+        """Delete schema metadata for one table."""
+
+    @abc.abstractmethod
+    def list_table_schemas(self) -> list[TableSchemaMetadata]:
+        """Fetch all table schemas currently stored in metadata storage."""
+
+    def has_table_schema(self, table_name: str) -> bool:
+        """Return whether schema metadata exists for one table."""
+        return self.get_table_schema(table_name) is not None
+
+    def put_database_schema(self, database_schema: DatabaseSchemaMetadata) -> None:
+        """Create or replace schema metadata for every table in one database."""
+        for table_schema in database_schema.tables:
+            self.put_table_schema(table_schema)
+
+    def update_database_schema(self, database_schema: DatabaseSchemaMetadata) -> None:
+        """Update schema metadata for every table in one database."""
+        self.put_database_schema(database_schema)
+
+    def get_database_schema(self, database_name: str) -> DatabaseSchemaMetadata:
+        """Fetch all cached table metadata as one database metadata object."""
+        return DatabaseSchemaMetadata(
+            database_name=database_name,
+            tables=tuple(self.list_table_schemas()),
+        )
+
+    @abc.abstractmethod
     def close(self) -> None:
         """Close metadata storage resources."""
-
-
-class RedisSchemaMetadataStore(SchemaMetadataStore):
-    """Redis-backed schema metadata storage."""
-
-    def __init__(
-        self,
-        redis_client: redis.Redis | None = None,
-        *,
-        redis_url: str | None = None,
-        key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX,
-    ) -> None:
-        self.redis = redis_client or redis.Redis.from_url(redis_url or self._load_redis_url(), decode_responses=True)
-        self.key_prefix = key_prefix
-
-    @classmethod
-    def from_env(cls, env_var: str = REDIS_URL_ENV_VAR) -> "RedisSchemaMetadataStore":
-        """Create Redis metadata storage from an environment variable."""
-        return cls(redis_url=cls._load_redis_url(env_var))
-
-    def set_table_schema(self, schema: TableSchemaMetadata) -> None:
-        """Store schema metadata as JSON under a stable Redis key."""
-        self.redis.set(self._schema_key(schema.table_name), json.dumps(schema.to_dict()))
-
-    def get_table_schema(self, table_name: str) -> TableSchemaMetadata | None:
-        """Fetch and deserialize schema metadata from Redis."""
-        payload = self.redis.get(self._schema_key(table_name))
-        if payload is None:
-            return None
-        return TableSchemaMetadata.from_dict(json.loads(payload))
-
-    def close(self) -> None:
-        """Close the Redis connection pool."""
-        self.redis.close()
-
-    def _schema_key(self, table_name: str) -> str:
-        return f"{self.key_prefix}:{table_name}"
-
-    @staticmethod
-    def _load_redis_url(env_var: str = REDIS_URL_ENV_VAR) -> str:
-        redis_url = os.getenv(env_var, "").strip()
-        if not redis_url:
-            raise ValueError(f"Redis URL not found in environment variable {env_var}.")
-        return redis_url

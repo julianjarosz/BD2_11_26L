@@ -15,20 +15,25 @@ from scripts.database.database_manager import (
 from scripts.database.postgresql_database_manager import (
     PostgreSQLDatabaseManager,
 )
-from scripts.database.reddis_database_manager import (
+from scripts.database.redis_database_manager import (
+    RedisDatabaseManager,
     ReddisDatabaseManager,
+)
+from scripts.database.redis_schema_metadata_store import (
+    RedisSchemaMetadataStore,
 )
 from scripts.database.schema_metadata_store import (
     ColumnMetadata,
+    DatabaseSchemaMetadata,
     SchemaMetadataStore,
     TableSchemaMetadata,
-    RedisSchemaMetadataStore,
 )
 from scripts.errors.database_errors import NormalizingRowsException
 
 __all__ = [
     "BaseDatabaseManager",
     "ColumnMetadata",
+    "DatabaseSchemaMetadata",
     "DatabaseManager",
     "DatabasePayload",
     "DatabaseRequestType",
@@ -37,6 +42,7 @@ __all__ = [
     "NormalizingRowsException",
     "PostgreSQLDatabaseManager",
     "PreparedDatabasePayload",
+    "RedisDatabaseManager",
     "ReddisDatabaseManager",
     "RedisSchemaMetadataStore",
     "RejectedDatabaseRow",
