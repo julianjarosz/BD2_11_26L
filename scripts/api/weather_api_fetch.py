@@ -40,10 +40,7 @@ def _load_api_key() -> str:
     if api_key:
         return api_key
 
-    raise ValueError(
-        "OpenWeather API key not found in scripts/api.conf or "
-        f"environment variable {API_KEY_ENV_VAR}."
-    )
+    raise ValueError("OpenWeather API key not found in scripts/api.conf or " f"environment variable {API_KEY_ENV_VAR}.")
 
 
 OPENWEATHER_BASE_URL: str = _load_base_url()
@@ -72,14 +69,10 @@ class OpenWeatherFetchManager:
         assert (timeout) > 0.0
         self.api_key: str = api_key
         self.timeout: float = timeout
-        self.callbacks: list[typing.Callable] = (
-            init_callbacks if isinstance(init_callbacks, list) else [init_callbacks]
-        )
+        self.callbacks: list[typing.Callable] = init_callbacks if isinstance(init_callbacks, list) else [init_callbacks]
         self.session: requests.Session = requests.Session()
 
-    def _fetch_city_data(
-        self, city, **kwargs: dict[str, typing.Any]
-    ) -> OpenWeatherData:
+    def _fetch_city_data(self, city, **kwargs: dict[str, typing.Any]) -> OpenWeatherData:
         """Fetch OpenWeather API data by provided city or cities"""
         api_response = self.session.get(
             OPENWEATHER_BASE_URL,
@@ -93,9 +86,7 @@ class OpenWeatherFetchManager:
         """Fetch weather data for one city without blocking the event loop."""
         return await asyncio.to_thread(self._fetch_city_data, cities)
 
-    async def fetch_cities(
-        self, cities: typing.Itterable[str]
-    ) -> typing.Itterable[OpenWeatherData]:
+    async def fetch_cities(self, cities: typing.Itterable[str]) -> typing.Itterable[OpenWeatherData]:
         """Fetch data from many cities without blocking the event loop."""
         tasks: list[OpenWeatherData] = [self.fetch_city(city) for city in cities]
         results = asyncio.gather(*tasks)

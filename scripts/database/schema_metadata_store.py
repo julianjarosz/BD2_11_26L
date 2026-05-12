@@ -52,9 +52,7 @@ class TableSchemaMetadata:
         """Create table schema metadata from a plain dictionary."""
         return cls(
             table_name=payload["table_name"],
-            columns=tuple(
-                ColumnMetadata.from_dict(column) for column in payload["columns"]
-            ),
+            columns=tuple(ColumnMetadata.from_dict(column) for column in payload["columns"]),
         )
 
     def to_dict(self) -> dict[str, typing.Any]:
@@ -75,9 +73,7 @@ class TableSchemaMetadata:
         return {
             column.name
             for column in self.columns
-            if not column.is_nullable
-            and not column.has_default
-            and not column.is_identity
+            if not column.is_nullable and not column.has_default and not column.is_identity
         }
 
 
@@ -107,9 +103,7 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
         redis_url: str | None = None,
         key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX,
     ) -> None:
-        self.redis = redis_client or redis.Redis.from_url(
-            redis_url or self._load_redis_url(), decode_responses=True
-        )
+        self.redis = redis_client or redis.Redis.from_url(redis_url or self._load_redis_url(), decode_responses=True)
         self.key_prefix = key_prefix
 
     @classmethod
@@ -119,9 +113,7 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
 
     def set_table_schema(self, schema: TableSchemaMetadata) -> None:
         """Store schema metadata as JSON under a stable Redis key."""
-        self.redis.set(
-            self._schema_key(schema.table_name), json.dumps(schema.to_dict())
-        )
+        self.redis.set(self._schema_key(schema.table_name), json.dumps(schema.to_dict()))
 
     def get_table_schema(self, table_name: str) -> TableSchemaMetadata | None:
         """Fetch and deserialize schema metadata from Redis."""

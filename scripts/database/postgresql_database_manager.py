@@ -272,8 +272,8 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         database call. This keeps validation easy to test without opening a
         cursor or starting a transaction.
         """
-        rows: list[DatabaseRow] = typing.cast(list[DatabaseRow], payload.data)
         payload: DatabasePayload = self._normalize_payload(data)
+        rows: list[DatabaseRow] = typing.cast(list[DatabaseRow], payload.data)
         schema: TableSchemaMetadata | None = self.fetch_table_metadata(table_name)
         valid_rows, rejected_rows = self._filter_invalid_rows(schema, rows)
         return PreparedDatabasePayload(
