@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="fact_current_weather" id="A292A7F0-595D-39F9-07B9-BE51D373E8F3" version="3.5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 07:45:16 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>A292A7F0-595D-39F9-07B9-BE51D373E8F3</designId>
+</OSDM_Design>
