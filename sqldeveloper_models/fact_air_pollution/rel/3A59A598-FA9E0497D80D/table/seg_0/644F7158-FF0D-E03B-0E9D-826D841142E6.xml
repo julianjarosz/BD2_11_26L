@@ -1,0 +1,183 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="644F7158-FF0D-E03B-0E9D-826D841142E6" name="DIM_DATE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>0F1B82F6-A4ED-94E7-EC15-DF4AE92DB4E6</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DATE_KEY" id="5838A391-585B-7CB3-561E-AEA51FDAC6AE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>9579C559-1E12-53C9-72F0-B957B6F884D9</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FULL_DATE" id="F629BD0D-DCDE-94DE-ADA6-87CC7F8535BA">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>ADC1F247-5204-C3E0-B32A-4823202DED28</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY" id="40E32C99-A26A-74E1-A3C1-3B9F2DA6435C">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>9985B8FA-99EB-0258-A309-CBD033687B80</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH" id="DCB723A7-08F3-204A-3DA0-2A3D274D9C29">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>3095E907-D2EE-4843-A30F-F6A881A2E005</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH_NAME" id="A842D61D-A8CB-5AA1-CD29-0CC639650CAE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>0062CDEC-4FB5-7924-BC5E-1B388E80CA14</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="QUARTER" id="292B2D0B-BEBE-A449-A092-656D6B1AE065">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>C2F7778D-E3AD-88A3-C742-82920F2013CC</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="YEAR" id="D4F8852E-24A4-152E-FDB2-33EA57032244">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>B660CB2D-BE75-5B29-768B-4712326EB291</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_OF_THE_WEEK" id="C1751C17-920F-7D96-34B3-95649939F4AC">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>420C34EA-2557-A744-4301-80E3C143F104</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_NAME" id="376DD4A4-574F-6CE9-2F9D-5D468851615A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>35CBC82E-730E-9C31-4035-0A56F4372098</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_WEEKEND" id="747F8374-DE42-77AA-A522-17CCA48C7ABA">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>E7AEC6C5-EEA6-D52C-5E44-8A906026865D</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_AIR_POLLUTION_AIR_POLLUTION_FACT_KEY" id="06BFC993-34DD-C9C2-6DF6-ED05B99833EC">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>B974DAF7-B8C1-02A6-873E-7C28BF761BF4</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="82BB5375-09F4-C483-D688-FD1164AE09B1" referredColumn="7CD728DC-6E7B-C8A0-0ED7-D6CE7B96213E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1EB3BCA1-5A8C-A8CE-AF04-E5EB67A472B3" name="DIM_DATE_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>69CB4A9B-A8BA-9F58-8789-4B85D0183162</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5838A391-585B-7CB3-561E-AEA51FDAC6AE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="183E65EB-98D8-891D-B3D0-8612E6D76839" name="DIM_DATE__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>EF0AF5F2-C910-2D51-B68A-E5C96C2FE61B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="06BFC993-34DD-C9C2-6DF6-ED05B99833EC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="40BFACA4-CE86-A309-D56F-F432C1CDE5D3" name="DIM_DATE_FACT_AIR_POLLUTION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>EF0AF5F2-C910-2D51-B68A-E5C96C2FE61B</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06BFC993-34DD-C9C2-6DF6-ED05B99833EC"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

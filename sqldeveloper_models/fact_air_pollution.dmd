@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="fact_air_pollution" id="FA2F42BC-7EFA-1412-C463-1CE5047DE739" version="3.5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:36:50 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>FA2F42BC-7EFA-1412-C463-1CE5047DE739</designId>
+</OSDM_Design>

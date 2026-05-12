@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E8390DCA-DFF6-4D0B-AA42-82328FB25853" name="FACT_AIR_POLLUTION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>963FEC18-A41E-CF14-25F8-516E63862BFB</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="AIR_POLLUTION_FACT_KEY" id="7CD728DC-6E7B-C8A0-0ED7-D6CE7B96213E">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>E9469B24-99F4-C9E2-046D-61D9CF154997</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_KEY" id="C291403D-E45A-D3D6-E5E0-F63F5F5D3979">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>F06D6623-E800-7388-ABA6-38F825F9303D</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OBSERVED_DATE_KEY" id="1B7DD266-31A6-A110-6D96-0FD985F0D9C9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>88E93F34-5639-D755-4A56-16EDACBF1023</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OBSERVED_TIME_KEY" id="D699C2D9-F4F0-B395-91FD-5D8342A35503">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>DB38AA12-1554-1020-BF29-A0D34D103831</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DDFAB21E-AA26-B0A4-BEC2-E1CA93FBC156" name="FACT_AIR_POLLUTION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>88E22F1F-8E7E-5D03-04B8-23883E01DD7B</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7CD728DC-6E7B-C8A0-0ED7-D6CE7B96213E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
