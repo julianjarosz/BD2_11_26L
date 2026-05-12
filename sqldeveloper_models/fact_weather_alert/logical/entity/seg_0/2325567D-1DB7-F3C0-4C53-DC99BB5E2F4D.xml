@@ -1,0 +1,116 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="2325567D-1DB7-F3C0-4C53-DC99BB5E2F4D" name="FACT WEATHER ALERT">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:56:39 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="WEATHER ALERT FACT KEY" id="C2F34B73-BD23-2313-7A81-B73E2C9E7119">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:04:42 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION KEY" id="B1EF8AF3-2A84-82B1-7F61-3453E1C2AB17">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:12:31 UTC</createdTime>
+<generatorID>AA4F2DED-73A7-73D1-FFF9-EDD36A0A6381</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<referedAttribute>209C9DF0-C304-CD70-94E1-E430D8891DEE</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="START DATE FK" id="423257E9-ED28-6EA9-9D67-7B07E5C1B9BF">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:14:07 UTC</createdTime>
+<generatorID>20CC8639-3EF0-D628-E8D1-E498355CEBC9</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<referedAttribute>A51270C6-51FC-F4B9-301A-4E21AAD0E31F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="END DATE FK" id="B7013E10-B2C5-0CC1-1C35-D71B2D5111F1">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:24:51 UTC</createdTime>
+<generatorID>9DA1BF09-5CD0-F2B3-4ABF-8FA47E74561D</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<referedAttribute>A51270C6-51FC-F4B9-301A-4E21AAD0E31F</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="START TIME FK" id="ABA62D55-9486-4237-961E-1D7CEAE68864">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:26:30 UTC</createdTime>
+<generatorID>48E1041D-6183-6B9A-3C44-84B562DF398E</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<referedAttribute>8A5B335A-F79E-6FC0-D4B5-C8F9B6765FB9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="END TIME FK" id="EF7111CE-2E4F-CFB1-2FB6-A341A763FD81">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:32:37 UTC</createdTime>
+<generatorID>693BEC6D-A190-7355-059F-1827CBA80DEB</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<referedAttribute>8A5B335A-F79E-6FC0-D4B5-C8F9B6765FB9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="EC8180E4-A74B-723C-9737-9E0EC49B091D" name="FACT_WEATHER_ALERT_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:04:53 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>C2F34B73-BD23-2313-7A81-B73E2C9E7119</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
