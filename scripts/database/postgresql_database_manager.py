@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import collections.abc
 import dataclasses
 import logging
 import os
@@ -12,12 +11,15 @@ import psycopg
 from psycopg import sql
 from psycopg.rows import dict_row
 
+from scripts.database.base_database_manager import (
+    BaseDatabaseManager,
+    PreparedDatabasePayload,
+    RejectedDatabaseRow,
+)
 from scripts.database.database_manager import (
-    DatabaseManager,
     DatabasePayload,
     DatabaseParams,
     DatabaseRow,
-    DatabaseRequestType,
     DatabaseRows,
 )
 from scripts.database.schema_metadata_store import (
@@ -28,23 +30,6 @@ from scripts.database.schema_metadata_store import (
 
 POSTGRES_DSN_ENV_VAR = "POSTGRES_DSN"
 LOGGER = logging.getLogger(__name__)
-
-
-@dataclasses.dataclass(frozen=True, slots=True)
-class RejectedDatabaseRow:
-    """Row rejected before insertion and the reason why."""
-
-    row: DatabaseRow
-    reason: str
-
-
-@dataclasses.dataclass(frozen=True, slots=True)
-class PreparedDatabasePayload:
-    """Normalized and validated payload ready for insertion."""
-
-    payload: DatabasePayload
-    valid_rows: list[DatabaseRow]
-    rejected_rows: list[RejectedDatabaseRow]
 
 
 @dataclasses.dataclass
@@ -63,12 +48,7 @@ class PostgreSQLDatabaseManagerContext:
         }
 
 
-class NormalizingRowsException(ValueError):
-    def __init__(self, error_msg: str) -> None:
-        super().__init__(error_msg)
-
-
-class PostgreSQLDatabaseManager(DatabaseManager):
+class PostgreSQLDatabaseManager(BaseDatabaseManager):
     """Database manager backed by a PostgreSQL connection."""
 
     def __init__(
@@ -78,7 +58,7 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         autocommit: bool = False,
         schema_metadata_store: SchemaMetadataStore | None = None,
         logger: logging.Logger | None = None,
-        **connection_kwargs: dict[str, typing.Any],
+        **connection_kwargs: typing.Any,
     ) -> None:
         """Create a PostgreSQL manager.
 
@@ -92,8 +72,11 @@ class PostgreSQLDatabaseManager(DatabaseManager):
             logger: Optional logger for rejected row messages.
             connection_kwargs: Additional arguments forwarded to psycopg.
         """
-        self.schema_metadata_store: SchemaMetadataStore | None = schema_metadata_store
-        self.logger: logging.Logger = logger or LOGGER
+        super().__init__(
+            schema_metadata_store=schema_metadata_store,
+            logger=logger,
+            default_logger=LOGGER,
+        )
         self.connection: psycopg.Connection = psycopg.connect(
             dsn,
             autocommit=autocommit,
@@ -132,110 +115,6 @@ class PostgreSQLDatabaseManager(DatabaseManager):
             raise ValueError(f"PostgreSQL DSN not found in environment variable {env_var}.")
         return cls(dsn, **context.to_dict())
 
-    def fetch_table_metadata(self, table_name: str) -> TableSchemaMetadata | None:
-        """Fetch cached table metadata from the configured schema metadata store.
-
-        In production this is typically backed by Redis via
-        ``RedisSchemaMetadataStore``. If no store is configured, or if Redis does
-        not contain metadata for ``table_name``, ``None`` is returned and row
-        validation can be skipped by the caller.
-        """
-        if self.schema_metadata_store is None:
-            self.logger.warning(
-                "Schema metadata store is not configured. Skipping row validation for table %s.",
-                table_name,
-            )
-            return None
-
-        schema: TableSchemaMetadata | None = self.schema_metadata_store.get_table_schema(table_name)
-        if schema is None:
-            self.logger.warning(
-                "Schema metadata for table %s was not found. Skipping row validation.",
-                table_name,
-            )
-        return schema
-
-    @staticmethod
-    def _normalize_rows(data: DatabaseRows) -> list[DatabaseRow]:
-        """Convert accepted input shapes into one non-empty list of row mappings.
-
-        ``push_data`` lets callers pass either a single row dictionary or a
-        sequence of row dictionaries. PostgreSQL insertion code is simpler and
-        safer when it always receives one shape, so this helper turns a single
-        mapping into ``[mapping]`` and turns a sequence into a plain ``list``.
-
-        This is also the first defensive checkpoint in the write path. It
-        rejects empty input, rejects non-mapping row objects, and rejects a row
-        with no columns because none of those cases can produce a meaningful
-        ``INSERT`` statement.
-        """
-        if isinstance(data, collections.abc.Mapping):
-            rows = [data]
-        else:
-            rows = list(data)
-
-        if not rows:
-            raise NormalizingRowsException("At least one row is required to push data.")
-
-        if not all(isinstance(row, collections.abc.Mapping) for row in rows):
-            raise TypeError("Rows must be mappings of column names to values.")
-
-        if not rows[0]:
-            raise NormalizingRowsException("Rows must contain at least one column.")
-
-        return rows
-
-    def _filter_invalid_rows(
-        self, schema: TableSchemaMetadata | None, rows: list[DatabaseRow]
-    ) -> tuple[list[DatabaseRow], list[RejectedDatabaseRow]]:
-        """Split normalized rows into rows that can be inserted and rejected rows.
-
-        When cached schema metadata is available, each row is checked against
-        the table definition before PostgreSQL sees it. A row is rejected if it
-        contains a column that is not part of the table, or if it omits a
-        required column. Required columns are columns that cannot be null and do
-        not have a PostgreSQL default or identity value.
-
-        If schema metadata is missing, the method returns all rows as valid and
-        leaves final validation to PostgreSQL. That keeps ingestion working even
-        when Redis metadata has not been warmed yet, while still giving us
-        richer pre-insert logging when metadata exists.
-        """
-        if schema is None:
-            return rows, []
-
-        valid_rows: list[DatabaseRow] = []
-        rejected_rows: list[RejectedDatabaseRow] = []
-        known_columns: set[str] = schema.column_names
-        required_columns: set[str] = schema.required_column_names
-
-        for row in rows:
-            row_columns: set[str] = set(row.keys())
-            unknown_columns: set[str] = row_columns - known_columns
-            missing_required_columns: set[str] = required_columns - row_columns
-
-            if unknown_columns:
-                rejected_rows.append(
-                    RejectedDatabaseRow(
-                        row=row,
-                        reason=f"unknown columns: {', '.join(sorted(unknown_columns))}",
-                    )
-                )
-                continue
-
-            if missing_required_columns:
-                rejected_rows.append(
-                    RejectedDatabaseRow(
-                        row=row,
-                        reason=("missing required columns: " f"{', '.join(sorted(missing_required_columns))}"),
-                    )
-                )
-                continue
-
-            valid_rows.append(row)
-
-        return valid_rows, rejected_rows
-
     @staticmethod
     def _group_rows_by_columns(rows: list[DatabaseRow]) -> dict[tuple[str, ...], list[DatabaseRow]]:
         """Group rows that have the same columns in the same order.
@@ -259,28 +138,8 @@ class PostgreSQLDatabaseManager(DatabaseManager):
     def _prepare_payload_for_insert(
         self, table_name: str, data: DatabaseRows | DatabasePayload
     ) -> PreparedDatabasePayload:
-        """Normalize incoming data and separate valid rows from rejected rows.
-
-        This is the preparation stage for ``push_data``. It accepts either raw
-        row input or a ``DatabasePayload``, normalizes that input into a payload
-        whose ``data`` is always a list of row mappings, and then fetches cached
-        table metadata for validation.
-
-        The returned ``PreparedDatabasePayload`` keeps the original payload
-        context, such as sender and creation time, together with two row lists:
-        rows that are safe to attempt inserting and rows rejected before the
-        database call. This keeps validation easy to test without opening a
-        cursor or starting a transaction.
-        """
-        payload: DatabasePayload = self._normalize_payload(data)
-        rows: list[DatabaseRow] = typing.cast(list[DatabaseRow], payload.data)
-        schema: TableSchemaMetadata | None = self.fetch_table_metadata(table_name)
-        valid_rows, rejected_rows = self._filter_invalid_rows(schema, rows)
-        return PreparedDatabasePayload(
-            payload=payload,
-            valid_rows=valid_rows,
-            rejected_rows=rejected_rows,
-        )
+        """Prepare payload for insertion using base class normalization."""
+        return self._prepare_payload_for_operation(table_name, data)
 
     def _insert_valid_rows(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> int:
         """Insert all valid rows from a prepared payload in one transaction.
@@ -494,45 +353,6 @@ class PostgreSQLDatabaseManager(DatabaseManager):
         """Close the PostgreSQL connection."""
         self.connection.close()
 
-    def __enter__(self) -> "PostgreSQLDatabaseManager":
-        return self
-
-    def __exit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: typing.Any,
-    ) -> None:
-        self.close()
-
-    def _log_payload_received(self, table_name: str, payload: DatabasePayload) -> None:
-        self.logger.info(
-            "Processing database payload: request_type=%s sender=%s table=%s rows=%s created_at=%s",
-            payload.request_type,
-            payload.sender,
-            table_name,
-            payload.n_rows,
-            payload.created_at.isoformat(),
-        )
-
-    def _log_rejected_rows(self, table_name: str, rejected_rows: list[RejectedDatabaseRow]) -> None:
-        for rejected_row in rejected_rows:
-            self.logger.warning(
-                "Rejected row for table %s before insert: %s. Row: %s",
-                table_name,
-                rejected_row.reason,
-                rejected_row.row,
-            )
-
-    def _log_no_valid_rows(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
-        self.logger.warning(
-            "No valid rows to insert for table %s: sender=%s submitted=%s rejected=%s",
-            table_name,
-            prepared_payload.payload.sender,
-            prepared_payload.payload.n_rows,
-            len(prepared_payload.rejected_rows),
-        )
-
     def _log_row_group_insert(
         self,
         table_name: str,
@@ -565,21 +385,6 @@ class PostgreSQLDatabaseManager(DatabaseManager):
             len(prepared_payload.valid_rows),
             len(prepared_payload.rejected_rows),
         )
-
-    @classmethod
-    def _normalize_payload(cls, data: DatabaseRows | DatabasePayload) -> DatabasePayload:
-        payload = data if isinstance(data, DatabasePayload) else DatabasePayload(data=data)
-        rows = cls._normalize_rows(payload.data)
-        n_rows = len(rows)
-
-        if payload.n_rows is not None and payload.n_rows != n_rows:
-            raise NormalizingRowsException(
-                f"Payload row count mismatch: n_rows={payload.n_rows}, actual_rows={n_rows}."
-            )
-        if payload.request_type != DatabaseRequestType.PUSH_DATA:
-            raise NormalizingRowsException(f"Unsupported database request type: {payload.request_type}.")
-
-        return dataclasses.replace(payload, data=rows, n_rows=n_rows)
 
     @staticmethod
     def _table_identifier(table_name: str) -> sql.Identifier:
