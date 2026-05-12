@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="8FB32DC9-78AB-D729-5D77-BB04CD60FF54" name="DIM_WEATHER_CONDITION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:33:43 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="WEATHER_CONDITION_KEY" id="4D7433F1-AFEA-9B60-E48D-763250DD0A81">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CONDITION_ID_NK" id="0F5999D8-7D8C-4A05-40F4-6AC6D5DEFBB7">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="OPENWEATHER_WEATHER_ID" id="F250F967-FBB9-D082-29AD-830E06F7257A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MAIN" id="9550AB86-5C46-70FB-FC1F-844B40DE4FA5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DESCRIPTION" id="D426417A-7785-65D1-4F8A-6F58E9949188">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E3264291-7B63-2EE0-BE43-FCC1BECF0589" name="DIM_WEATHER_CONDITION PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:34:06 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<engineerTo>
+<item key="65B74F9B-621C-CFE7-A7C8-1D499267FF93" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4D7433F1-AFEA-9B60-E48D-763250DD0A81</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,110 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B06E98E2-E118-4EEF-44EA-3D626EB2F2A1" name="DIM_TIME">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>665CC871-764A-FBB5-2851-FC9FDF21C9BB</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="TIME_KEY" id="07CB643F-F79D-B998-5DB9-3CD0B8B6C45D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>523038DB-9DAF-9FFB-1A94-C7AAD56FE4D9</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOUR" id="6EB306F7-DF27-DA2A-0EDA-031C4298E00A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>4747A749-1101-8E75-EB43-A740FF5D378C</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PART_OF_THE_DAY" id="2D88CE67-2AB9-CC44-6118-EF7BFB872486">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>394665D4-55B9-C942-A035-7186FCB25B31</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOURLY_FORECAST_KEY" id="2B821FAB-4839-AFC3-B120-8266386B8234">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>24374635-B6CE-8E93-FF65-6B7FB295A944</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_HOURLY_FORECAST_HOURLY_FORECAST_FACT_KEY" id="AE0793B0-E67C-9447-CD7C-E956960838B3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>108B4D68-219B-CEBC-392C-4671C311547B</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="770396B8-7BE6-717A-1859-029DC304FA86" referredColumn="7F9D6960-7006-C069-415B-074CCF74DE9E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6D39B8AB-F0A5-F9BD-850A-89F80AFEE136" name="DIM_TIME_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>E8E6527E-F3D1-1318-3A4D-DE785D618D19</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="07CB643F-F79D-B998-5DB9-3CD0B8B6C45D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A7C4945C-2128-79B0-A7E4-FE34FF89909C" name="DIM_TIME__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>6CEB3168-1ADE-46E2-3C60-FEDA597C1B29</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="AE0793B0-E67C-9447-CD7C-E956960838B3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3A3B6CD7-F5A5-9913-EBFD-69E8F1DB027E" name="DIM_TIME_FACT_HOURLY_FORECAST_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>6CEB3168-1ADE-46E2-3C60-FEDA597C1B29</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AE0793B0-E67C-9447-CD7C-E956960838B3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
