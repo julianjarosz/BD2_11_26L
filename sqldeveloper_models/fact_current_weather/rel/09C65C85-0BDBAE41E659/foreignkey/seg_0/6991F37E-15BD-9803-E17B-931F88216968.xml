@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="6991F37E-15BD-9803-E17B-931F88216968" containerWithKeyObject="9B6C4FCA-8CD6-8B01-C6DE-E3E11907ED9D" localFKIndex="6A612CF8-BDDF-6359-386B-5E58D2E6B10D" name="DIM_DATE_FACT_CURRENT_WEATHER_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>52754091-CA82-AC0D-5E2A-52BBD715A91E</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<referredTableLongName>FACT_CURRENT_WEATHER</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>EA337432-51EA-F436-B3F9-957812F3C809</referredTableID>
+<keyObject>DEC1095A-9E4C-ADC2-7E78-A8115FC943CA</keyObject>
+<referredKeyID>DEC1095A-9E4C-ADC2-7E78-A8115FC943CA</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>CURRENT_WEATHER_FACT_KEY</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

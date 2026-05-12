@@ -1,0 +1,85 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="EA337432-51EA-F436-B3F9-957812F3C809" name="FACT_CURRENT_WEATHER">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>E24AB7E6-3E3B-C482-6122-558663C8EE8B</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="CURRENT_WEATHER_FACT_KEY" id="96F0DD6F-0A43-FF0C-AE2C-7F0A44CE1033">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>55123A9D-AB88-02EC-53AA-A0B2E82695B1</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_KEY" id="416E668D-9F0B-6839-D2B7-35F5204285F3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>1B977516-B346-5258-1614-CA9603CC30B6</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OBSERVED_DATE_KEY" id="5915588A-4095-E22F-51E8-55499AC88174">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>0E5A654E-1137-853E-0B3B-2485171BDD9E</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OBSERVED_TIME_KEY" id="D0CCE621-64EE-EC4C-0837-402304599D74">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>45E1FD7C-17BE-E3E9-FA02-839C1267B104</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WEATHER_CONDITION_KEY" id="267DD564-2F1E-2505-E39C-2B19E53A7ED0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>1E677B31-8337-E461-908D-778138E2192C</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DEC1095A-9E4C-ADC2-7E78-A8115FC943CA" name="FACT_CURRENT_WEATHER_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:23 UTC</createdTime>
+<generatorID>DD1538E4-438B-63BF-5DEC-62A1629BC6CF</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="96F0DD6F-0A43-FF0C-AE2C-7F0A44CE1033"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

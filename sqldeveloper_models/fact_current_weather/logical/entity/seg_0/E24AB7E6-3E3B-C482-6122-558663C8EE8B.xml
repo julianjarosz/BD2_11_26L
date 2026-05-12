@@ -1,0 +1,101 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E24AB7E6-3E3B-C482-6122-558663C8EE8B" name="FACT_CURRENT_WEATHER">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 07:56:26 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="CURRENT_WEATHER_FACT_KEY" id="55123A9D-AB88-02EC-53AA-A0B2E82695B1">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 07:56:49 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIME_KEY" id="D620A0F7-4D38-9C8B-6F0A-B842C6B9F211">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:01:12 UTC</createdTime>
+<generatorID>4EC418BB-9F5C-5547-47BE-B9AC936A1A09</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<referedAttribute>3ACA2D6A-3772-EEF1-2786-D4C50D681156</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="WEATHER_CONDITION_KEY" id="F1408DAA-54F2-F434-503D-8C5B9C18CD26">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:02:10 UTC</createdTime>
+<generatorID>BCA2E549-065D-3208-7BDA-0F0602D5E451</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<referedAttribute>89B8A8E1-BC59-03E8-565C-DA3DB3195A5D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATE_KEY" id="B8FF69E3-A6F2-1091-03C9-59440BA6F6E7">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:02:44 UTC</createdTime>
+<generatorID>52754091-CA82-AC0D-5E2A-52BBD715A91E</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<referedAttribute>68D071E6-5BEE-7159-F0A7-4100CDABBA52</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION_KEY" id="8416FA67-CE29-1A3A-E326-DB0D0BA2045C">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:03:23 UTC</createdTime>
+<generatorID>ED0CF1CE-0AB5-776A-3F26-62444C208683</generatorID>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<referedAttribute>140307A8-AE0E-AAE8-F93B-C2C1D2669EA2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="DD1538E4-438B-63BF-5DEC-62A1629BC6CF" name="FACT_CURRENT_WEATHER PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 07:57:49 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>55123A9D-AB88-02EC-53AA-A0B2E82695B1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

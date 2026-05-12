@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="E1495716-3A73-5872-E593-7FC3622388B0" name="DIM_WEATHER_CONDITION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>40717781-8A55-5836-FE64-67FBD85838C8</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="WEATHER_CONDITION_KEY" id="A7A30938-34D8-3AE8-46E1-B8C11236E111">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>FBF32ED5-2244-C7AD-D1AA-8D897241D578</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONDITION_ID_NK" id="19B3A0CD-EAE5-F0F1-2D8E-5A21B97FB4C3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>328D48C4-58B2-FC66-0FC1-BF23908E44AD</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OPENWEATHER_WEATHER_ID" id="49D32B9B-CFF9-2290-ED7F-62CE286B6F32">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>3A18A22A-EADA-A224-D3BD-99140EB55E90</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MAIN" id="FEA4E3B1-59B9-7084-9BDE-995F9F7027BB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>018982B2-E078-7091-88A0-974E9778EF37</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRIPTION" id="E4AC8E05-12CA-0238-27D5-B0793C52F9DF">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>942E6ED1-527C-4192-17ED-7F436E0A7D01</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOURLY_FORECAST_KEY" id="D989C266-0A84-36C6-C9E0-40A26B4DA0BB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>B34443EC-4B11-98E7-02BD-75ABA5D698AC</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_HOURLY_FORECAST_HOURLY_FORECAST_FACT_KEY" id="91931EE5-70BB-BAC3-E6DB-99FE0E24A260">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>43D35367-0A63-A281-ACBB-79320F64719D</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="196AA31A-AB88-A788-917D-DDEA18535CF4" referredColumn="7F9D6960-7006-C069-415B-074CCF74DE9E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="F91FF4F9-5F4E-0FC7-F3A2-BB136D9C12EC" name="DIM_WEATHER_CONDITION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>9E8CC2FA-4DD6-A249-8D05-EA7C3101C7A5</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A7A30938-34D8-3AE8-46E1-B8C11236E111"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="84EA704E-F519-DBB3-959D-D3D996CB8027" name="DIM_WEATHER_CONDITION__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>ECB9DC0F-45EA-7C8C-8791-7728FC1A603D</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="91931EE5-70BB-BAC3-E6DB-99FE0E24A260"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C0D576B3-8231-1865-0283-19D5DF841E05" name="DIM_WEATHER_CONDITION_FACT_HOURLY_FORECAST_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>ECB9DC0F-45EA-7C8C-8791-7728FC1A603D</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91931EE5-70BB-BAC3-E6DB-99FE0E24A260"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

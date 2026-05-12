@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6EC2C9FC-F16E-D43C-8010-2651FE1830BD" name="FACT_FORECAST_ACCURACY">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:01:28 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="FORECAST_ACCURACY_FACT_KEY" id="45F158C6-C5AB-3A1B-E966-3F672C3B5C15">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:05:00 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIME_KEY" id="F08D8A92-39E2-6EDB-A371-30676D3EDA75">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:06:09 UTC</createdTime>
+<generatorID>162D7215-C209-0611-023C-75DCF738C178</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<referedAttribute>DD34F526-41F3-40E9-EB0B-46C285330F2D</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DATE_KEY" id="89533AE2-4F4D-9419-7E1B-EC8832F7A3F1">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:06:14 UTC</createdTime>
+<generatorID>0383C1B2-6673-823F-D2F9-7664ED652AAE</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<referedAttribute>7FD6CBBD-6AB8-03E9-3BAF-5BD799204097</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION_KEY" id="513AA91C-6D78-245A-1DCE-CD9C31165383">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-12 16:15:22 UTC</createdTime>
+<generatorID>829B7232-5275-985F-FE2F-D6B4B2626BFA</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<referedAttribute>EF657A4C-C1B2-7E20-C6FB-CC74F412A854</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="66D76680-AC4B-D443-48EB-9972EAF57C36" name="FACT_FORECAST_ACCURACY PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:05:14 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>45F158C6-C5AB-3A1B-E966-3F672C3B5C15</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

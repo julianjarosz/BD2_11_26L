@@ -1,0 +1,105 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B8A4AD11-3B5B-1571-4656-AAE0E1DD9E7B" name="DIM_TIME">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:10 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="TIME_KEY" id="03AB8970-EEF1-7E87-701B-F3F34D3873D8">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FULL_TIME" id="7727382A-24A7-4354-51BC-753AC798CE1D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="HOUR" id="D4614C7E-4482-5381-D3E8-EAFE094141BD">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MINUTE" id="5027BBEB-1349-02B2-1C48-EF9332CC6486">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SECOND" id="608FF0C6-B904-7BC1-A218-57CBF584A783">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PART_OF_THE_DAY" id="DD2816F1-B27A-3ED0-B929-A52F0954ECE3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:53 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="CB5FBD07-CA2E-5E9E-32A8-46DC23240A25" name="DIM_TIME PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:40:55 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>03AB8970-EEF1-7E87-701B-F3F34D3873D8</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

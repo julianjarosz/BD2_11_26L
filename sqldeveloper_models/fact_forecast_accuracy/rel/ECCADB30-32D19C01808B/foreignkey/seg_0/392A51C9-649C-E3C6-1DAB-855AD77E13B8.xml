@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="392A51C9-649C-E3C6-1DAB-855AD77E13B8" containerWithKeyObject="22BCE9AA-E375-1F66-DF50-CA4FE4FB502D" localFKIndex="12D29384-BA28-A5B9-4724-8A9C7C2B7982" name="DIM_TIME_FACT_FORECAST_ACCURACY_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:33 UTC</createdTime>
+<generatorID>162D7215-C209-0611-023C-75DCF738C178</generatorID>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<referredTableLongName>FACT_FORECAST_ACCURACY</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>372CC355-485A-8E41-8A4D-2A05C0313B9B</referredTableID>
+<keyObject>F07A594F-C98A-2072-166C-F18C9B407E51</keyObject>
+<referredKeyID>F07A594F-C98A-2072-166C-F18C9B407E51</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>FORECAST_ACCURACY_FACT_KEY</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,181 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="AE5AF8ED-CC3F-4F10-652C-E42748A0B7E5" name="DIM_DATE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>E1F7C7FD-7FC6-9D8B-0E97-DB8AD82F1D0F</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="DATE_KEY" id="E6353CD6-C5FD-FC2E-74ED-4702EAA1EDF2">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>252A48A1-82A1-4A0B-089E-B6631DD99F95</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FULL_DATE" id="D596E0F8-71C4-57CB-3530-592E58D3CA7D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>BB623D7C-5E55-5F77-C806-CFA8309CBB30</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY" id="4C59C0EA-3071-3051-A32D-8BC008FF0137">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>97A98B13-92DC-14E1-3DC0-08F8109470B9</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH" id="F8C02D67-4F6D-F25A-655F-147B0A7F5B49">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>EDEAB022-85EE-686B-68BD-9EC430973666</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH_NAME" id="96B201D0-EEDF-E0E6-E7C3-5B6FDEA92DA2">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>5E498ADC-3A6D-4EA2-7914-8155169C5CDD</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="QUARTER" id="CA20BF7D-D852-2146-ACE7-400ABB3E6620">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>AEF33E4E-7906-1448-5EE5-67F9B9F64AFD</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="YEAR" id="1E6F0BCA-3C27-59E5-026F-F030CD4FCD3F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>795D68BA-362A-A013-51DD-6A0F5EDE0D68</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_OF_THE_WEEK" id="5BDC1484-86B7-A5A3-F7C5-BCDC0B9F02F7">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>D70ED149-9089-0615-9F03-54B769B31D43</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_NAME" id="06416A19-2063-85BC-7EFA-6D86962B0873">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>47BFBF82-3B19-813A-869F-DE8F35191ACA</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_WEEKEND" id="FA48BB45-A2A7-5A2F-20DA-34F01F935A14">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>2A585CD7-C154-5762-F89A-9F4C258C43E2</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_DAILY_FORECAST_DAILY_FORECAST_FACT_KEY" id="C5767F04-392B-8EA6-9AA5-28F34E647FEB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>7A492F13-6920-DA25-CA1F-5A6EBFA9CB1C</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="43DE494B-DE6D-73AC-3B92-D81B80EA3C53" referredColumn="AFDEA046-79F3-6A85-955B-EF91EE4739E5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="57D58A84-02A4-4611-238C-17CC7B59BAEE" name="DIM_DATE_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>79E739AD-3BC1-BED2-512A-C6FFE7B9F18C</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E6353CD6-C5FD-FC2E-74ED-4702EAA1EDF2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="51880811-777D-18D9-F983-BFE1DDB05901" name="DIM_DATE__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>CCD53C48-1AB5-B131-0666-18D0F775BC25</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="C5767F04-392B-8EA6-9AA5-28F34E647FEB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="2FA2CF04-7CC9-83D3-5D33-19A54357A9CC" name="DIM_DATE_FACT_DAILY_FORECAST_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>CCD53C48-1AB5-B131-0666-18D0F775BC25</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C5767F04-392B-8EA6-9AA5-28F34E647FEB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

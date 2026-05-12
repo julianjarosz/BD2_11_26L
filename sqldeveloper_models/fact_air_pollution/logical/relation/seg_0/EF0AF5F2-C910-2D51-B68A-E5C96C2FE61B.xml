@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Relation_2" directorySegmentName="seg_0" id="EF0AF5F2-C910-2D51-B68A-E5C96C2FE61B">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:41:46 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<sourcePk>88E22F1F-8E7E-5D03-04B8-23883E01DD7B</sourcePk>
+<targetPk>69CB4A9B-A8BA-9F58-8789-4B85D0183162</targetPk>
+<identifying>false</identifying>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>*</sourceCardinality>
+<sourceEntity>963FEC18-A41E-CF14-25F8-516E63862BFB</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>0F1B82F6-A4ED-94E7-EC15-DF4AE92DB4E6</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="82BB5375-09F4-C483-D688-FD1164AE09B1" containerWithKeyObject="644F7158-FF0D-E03B-0E9D-826D841142E6" localFKIndex="40BFACA4-CE86-A309-D56F-F432C1CDE5D3" name="DIM_DATE_FACT_AIR_POLLUTION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:16 UTC</createdTime>
+<generatorID>EF0AF5F2-C910-2D51-B68A-E5C96C2FE61B</generatorID>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<referredTableLongName>FACT_AIR_POLLUTION</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>E8390DCA-DFF6-4D0B-AA42-82328FB25853</referredTableID>
+<keyObject>DDFAB21E-AA26-B0A4-BEC2-E1CA93FBC156</keyObject>
+<referredKeyID>DDFAB21E-AA26-B0A4-BEC2-E1CA93FBC156</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>AIR_POLLUTION_FACT_KEY</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,120 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B7292B42-C10E-8865-56D9-7F846AA9567F" name="DIM_WEATHER_CONDITION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>8FB32DC9-78AB-D729-5D77-BB04CD60FF54</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="WEATHER_CONDITION_KEY" id="321BF76F-718A-19DB-CB50-4CF66437F32B">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>4D7433F1-AFEA-9B60-E48D-763250DD0A81</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONDITION_ID_NK" id="F80441C9-0DAF-CB32-61E4-36005621764A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>0F5999D8-7D8C-4A05-40F4-6AC6D5DEFBB7</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OPENWEATHER_WEATHER_ID" id="C7AB1D1C-44C7-0CA5-AD9A-E721F1516B13">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>F250F967-FBB9-D082-29AD-830E06F7257A</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MAIN" id="74113216-5F79-9A06-E229-1A16C8DA34EE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>9550AB86-5C46-70FB-FC1F-844B40DE4FA5</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRIPTION" id="0EB04FB8-AC17-5B84-32FA-32FF5C2021A1">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>D426417A-7785-65D1-4F8A-6F58E9949188</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_DAILY_FORECAST_DAILY_FORECAST_FACT_KEY" id="465EAF70-45C4-F889-42EF-81A3EA9E32BE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>0BCC97AC-1C65-A0D8-87CF-7FA7F5A2A17A</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BD04E546-4901-4F76-A487-629F92D0D4A9" referredColumn="AFDEA046-79F3-6A85-955B-EF91EE4739E5"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EF683C07-DED4-031D-EB41-70D251C0B371" name="DIM_WEATHER_CONDITION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>E3264291-7B63-2EE0-BE43-FCC1BECF0589</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="321BF76F-718A-19DB-CB50-4CF66437F32B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EDD50035-2BF1-02DE-703E-98DD065D2308" name="DIM_WEATHER_CONDITION__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>E5531FD1-F316-9749-E37C-F07003C93BF2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="465EAF70-45C4-F889-42EF-81A3EA9E32BE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8C7F0B18-FD12-92D7-889E-885EE5DC6F89" name="DIM_WEATHER_CONDITION_FACT_DAILY_FORECAST_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:04 UTC</createdTime>
+<generatorID>E5531FD1-F316-9749-E37C-F07003C93BF2</generatorID>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="465EAF70-45C4-F889-42EF-81A3EA9E32BE"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

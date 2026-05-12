@@ -1,0 +1,154 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="786E8041-A174-FD1A-F964-0E325057D7B5" name="DIM_DATE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:08 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="DATE_KEY" id="7FD6CBBD-6AB8-03E9-3BAF-5BD799204097">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FULL_DATE" id="EEFE0C16-B702-30E1-B0A2-98DEA235AF81">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY" id="4C858352-5AA4-97F3-DC6B-1F8CC16DE344">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MONTH" id="61A4FEEF-08A6-901E-5632-95C4C3A43672">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MONTH_NAME" id="69B93D29-B080-E0CB-4813-8D594BF04673">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="QUARTER" id="587BB8D8-A4D7-C4C9-A3D5-A348C5619FCA">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="YEAR" id="6880EA79-AD62-2429-61BA-9C3897F1F668">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY_OF_THE_WEEK" id="79161087-8AB5-86B9-46DB-2CC4DF5A4830">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY_NAME" id="9FCE6CF0-3763-4D8E-92D7-DE5CA4001AB0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IS_WEEKEND" id="E233BC41-7F27-3107-B8B4-153D3A4263A5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="A9C73B6A-01F4-4912-A3BA-B8FE4A6324F4" name="DIM_DATE PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:03:22 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>7FD6CBBD-6AB8-03E9-3BAF-5BD799204097</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

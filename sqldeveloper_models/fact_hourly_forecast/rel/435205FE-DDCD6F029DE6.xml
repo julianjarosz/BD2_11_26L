@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="435205FE-9308-7411-CF17-DDCD6F029DE6" mainViewID="D7E0ACF7-DFB1-C6AE-1721-E0D708FD2C4F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 18:48:15 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>32076570-2523-435C-2E92-BF29817DFF70</selectedRDBMSSite>
+</relationalModel>

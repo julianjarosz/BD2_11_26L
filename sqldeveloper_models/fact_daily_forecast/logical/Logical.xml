@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="F34FF1FA-63B2-149A-33CD-A5538C35CEB0" mainViewID="CA295DD8-31FB-5DCF-1454-FE8871F618DA">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:30:30 UTC</createdTime>
+<ownerDesignName>fact_daily_forecast</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

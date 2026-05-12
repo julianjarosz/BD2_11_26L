@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="fact_hourly_forecast" id="06203CBE-DE16-F439-38A5-901B1C8E4B98" version="3.5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 18:48:15 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>06203CBE-DE16-F439-38A5-901B1C8E4B98</designId>
+</OSDM_Design>

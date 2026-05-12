@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="4B8D9A87-E9B6-B2CE-190C-21CD95A496D9" mainViewID="40570652-0136-C5D8-C8AA-C0BF2F5D4157">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:36:50 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>
