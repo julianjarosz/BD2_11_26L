@@ -27,6 +27,17 @@
 <logicalDatatype>LOGDT027</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="AIR_POLLUTION_ID_NK" id="F9C1B6A9-CA25-9367-0F70-0E9236F0D348">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:30:16 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="TIME_KEY" id="1A760969-4D92-C89D-3024-CE019398684B">
 <createdBy>inne</createdBy>
 <createdTime>2026-05-12 15:59:38 UTC</createdTime>
@@ -68,6 +79,150 @@
 <use>1</use>
 <logicalDatatype>LOGDT027</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="OBSERVED AT" id="7C34C44B-30C4-5975-9674-63A4A0B28E06">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="AQI" id="FB6C45F4-8B67-8E57-7C8F-E73DEED6379F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CO" id="12A41F07-4DFD-045F-0828-56459516DF61">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NO" id="DABA4AC1-5B7C-98A4-F7FE-C61A16D6CB5A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NO2" id="78F066B1-A7ED-654D-717C-A90F8C708590">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="O3" id="4B33490A-7CC4-B492-EA63-974F1EF4919F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SO2" id="201E26E0-A5A6-36D1-8054-C59ED5A66EB6">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PM2 5" id="6FB73830-080A-158A-7032-4EAC9E956DBE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PM10" id="39E5560A-75BF-1CF1-1FCB-11E3528E3238">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:18:01 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="NH3" id="5BCCC5A3-E16A-144E-6C45-11AE47E8C42A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:19:14 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<engineerTo>
+<item key="3A59A598-768E-5D2F-3F88-FA9E0497D80D" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
