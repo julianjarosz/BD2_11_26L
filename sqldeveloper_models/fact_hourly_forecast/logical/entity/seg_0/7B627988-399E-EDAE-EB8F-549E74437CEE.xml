@@ -27,6 +27,17 @@
 <logicalDatatype>LOGDT027</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="HOURLY_FORECAST_ID_NK" id="6104B770-88DC-4ED8-3DB6-6564CD5BFC97">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:29:14 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="TIME_KEY" id="FDEAED5D-D101-CC41-DE29-C35E66E2CC85">
 <createdBy>inne</createdBy>
 <createdTime>2026-05-12 16:07:15 UTC</createdTime>
@@ -82,6 +93,172 @@
 <use>1</use>
 <logicalDatatype>LOGDT027</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FORECAST FOR" id="967D8DC4-7FF1-61E8-48BF-C4307693901F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RETRIEVED AT" id="154F99E7-75D0-6DDF-EEB6-93C2A5687CDB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TEMP" id="53D7369A-DB05-6371-733B-E5AC729C23C8">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FEELS LIKE" id="EDD44B86-8117-624D-3828-1883B6F39F9F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PRESSURE" id="5E4891C3-5090-2455-31A7-7B96CA04FC31">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="HUMIDITY" id="A60D8094-FBA1-ECE9-E596-8AB7F73A9F78">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CLOUDS" id="2C6CBEB1-8D01-5905-45C1-7928500CE864">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="POP" id="330D8644-50C8-2A4F-BB39-F5C7083F35EC">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>3</dataTypeScale>
+<ownDataTypeParameters>,4,3</ownDataTypeParameters>
+</Attribute>
+<Attribute name="WIND SPEED" id="661530D2-8910-E5E2-732A-9FE56EDD726C">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="WIND DEG" id="FC42A22D-456C-5549-172D-FC56C0615889">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RAIN 1H" id="2AB14273-70DE-210E-4ED9-C5711F0EE249">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SNOW 1H" id="06711E09-C2CC-5A00-A7E0-2B5DB5EA592A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:16:17 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
