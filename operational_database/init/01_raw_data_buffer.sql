@@ -104,13 +104,13 @@ CREATE TABLE data_buffer (
     timezone_offset         integer,
 
     weather_alert_id        bigint NOT NULL,
-    location_id_6           bigint NOT NULL,
     sender_name             varchar(150),
     event                   varchar(150) NOT NULL,
     start_at                timestamptz NOT NULL,
     end_at                  timestamptz NOT NULL,
     description_1           text,
     tags                    text,
+    location_id_6           bigint NOT NULL,
 
 
     CONSTRAINT chk_data_buffer_humidity CHECK (humidity IS NULL OR humidity BETWEEN 0 AND 100),
