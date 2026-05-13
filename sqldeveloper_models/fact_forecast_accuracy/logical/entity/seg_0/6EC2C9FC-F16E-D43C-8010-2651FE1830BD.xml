@@ -69,6 +69,66 @@
 <logicalDatatype>LOGDT027</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
+<Attribute name="FORECAST_TEMP" id="A0B15E8D-3C55-B00C-378D-3B576653EFCC">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:20:10 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ACTUAL_TEMP" id="36DD9840-D02E-468B-556B-A7CC4BF1F7D1">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:20:47 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TEMP_ERROR" id="79BF0186-CB77-2900-3664-AFAA0E912FA9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:21:14 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ABS_TEMP_ERROR" id="EDD998E4-7753-7DD2-6149-506245508D70">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-13 07:21:36 UTC</createdTime>
+<ownerDesignName>fact_forecast_accuracy</ownerDesignName>
+<engineerTo>
+<item key="ECCADB30-E9AC-9FE7-8D3B-32D19C01808B" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>6</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,6,2</ownDataTypeParameters>
+</Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
 <identifier id="66D76680-AC4B-D443-48EB-9972EAF57C36" name="FACT_FORECAST_ACCURACY PK">
