@@ -27,9 +27,10 @@ from scripts.database.schema_metadata_store import (
     SchemaMetadataStore,
     TableSchemaMetadata,
 )
+from scripts.utils import fetch_config_value
 
-POSTGRES_DSN_ENV_VAR = "POSTGRES_DSN"
-LOGGER = logging.getLogger(__name__)
+POSTGRES_DSN_ENV_VAR: str = fetch_config_value("consts.conf", "postgresql.dsn_env_var")
+LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 @dataclasses.dataclass
