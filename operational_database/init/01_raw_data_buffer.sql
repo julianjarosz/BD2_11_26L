@@ -127,6 +127,6 @@ CREATE TABLE data_buffer (
     CONSTRAINT chk_data_buffer_aqi CHECK (aqi BETWEEN 1 AND 5),
     CONSTRAINT chk_data_buffer_lat CHECK (lat BETWEEN -90 AND 90),
     CONSTRAINT chk_data_buffer_lon CHECK (lon BETWEEN -180 AND 180),
-    CONSTRAINT chk_data_buffer_country_code CHECK (country_code IS NULL OR length(country_code) = 2)
+    CONSTRAINT chk_data_buffer_country_code CHECK (country_code IS NULL OR length(country_code) = 2),
     CONSTRAINT chk_data_buffer_alert_time_order CHECK (end_at >= start_at)
 );

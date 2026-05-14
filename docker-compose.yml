@@ -4,16 +4,16 @@ services:
     container_name: weather-operational-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${OPERATIONAL_DB_USER}
-      POSTGRES_PASSWORD: ${OPERATIONAL_DB_PASSWORD}
-      POSTGRES_DB: ${OPERATIONAL_DB_NAME}
+      POSTGRES_USER: ${OPERATIONAL_DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${OPERATIONAL_DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${OPERATIONAL_DB_NAME:-weather_operational}
     ports:
       - "${OPERATIONAL_DB_PORT:-5432}:5432"
     volumes:
       - operational_data:/var/lib/postgresql/data
       - ./operational_database/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${OPERATIONAL_DB_USER} -d ${OPERATIONAL_DB_NAME}" ]
+      test: ["CMD-SHELL", "pg_isready -U ${OPERATIONAL_DB_USER:-postgres} -d ${OPERATIONAL_DB_NAME:-weather_operational}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -42,10 +42,45 @@ services:
       operational-db:
         condition: service_healthy
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U ${WAREHOUSE_DB_USER} -d ${WAREHOUSE_DB_NAME}" ]
+      test: ["CMD-SHELL", "pg_isready -U ${WAREHOUSE_DB_USER:-postgres} -d ${WAREHOUSE_DB_NAME:-weather_warehouse}"]
       interval: 5s
       timeout: 5s
       retries: 10
+    networks:
+      - weather-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: weather-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - weather-net
+
+  python-app:
+    build:
+      context: .
+      dockerfile: scripts/Dockerfile
+    container_name: weather-python-app
+    restart: unless-stopped
+    environment:
+      POSTGRES_DSN: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
+      REDIS_URL: redis://redis:6379/0
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
+    depends_on:
+      operational-db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - weather-net
 
@@ -54,8 +89,8 @@ services:
     container_name: weather-pgadmin
     restart: unless-stopped
     environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: "False"
       PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
     ports:
@@ -78,3 +113,4 @@ volumes:
   operational_data:
   warehouse_data:
   pgadmin_data:
+  redis_data:
