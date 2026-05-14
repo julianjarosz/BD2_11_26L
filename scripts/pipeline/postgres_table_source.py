@@ -2,15 +2,15 @@
 
 from scripts.database.database_manager import DatabaseManager
 from scripts.errors.pipeline_errors import PostgresTableSourceError
-from scripts.pipeline.source import Row, Source
+from scripts.pipeline.source import Row
 
 
-class PostgresTableSource(Source):
+class PostgresTableSource:
     """Extract rows from PostgreSQL tables through a database manager.
-
-    The source name is used by ``LoadStep.source_name`` to connect configured
-    load steps to this source. ``resource_name`` values passed to
-    :meth:`extract` are treated as table names.
+    x
+        The source name is used by ``LoadStep.source_name`` to connect configured
+        load steps to this source. ``resource_name`` values passed to
+        :meth:`extract` are treated as table names.
     """
 
     def __init__(self, name: str, database: DatabaseManager) -> None:
