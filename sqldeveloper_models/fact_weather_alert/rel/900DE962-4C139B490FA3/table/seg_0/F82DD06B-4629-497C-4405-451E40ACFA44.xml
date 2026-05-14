@@ -1,0 +1,144 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="F82DD06B-4629-497C-4405-451E40ACFA44" name="DIM_LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>7975A514-9707-1470-C32F-CF09C4F6481D</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LOCATION_KEY" id="71FB42EC-A80A-3CEE-D3A8-49E51D8E32C0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>209C9DF0-C304-CD70-94E1-E430D8891DEE</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CITY_NAME" id="37E0197B-2D4E-77CA-4B34-2F71F8C038ED">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>B5C3EA1B-3B76-014C-2C60-B175EA097B50</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY_CODE" id="BF827712-F691-E62E-24A5-D936DDA18091">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>D4BAF6AF-0DDC-97C2-C52F-DDB9C385CFE5</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LATITUDE" id="621A9162-64EF-60D3-71D2-6649C95F29DF">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>5421B1D8-EEE1-03CB-BF73-AF6C689C23A2</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LONGITUDE" id="141CC2A3-4CE2-D5D1-7FFA-BDC75CC891A3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>308AD672-B528-BC9F-8C43-D709D1DF2AC1</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE" id="297942A9-6C61-E022-C66D-059CAFAED6A0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>B46CD59B-7839-6A85-E2AA-A695ED098319</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE_OFFSET" id="01D6E070-92A1-56F8-8791-69946A668B1A">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>0F829D8A-4BB9-B598-3529-0F0ECDE3D2AE</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_WEATHER_ALERT_WEATHER_ALERT_FACT_KEY" id="91110B94-7DE9-B4BD-62FC-D3FF1AD397D6">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>7BA98A1A-0FC2-1AD4-F63D-4B535F951860</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="17D5534A-E353-9552-6E2D-EF66D7E9C7E9" referredColumn="C7BA12B4-0918-922D-C3A7-8236CFB33264"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5F7CFD1D-9577-FD60-D7B9-1A28086E8D80" name="DIM_LOCATION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>D3478619-1604-8727-825F-47CBE1FB3229</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="71FB42EC-A80A-3CEE-D3A8-49E51D8E32C0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="AC5A050F-0416-05DE-18D5-A78C5CE2A7A3" name="DIM_LOCATION__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>DE0A83C9-BEE3-1BEC-8345-925A0A1F1C93</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="91110B94-7DE9-B4BD-62FC-D3FF1AD397D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5367773E-C692-014D-A697-AE9836CF48F0" name="DIM_LOCATION_FACT_WEATHER_ALERT_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>DE0A83C9-BEE3-1BEC-8345-925A0A1F1C93</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="91110B94-7DE9-B4BD-62FC-D3FF1AD397D6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

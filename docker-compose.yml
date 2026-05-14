@@ -25,14 +25,22 @@ services:
     container_name: weather-warehouse-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: ${WAREHOUSE_DB_USER:-postgres}
-      POSTGRES_PASSWORD: ${WAREHOUSE_DB_PASSWORD:-postgres}
-      POSTGRES_DB: ${WAREHOUSE_DB_NAME:-weather_warehouse}
+      POSTGRES_USER: ${WAREHOUSE_DB_USER}
+      POSTGRES_PASSWORD: ${WAREHOUSE_DB_PASSWORD}
+      POSTGRES_DB: ${WAREHOUSE_DB_NAME}
+      OPERATIONAL_DB_HOST: operational-db
+      OPERATIONAL_DB_PORT: 5432
+      OPERATIONAL_DB_USER: ${OPERATIONAL_DB_USER}
+      OPERATIONAL_DB_PASSWORD: ${OPERATIONAL_DB_PASSWORD}
+      OPERATIONAL_DB_NAME: ${OPERATIONAL_DB_NAME}
     ports:
       - "${WAREHOUSE_DB_PORT:-5433}:5432"
     volumes:
       - warehouse_data:/var/lib/postgresql/data
       - ./data_warehouse/init:/docker-entrypoint-initdb.d:ro
+    depends_on:
+      operational-db:
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${WAREHOUSE_DB_USER:-postgres} -d ${WAREHOUSE_DB_NAME:-weather_warehouse}"]
       interval: 5s

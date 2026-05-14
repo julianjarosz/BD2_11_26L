@@ -1,0 +1,174 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="16C3796C-D1E0-8B91-63F6-EDE3F1F4D6A5" name="DIM_LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>DCB6A557-9D88-DF5B-5053-3FD82A59B732</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="LOCATION_KEY" id="594F4398-D5E4-8946-1253-7A372110EFD2">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>E3564840-5939-F68C-BFF3-C2A0621BD23B</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CITY_NAME" id="35FD983B-05EB-004F-BB98-72DB97214592">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>F52FA524-81D7-9D76-7FB8-B3E7CC2CA39E</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="COUNTRY_CODE" id="F6D2A818-C182-FAED-C25E-322094C63F3D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>75ED55E7-7E0F-E98E-0084-243726C16185</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LATITUDE" id="33FB7300-AAAB-5DB7-0621-EF482B18EE0D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>520BBADB-9C7F-D57E-3C28-2D296EFA6BB9</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LONGITUDE" id="5D573D3D-9023-66B5-39AB-1B72A3689C73">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>3662E003-E4EF-7CBC-6F62-8AB023E1DDE4</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE" id="894455EE-DA00-AB07-A4B2-C4DE614FEA48">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>E670BD93-5BC5-F1C2-DA67-36B069B986E9</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TIMEZONE_OFFSET" id="71D88EE7-811D-4144-A811-374925C6D2FB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>45662DAB-55F7-CFE9-4D9C-8CEF29416EB7</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID_NK" id="FB2ADD62-AF4D-E80A-168F-3D790309AC26">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>E6E900D2-7F97-9FDC-2A06-D10EE3575E6D</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOURLY_FORECAST_KEY" id="508EFD7E-8699-AFFD-1E93-A664F102C167">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>D95C32FF-6AA2-F5F0-53FF-AE8266B7D40E</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_HOURLY_FORECAST_HOURLY_FORECAST_FACT_KEY" id="43C609CF-8255-D314-A87A-873AFC148387">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>809A0407-B70E-1775-2DB3-F3E776668727</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="15C33693-0B1F-8A1F-4016-9C23E5DB3872" referredColumn="7F9D6960-7006-C069-415B-074CCF74DE9E"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="974BE997-D46D-3BFB-EC5B-82142421B125" name="DIM_LOCATION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:10:34 UTC</createdTime>
+<generatorID>42321395-81A9-63DF-6FCB-B52A338A1FE5</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="594F4398-D5E4-8946-1253-7A372110EFD2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B3F11E98-BEE5-3209-47F9-7962C8AE4016" name="DIM_LOCATION__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>A6C3FB05-DDC9-09E4-9809-66ED5325D30B</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="43C609CF-8255-D314-A87A-873AFC148387"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E3930202-2E26-1F7E-CB5C-F60D45E9F801" name="DIM_LOCATION_FACT_HOURLY_FORECAST_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:12:28 UTC</createdTime>
+<generatorID>A6C3FB05-DDC9-09E4-9809-66ED5325D30B</generatorID>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="43C609CF-8255-D314-A87A-873AFC148387"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="9DBFEF0B-4252-7D94-7246-57EC670AC692" name="DIM TIME">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:57:27 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="TIME KEY" id="8A5B335A-F79E-6FC0-D4B5-C8F9B6765FB9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FULL TIME" id="7B118E59-F964-DCF6-A4D7-7608E421BB5E">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="HOUR" id="1101FFED-D250-38A5-F7F5-46409436F0C5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MINUTE" id="4FF10A72-81D1-1462-6A80-4D71774908E0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SECOND" id="B4D28FA5-E84B-DEC1-7098-BB08B79C8233">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PART OF THE DAY" id="6C34F0A0-0B51-246B-FD0A-2595FAA1DCC3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:01 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="57507FA9-34C3-EB76-B54C-BD2DB5FB3BDD" name="DIM_START_TIME_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:00:07 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>8A5B335A-F79E-6FC0-D4B5-C8F9B6765FB9</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

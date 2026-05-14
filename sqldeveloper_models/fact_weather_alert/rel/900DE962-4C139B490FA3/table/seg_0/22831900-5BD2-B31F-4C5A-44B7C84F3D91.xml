@@ -1,0 +1,183 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="22831900-5BD2-B31F-4C5A-44B7C84F3D91" name="DIM_END_DATE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>FDBB3E27-7EE0-659A-4076-9798920B5164</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="END_DATE_KEY" id="51B757DB-56AC-6F99-FCA7-7678FD3E81BB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>813465B4-72C2-5628-9E20-B4382301741F</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FULL_DATE" id="8B535F2B-5DB3-A463-727E-855E7010F8C5">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>51022C16-B7FA-650F-518B-91F58016A4EE</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY" id="38FBC557-3CF0-A9E3-BAEE-4580AE6F571D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>348B7F5A-AE4E-C51D-C1BD-91466A20EA8F</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH" id="3091FB9D-7FD2-BAA8-5877-314350C78E8F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>30887DBC-8441-0391-30BB-9D0D98F32DFE</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MONTH_NAME" id="76C4C5E0-2097-C19F-919F-C9C099F6C70F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>101D87C2-0490-F1F5-5E21-74E86904A101</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="QUARTER" id="2433A83C-196E-5E7A-EA0B-72CA5B6B1418">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>823755A4-05AC-A0F6-75BD-4B6FEF390530</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="YEAR" id="62A536D3-9E6C-715F-518B-93764FF279EB">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>0F21855F-F148-5B3A-01B3-09D9F303E435</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_OF_THE_WEEK" id="BDF495F4-FD12-4FB7-ED5C-55887948168F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>8BC05907-C3B3-4305-3B26-093D62B34B5E</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DAY_NAME" id="33CE54E2-36E7-4A21-AF7E-43FB98CAB476">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>26CF3BB4-20C1-C80B-8F15-8D8CDF24EACD</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="IS_WEEKEND" id="C9CB5653-279B-04CC-94B5-62C5B32A43B6">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>109F48EF-0582-3062-71DC-0A3E3830FE0D</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_WEATHER_ALERT_WEATHER_ALERT_FACT_KEY" id="BC47E9AF-3A89-636C-593C-B32208179B73">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>B57F3E29-F107-26B9-B9B2-90F03AEF8ADF</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A407261A-CAB2-8626-207F-D56A18761E9A" referredColumn="C7BA12B4-0918-922D-C3A7-8236CFB33264"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1C7A179C-DC1A-FBF5-06E4-7953B6344268" name="DIM_END_DATE_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>F31DC1E6-DA79-B60F-7ECA-B037E30A86C8</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="51B757DB-56AC-6F99-FCA7-7678FD3E81BB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7C153FC6-EB99-3EEB-84EF-9E65C834EEAB" name="DIM_END_DATE__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>E1227214-C549-14C1-D5A9-C5D6642FC0D2</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="BC47E9AF-3A89-636C-593C-B32208179B73"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C40682D6-1ABC-88D8-FCD2-570B0D36B388" name="DIM_END_DATE_FACT_WEATHER_ALERT_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>E1227214-C549-14C1-D5A9-C5D6642FC0D2</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BC47E9AF-3A89-636C-593C-B32208179B73"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -103,6 +103,16 @@ CREATE TABLE data_buffer (
     timezone                varchar(64),
     timezone_offset         integer,
 
+    weather_alert_id        bigint NOT NULL,
+    sender_name             varchar(150),
+    event                   varchar(150) NOT NULL,
+    start_at                timestamptz NOT NULL,
+    end_at                  timestamptz NOT NULL,
+    description_1           text,
+    tags                    text,
+    location_id_6           bigint NOT NULL,
+
+
     CONSTRAINT chk_data_buffer_humidity CHECK (humidity IS NULL OR humidity BETWEEN 0 AND 100),
     CONSTRAINT chk_data_buffer_humidity_1 CHECK (humidity_1 IS NULL OR humidity_1 BETWEEN 0 AND 100),
     CONSTRAINT chk_data_buffer_humidity_2 CHECK (humidity_2 IS NULL OR humidity_2 BETWEEN 0 AND 100),
@@ -117,5 +127,6 @@ CREATE TABLE data_buffer (
     CONSTRAINT chk_data_buffer_aqi CHECK (aqi BETWEEN 1 AND 5),
     CONSTRAINT chk_data_buffer_lat CHECK (lat BETWEEN -90 AND 90),
     CONSTRAINT chk_data_buffer_lon CHECK (lon BETWEEN -180 AND 180),
-    CONSTRAINT chk_data_buffer_country_code CHECK (country_code IS NULL OR length(country_code) = 2)
+    CONSTRAINT chk_data_buffer_country_code CHECK (country_code IS NULL OR length(country_code) = 2),
+    CONSTRAINT chk_data_buffer_alert_time_order CHECK (end_at >= start_at)
 );

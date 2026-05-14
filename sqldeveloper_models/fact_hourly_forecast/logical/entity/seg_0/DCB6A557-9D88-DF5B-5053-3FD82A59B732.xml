@@ -1,0 +1,134 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="DCB6A557-9D88-DF5B-5053-3FD82A59B732" name="DIM_LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:17:56 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="LOCATION_KEY" id="E3564840-5939-F68C-BFF3-C2A0621BD23B">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:20:53 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CITY_NAME" id="F52FA524-81D7-9D76-7FB8-B3E7CC2CA39E">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:05 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="COUNTRY_CODE" id="75ED55E7-7E0F-E98E-0084-243726C16185">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:15 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LATITUDE" id="520BBADB-9C7F-D57E-3C28-2D296EFA6BB9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:26 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LONGITUDE" id="3662E003-E4EF-7CBC-6F62-8AB023E1DDE4">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:48 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE" id="E670BD93-5BC5-F1C2-DA67-36B069B986E9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:55 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE_OFFSET" id="45662DAB-55F7-CFE9-4D9C-8CEF29416EB7">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:22:07 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION_ID_NK" id="E6E900D2-7F97-9FDC-2A06-D10EE3575E6D">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:22:26 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="42321395-81A9-63DF-6FCB-B52A338A1FE5" name="DIM_LOCATION PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:21:04 UTC</createdTime>
+<ownerDesignName>fact_hourly_forecast</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="435205FE-9308-7411-CF17-DDCD6F029DE6" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E3564840-5939-F68C-BFF3-C2A0621BD23B</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

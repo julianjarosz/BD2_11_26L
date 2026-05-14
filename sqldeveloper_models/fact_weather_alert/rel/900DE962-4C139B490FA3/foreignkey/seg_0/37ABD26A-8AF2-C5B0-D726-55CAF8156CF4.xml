@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="37ABD26A-8AF2-C5B0-D726-55CAF8156CF4" containerWithKeyObject="A0D38B78-0683-7469-B899-16A54494E1D8" localFKIndex="AB11FCC5-C121-6CE9-778E-E14BE24761E4" name="FACT_WEATHER_ALERT_DIM_DATE_FKv1">
+<createdBy>adria</createdBy>
+<createdTime>2026-05-12 12:31:54 UTC</createdTime>
+<generatorID>20CC8639-3EF0-D628-E8D1-E498355CEBC9</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<referredTableLongName>DIM_DATE</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>145D6C7E-0953-4FE2-C910-55F4943B58D1</referredTableID>
+<keyObject>716DC2F6-B057-9311-7428-0F4C62213BFC</keyObject>
+<referredKeyID>716DC2F6-B057-9311-7428-0F4C62213BFC</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>DATE_KEY</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

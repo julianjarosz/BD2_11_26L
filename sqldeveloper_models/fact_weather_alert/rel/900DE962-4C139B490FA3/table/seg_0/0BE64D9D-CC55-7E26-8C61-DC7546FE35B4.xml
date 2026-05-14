@@ -1,0 +1,122 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0BE64D9D-CC55-7E26-8C61-DC7546FE35B4" name="DIM_END_TIME">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>8A75352C-DD89-2CFE-1020-101285D603FF</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="END_TIME_KEY" id="8EB7988D-5E23-D6D3-892B-97353FCBEF32">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>49068F8B-794E-B86C-78A7-1A6CF6E34EEC</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FULL_TIME" id="E42838F9-6554-098C-B6D5-39F2099CFC86">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>9130CD95-59B4-B175-70D9-E5DAFA2B050D</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT014</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HOUR" id="AC50D106-7194-C3AD-921D-B0A55BE8BC89">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>A6486488-175F-83EF-CAA5-86D5B8869F5F</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MINUTE" id="13F41EEF-990F-7201-DEED-FB7CBD9E1783">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>F29FD05D-0471-79D5-AD06-91B4CD205A25</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SECOND" id="A518FCF4-C75C-9824-D83C-8295D76F9110">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>B504CD4F-43C6-E35D-D3BD-4E0A11648E40</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PART_OF_THE_DAY" id="5239F0FF-77B8-4AE8-7EBB-38A5EF2E26EC">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>0F2B9497-B61C-DC70-B76F-F57C9F6091F5</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FACT_WEATHER_ALERT_WEATHER_ALERT_FACT_KEY" id="CDDD9773-64EF-0AC0-1279-2E600956739E">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>A5AA7F0C-2BD1-FD18-5BBC-602F79D1751F</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="02765CE4-51EE-6C17-3A1D-C4C87370F333" referredColumn="C7BA12B4-0918-922D-C3A7-8236CFB33264"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DB595332-AF4F-F621-FFAE-68CD320FF8B6" name="DIM_END_TIME__IDX">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>D88DD8A8-7CB3-EB4D-2662-2523BF9259C1</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="CDDD9773-64EF-0AC0-1279-2E600956739E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5D7CACAC-BD21-E842-8CA4-0C8AF5F7F969" name="DIM_END_TIME_FACT_WEATHER_ALERT_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 20:11:24 UTC</createdTime>
+<generatorID>D88DD8A8-7CB3-EB4D-2662-2523BF9259C1</generatorID>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CDDD9773-64EF-0AC0-1279-2E600956739E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

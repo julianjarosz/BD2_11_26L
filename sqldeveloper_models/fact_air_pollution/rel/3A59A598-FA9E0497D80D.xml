@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="Relational_1" id="3A59A598-768E-5D2F-3F88-FA9E0497D80D" mainViewID="28245758-9FBE-6936-5A99-CC4F8AEA5067">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:36:50 UTC</createdTime>
+<ownerDesignName>fact_air_pollution</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+<selectedRDBMSSite>32076570-2523-435C-2E92-BF29817DFF70</selectedRDBMSSite>
+</relationalModel>

@@ -1,0 +1,133 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BBAD6D33-1BD0-B250-3AA6-2E2CBEDD96EF" name="DIM_LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 07:59:55 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="LOCATION_KEY" id="140307A8-AE0E-AAE8-F93B-C2C1D2669EA2">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:00:14 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CITY_NAME" id="311DDF20-9AF6-4AE9-36DC-63EA171EE8E8">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:00:29 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="COUNTRY_CODE" id="F3DC2F7F-8188-87CE-8409-EE0884E230D6">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:00:34 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LATITUDE" id="51C0FFB7-BA15-7958-3996-7F0EE8E8223A">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:01:05 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LONGITUDE" id="A4A08879-F7ED-BEC6-E854-E6C8B8BF72E5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:01:07 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>6</dataTypeScale>
+<ownDataTypeParameters>,10,6</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE" id="D130B986-6C99-BB97-2DF8-B7DF3E1783AF">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:01:18 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE_OFFSET" id="AE871339-8A99-4BA4-19A5-6AF1ABC289CE">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:03:07 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION_ID_NK" id="8A3AEB14-B38D-F826-3A8B-BCE6E7FB9A02">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:13:58 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E9565414-59C0-37A1-277E-37E88A23DFED" name="DIM_LOCATION PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-26 08:00:28 UTC</createdTime>
+<ownerDesignName>fact_current_weather</ownerDesignName>
+<engineerTo>
+<item key="09C65C85-AF1B-D9A7-31AD-0BDBAE41E659" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>140307A8-AE0E-AAE8-F93B-C2C1D2669EA2</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
