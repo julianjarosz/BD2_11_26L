@@ -1,6 +1,7 @@
 from scripts.database.database_manager import DatabaseManager
-from source import Row
-from transformation import Transformation
+from scripts.pipeline.source import Row
+from scripts.pipeline.transformation import Transformation
+
 
 class PostgresWarehouseSink:
     def __init__(
@@ -15,7 +16,7 @@ class PostgresWarehouseSink:
 
     def clear_staging(self, staging_table: str) -> None:
         self.database.execute(f"TRUNCATE TABLE {staging_table}")
-    
+
     def load_staging(self, staging_table: str, rows: list[Row]) -> int:
         if not rows:
             return 0

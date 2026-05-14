@@ -1,6 +1,6 @@
-from source import Source
-from sink import Sink
-from load_step import LoadStep
+from scripts.pipeline.load_step import LoadStep
+from scripts.pipeline.sink import Sink
+from scripts.pipeline.source import Source
 
 
 class PipelineELT:
@@ -29,7 +29,7 @@ class PipelineELT:
 
             sink = self.sinks[step.sink_name]
             sink.clear_staging(step.staging_table)
-            cleared_tables.add(step.sink_name, step.staging_table)
+            cleared_tables.add((step.sink_name, step.staging_table))
 
     def load_staging(self) -> None:
         for step in self.load_steps:

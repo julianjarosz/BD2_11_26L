@@ -1,5 +1,5 @@
 from scripts.database.database_manager import DatabaseManager
-from source import Row
+from scripts.pipeline.source import Row
 
 
 class PostgresTableSource:

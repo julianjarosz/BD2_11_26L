@@ -3,7 +3,7 @@ from scripts.database.database_manager import DatabaseManager
 
 
 class SqlFileTransformation:
-    def __init__(self, name: str, path: Path):
+    def __init__(self, name: str, path: Path) -> None:
         self.name = name
         self.path = path
 
