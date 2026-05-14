@@ -151,9 +151,7 @@ class PipelineELT:
         """
         clear_result: PipelineClearResult = self.clear_staging()
         extract_result: PipelineExtractResult = self.extract_from_sources()
-        load_result: PipelineLoadResult = self.load_staging(
-            extract_result.extracted_data
-        )
+        load_result: PipelineLoadResult = self.load_staging(extract_result.extracted_data)
         transformation_result: PipelineTransformationResult = self.run_transformations()
 
         failed_steps: list[PipelineStageError] = (
@@ -175,8 +173,7 @@ class PipelineELT:
     @staticmethod
     def _step_name(step: LoadStep) -> str:
         return (
-            f"{step.source_name}:{step.source_resource}->"
-            f"{step.sink_name}:{step.staging_table}"
+            f"{step.source_name}:{step.source_resource}->" f"{step.sink_name}:{step.staging_table}"
         )
 
     def extract_from_sources(self) -> PipelineExtractResult:
@@ -253,8 +250,7 @@ class PipelineELT:
                     stage="extract",
                     is_success=True,
                     message=(
-                        f"Extracted {len(rows)} rows from resource "
-                        f"{step.source_resource!r}."
+                        f"Extracted {len(rows)} rows from resource " f"{step.source_resource!r}."
                     ),
                     step=step,
                     source_name=step.source_name,
@@ -514,9 +510,7 @@ class PipelineELT:
             try:
                 sink.run_transformations()
             except Exception as exc:
-                message: str = (
-                    f"Failed to run transformations for sink {sink.name!r}: {exc}"
-                )
+                message: str = f"Failed to run transformations for sink {sink.name!r}: {exc}"
                 warn(
                     message,
                     RuntimeWarning,

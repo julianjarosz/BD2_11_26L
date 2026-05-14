@@ -55,9 +55,7 @@ class OpenWeatherApiSource:
         """
         city = resource_name or DEFAULT_CITY
         try:
-            weather_data = asyncio.run(
-                self.fetch_manager.fetch_city(city, units="metric")
-            )
+            weather_data = asyncio.run(self.fetch_manager.fetch_city(city, units="metric"))
             return [weather_data.to_data_buffer_row()]
         except Exception as exc:
             raise OpenWeatherApiSourceError(

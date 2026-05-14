@@ -44,8 +44,7 @@ class PostgresWarehouseSink:
             self.database.execute(f"TRUNCATE TABLE {staging_table}")
         except Exception as exc:
             raise PostgresWarehouseSinkError(
-                f"Failed to clear staging table {staging_table!r} "
-                f"for sink {self.name!r}: {exc}"
+                f"Failed to clear staging table {staging_table!r} " f"for sink {self.name!r}: {exc}"
             ) from exc
 
     def load_staging(self, staging_table: str, rows: list[Row]) -> int:
@@ -68,8 +67,7 @@ class PostgresWarehouseSink:
             return self.database.push_data(staging_table, rows)
         except Exception as exc:
             raise PostgresWarehouseSinkError(
-                f"Failed to load staging table {staging_table!r} "
-                f"for sink {self.name!r}: {exc}"
+                f"Failed to load staging table {staging_table!r} " f"for sink {self.name!r}: {exc}"
             ) from exc
 
     def run_transformations(self) -> None:

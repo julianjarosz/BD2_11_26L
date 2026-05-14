@@ -128,17 +128,13 @@ class PipelineELTCallbackManager:
         }
         return callbacks_by_stage.get((event.stage, event.is_success), [])
 
-    def _run_callbacks(
-        self, callbacks: list[PipelineCallback], event: PipelineEvent
-    ) -> None:
+    def _run_callbacks(self, callbacks: list[PipelineCallback], event: PipelineEvent) -> None:
         """Run callbacks for one event and warn about callback failures."""
         for callback in callbacks:
             try:
                 callback(event)
             except Exception as exc:
-                callback_name = getattr(
-                    callback, "__name__", callback.__class__.__name__
-                )
+                callback_name = getattr(callback, "__name__", callback.__class__.__name__)
                 warn(
                     f"Pipeline callback {callback_name!r} failed during "
                     f"{event.stage!r} stage: {exc}",

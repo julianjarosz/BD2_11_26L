@@ -58,8 +58,6 @@ class DatabaseManager(abc.ABC):
         """Close database resources held by the manager."""
 
     @abc.abstractmethod
-    def execute(
-        self, query: str, params: DatabaseParams | None = None
-    ) -> None:
+    def execute(self, query: str, params: DatabaseParams | None = None) -> None:
         """Executes SQL command that does not return anything"""
         pass

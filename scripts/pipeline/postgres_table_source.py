@@ -39,6 +39,5 @@ class PostgresTableSource:
             return self.database.fetch_data(f"SELECT * FROM {resource_name}")
         except Exception as exc:
             raise PostgresTableSourceError(
-                f"Failed to extract table {resource_name!r} "
-                f"from source {self.name!r}: {exc}"
+                f"Failed to extract table {resource_name!r} " f"from source {self.name!r}: {exc}"
             ) from exc
