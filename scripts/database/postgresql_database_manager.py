@@ -354,6 +354,16 @@ class PostgreSQLDatabaseManager(BaseDatabaseManager):
             cursor.execute(query, params)
             return list(cursor.fetchall())
 
+    def execute(self, query: str, params: DatabaseParams | None = None) -> None:
+        """Run a SQL command that does not return rows."""
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execute(query, params)
+            self.connection.commit()
+        except Exception:
+            self.connection.rollback()
+            raise
+
     def close(self) -> None:
         """Close the PostgreSQL connection."""
         self.connection.close()

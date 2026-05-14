@@ -7,3 +7,7 @@ class PostgresTableSourceError(RuntimeError):
 
 class PostgresWarehouseSinkError(RuntimeError):
     """Raised when a PostgreSQL warehouse sink operation fails."""
+
+
+class OpenWeatherApiSourceError(RuntimeError):
+    """Raised when an OpenWeather API source cannot extract rows."""
