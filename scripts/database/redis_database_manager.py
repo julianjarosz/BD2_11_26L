@@ -22,10 +22,12 @@ from scripts.database.database_manager import (
 from scripts.database.schema_metadata_store import (
     SchemaMetadataStore,
 )
+from scripts.utils import fetch_config_value
 
-REDIS_URL_ENV_VAR = "REDIS_URL"
-DEFAULT_REDIS_KEY_PREFIX = "database:data"
-LOGGER = logging.getLogger(__name__)
+REDIS_URL_ENV_VAR: str = fetch_config_value("consts.conf", "redis.url_env_var")
+DEFAULT_REDIS_KEY_PREFIX: str = fetch_config_value("consts.conf", "redis.default_data_key_prefix")
+DEFAULT_REDIS_SCAN_COUNT: int = int(fetch_config_value("consts.conf", "redis.scan_count"))
+LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 @dataclasses.dataclass
@@ -171,7 +173,7 @@ class RedisDatabaseManager(BaseDatabaseManager):
         self._log_payload_stored(table_name, prepared_payload)
         return stored_rows
 
-    def fetch_data(self, pattern: str, scan_count: int = 100) -> list[DatabaseRow]:
+    def fetch_data(self, pattern: str, scan_count: int = DEFAULT_REDIS_SCAN_COUNT) -> list[DatabaseRow]:
         """Retrieve rows from Redis matching a key pattern.
 
         This method uses Redis SCAN to efficiently retrieve data matching a
@@ -218,7 +220,7 @@ class RedisDatabaseManager(BaseDatabaseManager):
         deleted = 0
 
         while True:
-            cursor, keys = self.connection.scan(cursor, match=pattern, count=100)
+            cursor, keys = self.connection.scan(cursor, match=pattern, count=DEFAULT_REDIS_SCAN_COUNT)
             if keys:
                 deleted += self.connection.delete(*keys)
             if cursor == 0:

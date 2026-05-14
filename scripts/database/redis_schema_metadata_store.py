@@ -10,9 +10,11 @@ from scripts.database.schema_metadata_store import (
     SchemaMetadataStore,
     TableSchemaMetadata,
 )
+from scripts.utils import fetch_config_value
 
-REDIS_URL_ENV_VAR = "REDIS_URL"
-DEFAULT_SCHEMA_KEY_PREFIX = "database:schema"
+REDIS_URL_ENV_VAR: str = fetch_config_value("consts.conf", "redis.url_env_var")
+DEFAULT_SCHEMA_KEY_PREFIX: str = fetch_config_value("consts.conf", "redis.default_schema_key_prefix")
+DEFAULT_REDIS_SCAN_COUNT: int = int(fetch_config_value("consts.conf", "redis.scan_count"))
 
 
 class RedisSchemaMetadataStore(SchemaMetadataStore):
@@ -28,34 +30,16 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
         self.key_prefix = key_prefix
 
     @classmethod
-    def from_url(
-        cls,
-        redis_url: str,
-        *,
-        key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX,
-    ) -> "RedisSchemaMetadataStore":
+    def from_url(cls, redis_url: str, *, key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX) -> "RedisSchemaMetadataStore":
         """Create Redis metadata storage from a Redis connection URL."""
         return cls(RedisDatabaseManager(redis_url), key_prefix=key_prefix)
 
     @classmethod
     def from_env(
-        cls,
-        env_var: str = REDIS_URL_ENV_VAR,
-        *,
-        key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX,
+        cls, env_var: str = REDIS_URL_ENV_VAR, *, key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX
     ) -> "RedisSchemaMetadataStore":
         """Create Redis metadata storage from an environment variable."""
         return cls.from_url(cls._load_redis_url(env_var), key_prefix=key_prefix)
-
-    @classmethod
-    def from_redis_manager(
-        cls,
-        redis_database_manager: RedisDatabaseManager,
-        *,
-        key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX,
-    ) -> "RedisSchemaMetadataStore":
-        """Create metadata storage using an existing Redis database manager connection."""
-        return cls(redis_database_manager, key_prefix=key_prefix)
 
     def set_table_schema(self, schema: TableSchemaMetadata) -> None:
         """Store schema metadata as JSON under a stable Redis key."""
@@ -74,7 +58,7 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
         """Delete schema metadata for one table from Redis."""
         return bool(self.redis_database_manager.connection.delete(self._schema_key(table_name)))
 
-    def list_table_names(self, scan_count: int = 100) -> list[str]:
+    def list_table_names(self, scan_count: int = DEFAULT_REDIS_SCAN_COUNT) -> list[str]:
         """List table names with schema metadata stored in Redis."""
         table_names: list[str] = []
         cursor = 0
@@ -98,7 +82,7 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
                 table_schemas.append(table_schema)
         return table_schemas
 
-    def clear_table_schemas(self, scan_count: int = 100) -> int:
+    def clear_table_schemas(self, scan_count: int = DEFAULT_REDIS_SCAN_COUNT) -> int:
         """Delete all table schema metadata entries from Redis."""
         deleted = 0
         cursor = 0
