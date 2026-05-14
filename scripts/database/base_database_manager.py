@@ -128,7 +128,7 @@ class BaseDatabaseManager(DatabaseManager):
         if not all(isinstance(row, collections.abc.Mapping) for row in rows):
             raise TypeError("Rows must be mappings of column names to values.")
 
-        if not rows[0]:
+        if any(not row for row in rows):
             raise NormalizingRowsException("Rows must contain at least one column.")
 
         return rows
