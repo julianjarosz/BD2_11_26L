@@ -6,4 +6,3 @@ class NormalizingRowsException(ValueError):
 
     def __init__(self, error_msg: str) -> None:
         super().__init__(error_msg)
-
