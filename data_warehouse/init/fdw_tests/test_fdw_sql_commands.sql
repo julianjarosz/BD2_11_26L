@@ -1,7 +1,7 @@
 select *
   from pg_extension
  where extname = 'postgres_fdw';
--- you should see fdw extension returned
+-- you should see fdw exte nsion returned
 
 select foreign_table_schema,
        foreign_table_name
