@@ -178,7 +178,10 @@ class BaseDatabaseManager(DatabaseManager):
                 rejected_rows.append(
                     RejectedDatabaseRow(
                         row=row,
-                        reason=("missing required columns: " f"{', '.join(sorted(missing_required_columns))}"),
+                        reason=(
+                            "missing required columns: "
+                            f"{', '.join(sorted(missing_required_columns))}"
+                        ),
                     )
                 )
                 continue
@@ -239,7 +242,9 @@ class BaseDatabaseManager(DatabaseManager):
                 rejected_row.row,
             )
 
-    def _log_no_valid_rows(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
+    def _log_no_valid_rows(
+        self, table_name: str, prepared_payload: PreparedDatabasePayload
+    ) -> None:
         """Log when no valid rows are available for processing."""
         self.logger.warning(
             "No valid rows to process for table %s: sender=%s submitted=%s rejected=%s",
@@ -262,7 +267,9 @@ class BaseDatabaseManager(DatabaseManager):
         Raises:
             NormalizingRowsException: If payload validation fails.
         """
-        payload: DatabasePayload = data if isinstance(data, DatabasePayload) else DatabasePayload(data=data)
+        payload: DatabasePayload = (
+            data if isinstance(data, DatabasePayload) else DatabasePayload(data=data)
+        )
         rows: list[DatabaseRows] = cls._normalize_rows(payload.data)
         n_rows: int = len(rows)
 
@@ -271,7 +278,9 @@ class BaseDatabaseManager(DatabaseManager):
                 f"Payload row count mismatch: n_rows={payload.n_rows}, actual_rows={n_rows}."
             )
         if payload.request_type != DatabaseRequestType.PUSH_DATA:
-            raise NormalizingRowsException(f"Unsupported database request type: {payload.request_type}.")
+            raise NormalizingRowsException(
+                f"Unsupported database request type: {payload.request_type}."
+            )
 
         return dataclasses.replace(payload, data=rows, n_rows=n_rows)
 

@@ -10,7 +10,9 @@ import requests
 
 OPENWEATHER_BASE_URL: str = fetch_config_value("consts.conf", "openweather.base_url")
 API_KEY_ENV_VAR: str = fetch_config_value("consts.conf", "openweather.api_key_env_var")
-DEFAULT_TIMEOUT_SECONDS: float = float(fetch_config_value("consts.conf", "openweather.default_timeout_seconds"))
+DEFAULT_TIMEOUT_SECONDS: float = float(
+    fetch_config_value("consts.conf", "openweather.default_timeout_seconds")
+)
 DEFAULT_CITY: str = fetch_config_value("consts.conf", "openweather.default_city")
 
 
@@ -38,7 +40,9 @@ class OpenWeatherFetchManager:
         self.api_key: str = api_key
         self.timeout: float = timeout
         self.callbacks: list[typing.Callable] = (
-            init_callbacks if isinstance(init_callbacks, list) else [init_callbacks] if init_callbacks else []
+            init_callbacks
+            if isinstance(init_callbacks, list)
+            else [init_callbacks] if init_callbacks else []
         )
         self.session: requests.Session = requests.Session()
 
@@ -56,9 +60,13 @@ class OpenWeatherFetchManager:
         """Fetch weather data for one city without blocking the event loop."""
         return await asyncio.to_thread(self._fetch_city_data, city, **kwargs)
 
-    async def fetch_cities(self, cities: typing.Iterable[str], **kwargs: typing.Any) -> list[OpenWeatherData]:
+    async def fetch_cities(
+        self, cities: typing.Iterable[str], **kwargs: typing.Any
+    ) -> list[OpenWeatherData]:
         """Fetch data from many cities without blocking the event loop."""
-        tasks: list[typing.Awaitable[OpenWeatherData]] = [self.fetch_city(city, **kwargs) for city in cities]
+        tasks: list[typing.Awaitable[OpenWeatherData]] = [
+            self.fetch_city(city, **kwargs) for city in cities
+        ]
         results = asyncio.gather(*tasks)
         return await results
 

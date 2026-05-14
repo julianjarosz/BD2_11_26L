@@ -13,7 +13,9 @@ from scripts.utils import fetch_config_value
 DatabaseParams = typing.Sequence[typing.Any] | typing.Mapping[str, typing.Any]
 DatabaseRow = typing.Mapping[str, typing.Any]
 DatabaseRows = DatabaseRow | typing.Sequence[DatabaseRow]
-DEFAULT_DATABASE_PAYLOAD_SENDER: str = fetch_config_value("consts.conf", "database_payload.default_sender")
+DEFAULT_DATABASE_PAYLOAD_SENDER: str = fetch_config_value(
+    "consts.conf", "database_payload.default_sender"
+)
 
 
 class DatabaseRequestType(enum.StrEnum):
@@ -28,7 +30,9 @@ class DatabasePayload:
 
     data: DatabaseRows
     n_rows: int | None = None
-    created_at: datetime.datetime = dataclasses.field(default_factory=lambda: datetime.datetime.now(datetime.UTC))
+    created_at: datetime.datetime = dataclasses.field(
+        default_factory=lambda: datetime.datetime.now(datetime.UTC)
+    )
     request_type: DatabaseRequestType = DatabaseRequestType.PUSH_DATA
     sender: str = DEFAULT_DATABASE_PAYLOAD_SENDER
 

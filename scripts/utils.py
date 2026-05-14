@@ -1,3 +1,5 @@
+"""Utility helpers for loading configuration values and environment-based API keys."""
+
 import configparser
 from pathlib import Path
 import os
@@ -26,7 +28,9 @@ def fetch_config_value(config_filename: str, value_name: str) -> str:
     if parser.has_option(configparser.DEFAULTSECT, value_name):
         return parser.get(configparser.DEFAULTSECT, value_name).strip()
 
-    matching_sections = [section for section in parser.sections() if parser.has_option(section, value_name)]
+    matching_sections = [
+        section for section in parser.sections() if parser.has_option(section, value_name)
+    ]
     if len(matching_sections) == 1:
         return parser.get(matching_sections[0], value_name).strip()
     if len(matching_sections) > 1:

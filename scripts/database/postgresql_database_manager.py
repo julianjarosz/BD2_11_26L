@@ -161,7 +161,9 @@ class PostgreSQLDatabaseManager(BaseDatabaseManager):
 
         try:
             with self.connection.cursor() as cursor:
-                self._insert_row_groups(cursor, table_name, prepared_payload.payload, rows_by_columns)
+                self._insert_row_groups(
+                    cursor, table_name, prepared_payload.payload, rows_by_columns
+                )
             self.connection.commit()
         except Exception:
             self.connection.rollback()
@@ -251,7 +253,9 @@ class PostgreSQLDatabaseManager(BaseDatabaseManager):
             Number of rows accepted for insertion.
         """
 
-        prepared_payload: PreparedDatabasePayload = self._prepare_payload_for_insert(table_name, data)
+        prepared_payload: PreparedDatabasePayload = self._prepare_payload_for_insert(
+            table_name, data
+        )
         self._log_payload_received(table_name, prepared_payload.payload)
         self._log_rejected_rows(table_name, prepared_payload.rejected_rows)
 
@@ -369,7 +373,9 @@ class PostgreSQLDatabaseManager(BaseDatabaseManager):
             columns,
         )
 
-    def _log_payload_insert_failed(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
+    def _log_payload_insert_failed(
+        self, table_name: str, prepared_payload: PreparedDatabasePayload
+    ) -> None:
         self.logger.exception(
             "Failed to insert database payload: sender=%s table=%s valid_rows=%s rejected_rows=%s",
             prepared_payload.payload.sender,
@@ -378,7 +384,9 @@ class PostgreSQLDatabaseManager(BaseDatabaseManager):
             len(prepared_payload.rejected_rows),
         )
 
-    def _log_payload_inserted(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
+    def _log_payload_inserted(
+        self, table_name: str, prepared_payload: PreparedDatabasePayload
+    ) -> None:
         self.logger.info(
             "Inserted database payload: sender=%s table=%s inserted=%s rejected=%s",
             prepared_payload.payload.sender,

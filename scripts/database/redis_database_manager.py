@@ -161,7 +161,9 @@ class RedisDatabaseManager(BaseDatabaseManager):
         Returns:
             Number of rows accepted for storage.
         """
-        prepared_payload: PreparedDatabasePayload = self._prepare_payload_for_operation(table_name, data)
+        prepared_payload: PreparedDatabasePayload = self._prepare_payload_for_operation(
+            table_name, data
+        )
         self._log_payload_received(table_name, prepared_payload.payload)
         self._log_rejected_rows(table_name, prepared_payload.rejected_rows)
 
@@ -173,7 +175,9 @@ class RedisDatabaseManager(BaseDatabaseManager):
         self._log_payload_stored(table_name, prepared_payload)
         return stored_rows
 
-    def fetch_data(self, pattern: str, scan_count: int = DEFAULT_REDIS_SCAN_COUNT) -> list[DatabaseRow]:
+    def fetch_data(
+        self, pattern: str, scan_count: int = DEFAULT_REDIS_SCAN_COUNT
+    ) -> list[DatabaseRow]:
         """Retrieve rows from Redis matching a key pattern.
 
         This method uses Redis SCAN to efficiently retrieve data matching a
@@ -220,7 +224,9 @@ class RedisDatabaseManager(BaseDatabaseManager):
         deleted = 0
 
         while True:
-            cursor, keys = self.connection.scan(cursor, match=pattern, count=DEFAULT_REDIS_SCAN_COUNT)
+            cursor, keys = self.connection.scan(
+                cursor, match=pattern, count=DEFAULT_REDIS_SCAN_COUNT
+            )
             if keys:
                 deleted += self.connection.delete(*keys)
             if cursor == 0:
@@ -233,7 +239,9 @@ class RedisDatabaseManager(BaseDatabaseManager):
         """Close the Redis connection."""
         self.connection.close()
 
-    def _log_payload_store_failed(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
+    def _log_payload_store_failed(
+        self, table_name: str, prepared_payload: PreparedDatabasePayload
+    ) -> None:
         self.logger.exception(
             "Failed to store database payload: sender=%s table=%s valid_rows=%s rejected_rows=%s",
             prepared_payload.payload.sender,
@@ -242,7 +250,9 @@ class RedisDatabaseManager(BaseDatabaseManager):
             len(prepared_payload.rejected_rows),
         )
 
-    def _log_payload_stored(self, table_name: str, prepared_payload: PreparedDatabasePayload) -> None:
+    def _log_payload_stored(
+        self, table_name: str, prepared_payload: PreparedDatabasePayload
+    ) -> None:
         self.logger.info(
             "Stored database payload: sender=%s table=%s stored=%s rejected=%s",
             prepared_payload.payload.sender,

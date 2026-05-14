@@ -13,7 +13,9 @@ from scripts.database.schema_metadata_store import (
 from scripts.utils import fetch_config_value
 
 REDIS_URL_ENV_VAR: str = fetch_config_value("consts.conf", "redis.url_env_var")
-DEFAULT_SCHEMA_KEY_PREFIX: str = fetch_config_value("consts.conf", "redis.default_schema_key_prefix")
+DEFAULT_SCHEMA_KEY_PREFIX: str = fetch_config_value(
+    "consts.conf", "redis.default_schema_key_prefix"
+)
 DEFAULT_REDIS_SCAN_COUNT: int = int(fetch_config_value("consts.conf", "redis.scan_count"))
 
 
@@ -30,7 +32,9 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
         self.key_prefix = key_prefix
 
     @classmethod
-    def from_url(cls, redis_url: str, *, key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX) -> "RedisSchemaMetadataStore":
+    def from_url(
+        cls, redis_url: str, *, key_prefix: str = DEFAULT_SCHEMA_KEY_PREFIX
+    ) -> "RedisSchemaMetadataStore":
         """Create Redis metadata storage from a Redis connection URL."""
         return cls(RedisDatabaseManager(redis_url), key_prefix=key_prefix)
 
@@ -43,7 +47,9 @@ class RedisSchemaMetadataStore(SchemaMetadataStore):
 
     def set_table_schema(self, schema: TableSchemaMetadata) -> None:
         """Store schema metadata as JSON under a stable Redis key."""
-        self.redis_database_manager.connection.set(self._schema_key(schema.table_name), json.dumps(schema.to_dict()))
+        self.redis_database_manager.connection.set(
+            self._schema_key(schema.table_name), json.dumps(schema.to_dict())
+        )
 
     def get_table_schema(self, table_name: str) -> TableSchemaMetadata | None:
         """Fetch and deserialize schema metadata from Redis."""
