@@ -173,6 +173,14 @@ class PostgreSQLDatabaseManager(DatabaseManager):
     ) -> None:
         self.close()
 
+    def execute(self, query: str, params: DatabaseParams | None = None):
+        try:
+            with self.connection.cursor() as cursor:
+                cursor.execture(query, params)
+            self.connection.commit()
+        except Exception:
+            self.connection.rollback()
+
     def _filter_invalid_rows(
         self, table_name: str, rows: list[DatabaseRow]
     ) -> tuple[list[DatabaseRow], list[RejectedDatabaseRow]]:
