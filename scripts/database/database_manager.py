@@ -3,61 +3,59 @@
 from __future__ import annotations
 
 import abc
-import dataclasses
-import datetime
-import enum
-import typing
-
-from scripts.utils import fetch_config_value
-
-DatabaseParams = typing.Sequence[typing.Any] | typing.Mapping[str, typing.Any]
-DatabaseRow = typing.Mapping[str, typing.Any]
-DatabaseRows = DatabaseRow | typing.Sequence[DatabaseRow]
-DEFAULT_DATABASE_PAYLOAD_SENDER: str = fetch_config_value(
-    "consts.conf", "database_payload.default_sender"
-)
+import database_types as db_types
+from query import Query
+from typing import Any
 
 
-class DatabaseRequestType(enum.StrEnum):
-    """Supported database request categories."""
-
-    PUSH_DATA = "push_data"
-
-
-@dataclasses.dataclass(frozen=True, slots=True)
-class DatabasePayload:
-    """Envelope for database writes with metadata useful for logging."""
-
-    data: DatabaseRows
-    n_rows: int | None = None
-    created_at: datetime.datetime = dataclasses.field(
-        default_factory=lambda: datetime.datetime.now(datetime.UTC)
-    )
-    request_type: DatabaseRequestType = DatabaseRequestType.PUSH_DATA
-    sender: str = DEFAULT_DATABASE_PAYLOAD_SENDER
-
-
-class DatabaseManager(abc.ABC):
+class DatabaseManagerInterface(abc.ABC):
     """Interface for pushing data to and fetching data from a database."""
 
     @abc.abstractmethod
-    def push_data(self, table_name: str, data: DatabaseRows | DatabasePayload) -> int:
-        """Push one or more rows into ``table_name``.
+    def push_data(
+        self,
+        table_name: str,
+        data: db_types.DatabasePayload,
+        **push_op_kwargs: dict[str, Any],
+    ) -> db_types.DatabaseOperationResult:
+        """
+        Push one or more rows into table_name.
+        Parameters:
+            table_name: Name of the table to push data to.
+            data: DatabasePayload containing the data to push.
 
-        Returns the number of rows submitted to the database.
+        Returns:
+            DatabaseOperationResult containing metadata about the operation.
         """
         pass
 
     @abc.abstractmethod
-    def fetch_data(self, query: str, params: DatabaseParams | None = None) -> list[DatabaseRow]:
-        """Fetch rows from the database using ``query`` and optional params."""
+    def fetch_data(
+        self, query: Query | str, **fetch_op_kwargs: dict[str, Any]
+    ) -> db_types.DatabaseOperationResult:
+        """Fetch rows from the database using query or Query object and optional params.
+
+        Parameters:
+            query: SQL query or Query object to execute.
+            fetch_op_kwargs: Optional keyword arguments for the fetch operation.
+
+        Returns:
+            DatabaseOperationResult containing metadata about the operation.
+        """
+        pass
+
+    @abc.abstractmethod
+    def execute(self, query: str | Query, **execute_op_kwargs: dict[str, Any]) -> None:
+        """
+        Executes SQL command that does not return anything using query or Query object and optional params.
+
+        Parameters:
+            query: SQL query or Query object to execute.
+            execute_op_kwargs: Optional keyword arguments for the execute operation.
+        """
         pass
 
     @abc.abstractmethod
     def close(self) -> None:
         """Close database resources held by the manager."""
-
-    @abc.abstractmethod
-    def execute(self, query: str, params: DatabaseParams | None = None) -> None:
-        """Executes SQL command that does not return anything"""
         pass
