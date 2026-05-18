@@ -24,7 +24,7 @@ from scripts.database.database_types import (
     DatabaseRow,
     DatabaseRows,
 )
-from scripts.database.data_schema_cleaner import DataSchemaCleaner
+from scripts.database.data_schema_cleaner import CleaningResults, DataSchemaCleaner
 from scripts.database.schema_metadata_store import (
     ColumnMetadata,
     SchemaMetadataStore,
@@ -33,6 +33,8 @@ from scripts.database.schema_metadata_store import (
 from scripts.errors.database_errors import CleaningException, InvalidRequestType
 from scripts.utils import fetch_config_value
 from scripts.database.database_types import DatabaseOperationResult
+from scripts.database.query import Query
+from scripts.database.query_checker import DatabaseQueryChecker
 
 POSTGRES_DSN_ENV_VAR: str = fetch_config_value("consts.conf", "postgresql.dsn_env_var")
 LOGGER: logging.Logger = logging.getLogger(__name__)
@@ -66,29 +68,18 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
         autocommit: bool = False,
         schema_metadata_store: SchemaMetadataStore | None = None,
         data_schema_cleaner: DataSchemaCleaner | None = None,
+        query_checker: DatabaseQueryChecker | None = None,
         logger: logging.Logger | None = None,
         **connection_kwargs: dict[str, typing.Any],
     ) -> None:
-        """Create a PostgreSQL manager.
-
-        Args:
-            dsn: PostgreSQL connection string. If omitted, connection keyword
-                arguments such as ``host``, ``port``, ``dbname``, ``user`` and
-                ``password`` can be supplied.
-            autocommit: Whether the connection should commit automatically.
-            schema_metadata_store: Optional metadata store used to validate rows
-                before inserting them.
-            data_schema_cleaner: Optional cleaner used to normalize incoming
-                payloads before insert preparation.
-            logger: Optional logger for rejected row messages.
-            connection_kwargs: Additional arguments forwarded to psycopg.
-        """
+        
         super().__init__(
             schema_metadata_store=schema_metadata_store,
             data_schema_cleaner=data_schema_cleaner,
             logger=logger,
             default_logger=LOGGER,
         )
+        self.query_checker: DatabaseQueryChecker | None = query_checker
         self.connection: psycopg.Connection = psycopg.connect(
             dsn,
             autocommit=autocommit,
@@ -100,7 +91,9 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
     def create_from_env(
         cls, context: PostgreSQLDatabaseManagerContext, env_var: str = POSTGRES_DSN_ENV_VAR
     ) -> "PostgreSQLDatabaseManager":
-        """Create a PostgreSQL Database Manager from environment variables."""
+        """
+        Create a PostgreSQL Database Manager from environment variables.
+        """
         dsn: str = os.getenv(env_var, "").strip()
         if not dsn:
             raise ValueError(f"PostgreSQL DSN not found in environment variable {env_var}.")
@@ -109,14 +102,15 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
     def _insert_rows(
         self, table_name: str, payload: DatabasePayload
     ) -> DatabaseOperationResult: ...
+        # TODO - create insertion script for database payload
 
     def push_data(self, table_name: str, payload: DatabasePayload) -> DatabaseOperationResult:
         """
         Method for inserting data into your PostgreSQL database.
 
         Parameters:
-            table_name (str): Name of the table data is going to be inserted
-            data (DatabasePayload): Payload containing data to insert into database
+            * table_name (str): Name of the table data is going to be inserted
+            * data (DatabasePayload): Payload containing data to insert into database
 
         Raises:
             * InvalidRequestType - if payload does not have correct request type
@@ -131,6 +125,7 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
             )
 
         try:
+            # TODO - add validation methods
             self._validate_table(table_name)
             self._validate_payload(payload)
         except Exception:
@@ -140,23 +135,71 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
                     table_name,
                 )
             raise
-
-        cleaned_payload: DatabasePayload = self.data_schema_cleaner.clean_data(payload)
-        insertion_result: DatabaseOperationResult = self._insert_rows(table_name, cleaned_payload)
+        
+        cleaning_results: CleaningResults | None = None
+        if self.data_schema_cleaner is not None:
+            cleaning_results = self.data_schema_cleaner.clean_data(payload, table_name=table_name)
+        
+        insertion_result: DatabaseOperationResult = self._insert_rows(table_name, (
+            cleaning_results.cleaned_payload if cleaning_results is not None else payload
+        ))
 
         return DatabaseOperationResult(
             successful_rows=insertion_result.successful_rows,
-            failed_rows=insertion_result.failed_rows
-            + [
-                FailedRow(
-                    table_name=table_name,
-                    row=deleted_row,
-                    message="Row cleaned during insertion operation",
-                    exception=CleaningException("Row was cleaned"),
-                )
-                for deleted_row in payload.rows.get_difference(insertion_result.rows).rows
-            ],
+            failed_rows=(
+                insertion_result.failed_rows
+                + (cleaning_results.failed_rows if cleaning_results is not None else [])
+            ),
         )
+        
+    def fetch_data(self, query: Query | str, params: DatabaseParams | None = None) -> DatabaseOperationResult:
+        """
+        Method for fetching data from your PostgreSQL database.
+        
+        Parameters:
+            * query (Query | str) - Query to be executed while fetching data
+            * params (DatabaseParams | None) - Additional params for fetching database rows
+            
+        Raises:
+            * Exceptions connected to Query Security Check, if checker is present
+            
+        Returns:
+            DatabaseOperationResult - Result of fetch operation performed on your database
+        """
+        if self.query_checker is not None:
+            try:
+                self.query_checker.safe_check_query(str(query))
+            except Exception:
+                self.logger.exception("Query security check failed.")
+                raise
+        
+        with self.connection.cursor() as cursor:
+            try:
+                cursor.execute(str(query), params)
+            except Exception:
+                self.logger.exception("Cursor failed to execute query with params")
+                raise
+
+            successful_rows: list[DatabaseRow] = []
+            failed_rows: list[FailedRow] = []
+
+            while row := cursor.fetchone():
+                try:
+                    successful_rows.append(typing.cast(DatabaseRow, row))
+                except Exception as exc:
+                    failed_rows.append(
+                        FailedRow(
+                            table_name="",
+                            row=typing.cast(DatabaseRow, row),
+                            message="Fetched row failed validation",
+                            exception=exc,
+                        )
+                    )
+
+            return DatabaseOperationResult(
+                successful_rows=successful_rows,
+                failed_rows=failed_rows,
+            )
 
     def cache_table_schema(self, table_name: str) -> TableSchemaMetadata:
         if self.schema_metadata_store is None:
@@ -191,31 +234,6 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
         )
         self.schema_metadata_store.set_table_schema(schema)
         return schema
-
-    def fetch_data(self, query: str, params: DatabaseParams | None = None) -> list[DatabaseRow]:
-        """Run a read query and return result rows as dictionaries.
-
-        The manager connection is configured with psycopg's ``dict_row`` row
-        factory, so every returned row behaves like a mapping from column name
-        to value. That makes callers such as ``cache_table_schema`` easier to
-        read because they can access ``row["column_name"]`` instead of relying
-        on tuple positions.
-
-        ``params`` should be used for dynamic values instead of formatting them
-        into the SQL string. Psycopg will bind those parameters safely when
-        executing the query.
-
-        Args:
-            query: SQL read query to execute.
-            params: Optional sequence or mapping of parameters for the query.
-
-        Returns:
-            A list of row mappings. If the query returns no rows, the list is
-            empty.
-        """
-        with self.connection.cursor() as cursor:
-            cursor.execute(query, params)
-            return list(cursor.fetchall())
 
     def execute(self, query: str, params: DatabaseParams | None = None) -> None:
         """Run a SQL command that does not return rows."""
