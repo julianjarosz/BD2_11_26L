@@ -5,6 +5,8 @@ from typing import Protocol, Any, runtime_checkable, final
 from schema_metadata_store import SchemaMetadataStore
 from dataclasses import dataclass
 from step_raport_generator import StepRaportGenerator
+from database_payload import DatabasePayload
+from database_types import FailedRow
 
 
 @dataclass(frozen=True, slots=True)
@@ -25,8 +27,15 @@ class CleaningStep:
     exception: Exception | None
 
 
+@dataclass(frozen=True, slots=True)
+class CleaningResults:
+    # TODO - add docs for this dataclass
+    cleaned_payload: DatabasePayload
+    failed_rows: list[FailedRow]
+
+
 @runtime_checkable
-class DatabaseSchemaCleaner(Protocol):
+class DataSchemaCleaner(Protocol):
     """Database schema cleaner interface"""
 
     schema_store: SchemaMetadataStore
@@ -58,13 +67,18 @@ class DatabaseSchemaCleaner(Protocol):
         Logs single cleaning_step during cleaning
 
         Parameters:
-            data: Provided data to be logged
+            cleaning_step: Cleaning step to be logged
             args: Provided arguments by user to provide sufficient logging
             kwargs: Provided keyword arguments by user to provide sufficient logging
         """
         ...
 
-    def clean_data(self, data, *args: tuple, **kwargs: dict[str, Any]):
+    def clean_data(
+        self,
+        data: DatabasePayload,
+        *args: tuple,
+        **kwargs: dict[str, Any],
+    ) -> CleaningResults:
         """
         Clean provided data based on the schema metadata for the given table.
 
@@ -73,7 +87,7 @@ class DatabaseSchemaCleaner(Protocol):
             data: DatabasePayload containing the data to clean.
 
         Returns:
-            DatabasePayload containing the cleaned data.
+            CleaningResults containing the cleaned payload and rows that failed cleaning.
 
         Raises:
             NotImplementedError: If the subclass does not implement this method.
