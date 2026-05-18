@@ -229,6 +229,16 @@ class PostgreSQLDatabaseManager(DatabaseManagerWithSchemaValidation):
     def _insert_single_rows(
         self, table_name: str, payload: DatabasePayload
     ) -> DatabaseOperationResult:
+        """
+        Insert payload rows one by one, committing successful rows individually.
+
+        Parameters:
+            table_name (str): Name of the table to insert data into.
+            payload (DatabasePayload): Payload containing rows to insert.
+
+        Returns:
+            DatabaseOperationResult: Successful rows and rows that failed with their errors.
+        """
         successful_rows: list[DatabaseRow] = []
         failed_rows: list[FailedRow] = []
 
