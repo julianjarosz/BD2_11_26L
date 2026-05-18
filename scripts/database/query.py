@@ -19,6 +19,9 @@ class Query:
         self._args: tuple = args
         self._kwargs: dict[str, Any] = kwargs
 
+    def __str__(self) -> str:
+        return self._query
+
     @property
     def query_string(self) -> str:
         return self._query
