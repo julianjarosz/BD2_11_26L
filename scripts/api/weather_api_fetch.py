@@ -26,7 +26,7 @@ class API_URL_KEY:
         
 @final
 class OpenWeatherFetchManager:
-    
+
     def __init__(
         self,
         api_url_key_collection: list[API_URL_KEY],
@@ -82,10 +82,15 @@ class OpenWeatherFetchManager:
             raw_buffer[raw_field] = self._take_value(all_values)
 
         return OpenWeatherData.from_api_response(raw_buffer)            
+    
+    def _fetch_data(self, city: str, **kwargs: dict[str, Any]) -> OpenWeatherData:
+        data: dict = self._fetch_city_data_from_all_apis(city, **kwargs)
+        openweather_data: OpenWeatherData = self._merge_data_from_api(data)
+        return openweather_data
 
     async def fetch_city(self, city: str, **kwargs: dict[str, Any]) -> OpenWeatherData:
         """Fetch weather data for one city without blocking the event loop."""
-        return await asyncio.to_thread(self._fetch_city_data_from_all_apis, city, **kwargs)
+        return await asyncio.to_thread(self._fetch_data, city, **kwargs)
 
     async def fetch_cities(
         self, cities: Iterable[str], **kwargs: Any
