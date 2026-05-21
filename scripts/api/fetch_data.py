@@ -7,12 +7,9 @@ from urllib.request import urlopen
 
 from api_struct import OpenWeatherDataParser
 
-
 config = configparser.ConfigParser()
 
-config.read(
-    Path(__file__).parent / "api.conf"
-)
+config.read(Path(__file__).parent / "api.conf")
 
 api = config["openweather"]
 
@@ -23,16 +20,12 @@ def fetch_json(url: str) -> dict:
 
     with urlopen(url) as response:
 
-        return json.loads(
-            response.read().decode("utf-8")
-        )
+        return json.loads(response.read().decode("utf-8"))
 
 
 def build_url(base_url: str) -> str:
 
-    return base_url.format(
-        OPENWEATHER_API_KEY=api_key
-    )
+    return base_url.format(OPENWEATHER_API_KEY=api_key)
 
 
 def main():
