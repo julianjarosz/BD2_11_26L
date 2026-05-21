@@ -19,13 +19,13 @@ class BatchRowInsertQueryBuilder(
 
     __slots__ = ("_grouped_rows_by_columns",)
 
-    def __init__(self, table_name: str, rows: Collection[DatabaseRow]) -> None:
+    def __init__(self, table_name: str, data: Collection[DatabaseRow]) -> None:
         """
         Initialize the query builder.
 
         Parameters:
             table_name: Table name, optionally schema-qualified.
-            rows: Rows to insert. Rows with different column sets are inserted by
+            data: Rows to insert. Rows with different column sets are inserted by
                 separate queries.
 
         Raises:
@@ -34,7 +34,7 @@ class BatchRowInsertQueryBuilder(
             ValueError: If any column name is empty.
         """
         self._grouped_rows_by_columns: dict[tuple[str, ...], list[DatabaseRow]] = (
-            self._group_rows_by_columns(rows)
+            self._group_rows_by_columns(data)
         )
         super().__init__(table_name=table_name)
 

@@ -16,27 +16,27 @@ class SingleRowInsertQueryBuilder(BaseQueryBuilder[sql.Composed, tuple[Any, ...]
 
     __slots__ = ("_columns", "_row")
 
-    def __init__(self, table_name: str, row: Mapping[str, Any]) -> None:
+    def __init__(self, table_name: str, data: Mapping[str, Any]) -> None:
         """
         Initialize the query builder.
 
         Parameters:
             table_name: Table name, optionally schema-qualified.
-            row: Mapping of column names to inserted values.
+            data: Mapping of column names to inserted values.
 
         Raises:
             InvalidTableException: If the table name is empty.
             ValueError: If any column name is empty.
             EmptyRowException: If the row has no columns.
         """
-        if not row:
-            raise EmptyRowException("Cannot build insert query for an empty row.", row=row)
+        if not data:
+            raise EmptyRowException("Cannot build insert query for an empty row.", row=data)
 
-        columns: tuple[str, ...] = tuple(row.keys())
+        columns: tuple[str, ...] = tuple(data.keys())
         self._validate_columns(columns)
 
         self._columns: tuple[str, ...] = columns
-        self._row: Mapping[str, Any] = row
+        self._row: Mapping[str, Any] = data
         super().__init__(table_name=table_name)
 
     def _build_query(self) -> sql.Composed:
