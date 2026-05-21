@@ -2,14 +2,18 @@
 
 from __future__ import annotations
 
-from typing import cast
+from typing import cast, Any
 from logging import Logger
 from psycopg import sql
 import psycopg
 
 from scripts.database.executors.postgresql_query_executor import PostgreSQLQueryExecutor
 from scripts.database.fetchers.base_fetcher import BaseFetcher
-from scripts.database.models.database_types import DatabaseOperationResult, DatabaseParams, DatabaseRow
+from scripts.database.models.database_types import (
+    DatabaseOperationResult,
+    DatabaseParams,
+    DatabaseRow,
+)
 from scripts.database.models.query import Query
 
 
@@ -37,12 +41,16 @@ class PostgreSQLDatabaseFetcher(BaseFetcher[Query | str | sql.Composed, Database
         self.logger: Logger | None = logger
 
     def fetch(
-        self, query: Query | str | sql.Composed, params: DatabaseParams | None = None
+        self,
+        query: Query | str | sql.Composed,
+        params: DatabaseParams | None = None,
+        **exec_kwargs: dict[str, Any],
     ) -> DatabaseOperationResult:
         fetched_rows: list[DatabaseRow] | None = self.query_executor.execute(
             query=query,
             params=params,
             cursor_callback=PostgreSQLCursorFetchCallback(self.logger),
+            **exec_kwargs,
         )
 
         return DatabaseOperationResult(successful_rows=fetched_rows, failed_rows=[])
