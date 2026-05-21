@@ -1,4 +1,4 @@
-CREATE TABLE mapped_data_buffer (
+CREATE TABLE IF NOT EXISTS mapped_data_buffer (
     mapped_data_buffer_id                    bigserial PRIMARY KEY,
     fetched_at                                timestamptz NOT NULL DEFAULT now(),
 
