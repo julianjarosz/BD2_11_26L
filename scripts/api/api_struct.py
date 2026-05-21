@@ -147,179 +147,226 @@ def ts(value: int | None) -> datetime | None:
     return datetime.fromtimestamp(value, UTC)
 
 
-def parse_location(
-    data: dict,
-    city_name: str | None = None,
-    country_code: str | None = None,
-) -> Location:
-    return Location(
-        city_name=city_name,
-        country_code=country_code,
-        lat=data["lat"],
-        lon=data["lon"],
-        timezone=data.get("timezone"),
-        timezone_offset=data.get("timezone_offset"),
-    )
+class OpenWeatherDataParser:
+    def parse_location(
+        self,
+        data: dict,
+        city_name: str | None = None,
+        country_code: str | None = None,
+    ) -> Location:
+        return Location(
+            city_name=city_name,
+            country_code=country_code,
+            lat=data["lat"],
+            lon=data["lon"],
+            timezone=data.get("timezone"),
+            timezone_offset=data.get("timezone_offset"),
+        )
 
+    def parse_weather_condition(self, weather: dict) -> WeatherCondition:
+        return WeatherCondition(
+            openweather_weather_id=weather["id"],
+            main=weather["main"],
+            description=weather["description"],
+            icon=weather.get("icon"),
+        )
 
-def parse_weather_condition(weather: dict) -> WeatherCondition:
-    return WeatherCondition(
-        openweather_weather_id=weather["id"],
-        main=weather["main"],
-        description=weather["description"],
-        icon=weather.get("icon"),
-    )
+    def parse_current_weather(
+        self,
+        data: dict,
+        city_name: str | None = None,
+        country_code: str | None = None,
+    ) -> CurrentWeather:
+        current = data["current"]
 
+        return CurrentWeather(
+            location=self.parse_location(data, city_name, country_code),
+            weather_condition=self.parse_weather_condition(current["weather"][0]),
 
-def parse_current_weather(
-    data: dict,
-    city_name: str | None = None,
-    country_code: str | None = None,
-) -> CurrentWeather:
-    current = data["current"]
+            observed_at=ts(current["dt"]),
+            sunrise_at=ts(current.get("sunrise")),
+            sunset_at=ts(current.get("sunset")),
 
-    return CurrentWeather(
-        location=parse_location(data, city_name, country_code),
-        weather_condition=parse_weather_condition(current["weather"][0]),
+            temp=current["temp"],
+            feels_like=current.get("feels_like"),
+            pressure=current.get("pressure"),
+            humidity=current.get("humidity"),
+            dew_point=current.get("dew_point"),
+            uvi=current.get("uvi"),
+            clouds=current.get("clouds"),
+            visibility=current.get("visibility"),
+            wind_speed=current.get("wind_speed"),
+            wind_deg=current.get("wind_deg"),
+            wind_gust=current.get("wind_gust"),
+            rain_1h=current.get("rain", {}).get("1h"),
+            snow_1h=current.get("snow", {}).get("1h"),
+        )
 
-        observed_at=ts(current["dt"]),
-        sunrise_at=ts(current.get("sunrise")),
-        sunset_at=ts(current.get("sunset")),
+    def parse_daily_forecast(
+        self,
+        day: dict,
+        location: Location,
+        retrieved_at: datetime | None = None,
+    ) -> DailyForecast:
+        return DailyForecast(
+            location=location,
+            weather_condition=self.parse_weather_condition(day["weather"][0]),
 
-        temp=current["temp"],
-        feels_like=current.get("feels_like"),
-        pressure=current.get("pressure"),
-        humidity=current.get("humidity"),
-        dew_point=current.get("dew_point"),
-        uvi=current.get("uvi"),
-        clouds=current.get("clouds"),
-        visibility=current.get("visibility"),
-        wind_speed=current.get("wind_speed"),
-        wind_deg=current.get("wind_deg"),
-        wind_gust=current.get("wind_gust"),
-        rain_1h=current.get("rain", {}).get("1h"),
-        snow_1h=current.get("snow", {}).get("1h"),
-    )
+            forecast_date=ts(day["dt"]).date(),
+            retrieved_at=retrieved_at or datetime.now(UTC),
 
+            sunrise_at=ts(day.get("sunrise")),
+            sunset_at=ts(day.get("sunset")),
+            moonrise_at=ts(day.get("moonrise")),
+            moonset_at=ts(day.get("moonset")),
+            moonphase=day.get("moon_phase"),
 
-def parse_daily_forecast(
-    day: dict,
-    location: Location,
-    retrieved_at: datetime | None = None,
-) -> DailyForecast:
-    return DailyForecast(
-        location=location,
-        weather_condition=parse_weather_condition(day["weather"][0]),
+            temp_day=day.get("temp", {}).get("day"),
+            temp_min=day.get("temp", {}).get("min"),
+            temp_max=day.get("temp", {}).get("max"),
+            temp_night=day.get("temp", {}).get("night"),
+            temp_evening=day.get("temp", {}).get("eve"),
+            temp_morning=day.get("temp", {}).get("morn"),
+            feels_like_day=day.get("feels_like", {}).get("day"),
+            feels_like_night=day.get("feels_like", {}).get("night"),
 
-        forecast_date=ts(day["dt"]).date(),
-        retrieved_at=retrieved_at or datetime.now(UTC),
+            pressure=day.get("pressure"),
+            humidity=day.get("humidity"),
+            dew_point=day.get("dew_point"),
+            wind_speed=day.get("wind_speed"),
+            wind_deg=day.get("wind_deg"),
+            wind_gust=day.get("wind_gust"),
+            clouds=day.get("clouds"),
+            pop=day.get("pop"),
+            rain=day.get("rain"),
+            snow=day.get("snow"),
+            uvi=day.get("uvi"),
+        )
 
-        sunrise_at=ts(day.get("sunrise")),
-        sunset_at=ts(day.get("sunset")),
-        moonrise_at=ts(day.get("moonrise")),
-        moonset_at=ts(day.get("moonset")),
-        moonphase=day.get("moon_phase"),
+    def parse_hourly_forecast(
+        self,
+        hour: dict,
+        location: Location,
+        retrieved_at: datetime | None = None,
+    ) -> HourlyForecast:
+        return HourlyForecast(
+            location=location,
+            weather_condition=self.parse_weather_condition(hour["weather"][0]),
 
-        temp_day=day.get("temp", {}).get("day"),
-        temp_min=day.get("temp", {}).get("min"),
-        temp_max=day.get("temp", {}).get("max"),
-        temp_night=day.get("temp", {}).get("night"),
-        temp_evening=day.get("temp", {}).get("eve"),
-        temp_morning=day.get("temp", {}).get("morn"),
-        feels_like_day=day.get("feels_like", {}).get("day"),
-        feels_like_night=day.get("feels_like", {}).get("night"),
+            forecast_for=ts(hour["dt"]),
+            retrieved_at=retrieved_at or datetime.now(UTC),
 
-        pressure=day.get("pressure"),
-        humidity=day.get("humidity"),
-        dew_point=day.get("dew_point"),
-        wind_speed=day.get("wind_speed"),
-        wind_deg=day.get("wind_deg"),
-        wind_gust=day.get("wind_gust"),
-        clouds=day.get("clouds"),
-        pop=day.get("pop"),
-        rain=day.get("rain"),
-        snow=day.get("snow"),
-        uvi=day.get("uvi"),
-    )
+            temp=hour["temp"],
+            feels_like=hour.get("feels_like"),
+            pressure=hour.get("pressure"),
+            humidity=hour.get("humidity"),
+            dew_point=hour.get("dew_point"),
+            uvi=hour.get("uvi"),
+            clouds=hour.get("clouds"),
+            visibility=hour.get("visibility"),
+            pop=hour.get("pop"),
+            wind_speed=hour.get("wind_speed"),
+            wind_deg=hour.get("wind_deg"),
+            wind_gust=hour.get("wind_gust"),
+            rain_1h=hour.get("rain", {}).get("1h"),
+            snow_1h=hour.get("snow", {}).get("1h"),
+        )
 
+    def parse_minutely_forecast(
+        self,
+        minute: dict,
+        location: Location,
+        retrieved_at: datetime | None = None,
+    ) -> MinutelyForecast:
+        return MinutelyForecast(
+            location=location,
+            forecast_for=ts(minute["dt"]),
+            retrieved_at=retrieved_at or datetime.now(UTC),
+            precipitation=minute["precipitation"],
+        )
 
-def parse_hourly_forecast(
-    hour: dict,
-    location: Location,
-    retrieved_at: datetime | None = None,
-) -> HourlyForecast:
-    return HourlyForecast(
-        location=location,
-        weather_condition=parse_weather_condition(hour["weather"][0]),
+    def parse_air_pollution(
+        self,
+        data: dict,
+        location: Location,
+    ) -> AirPollution:
+        item = data["list"][0]
+        components = item["components"]
 
-        forecast_for=ts(hour["dt"]),
-        retrieved_at=retrieved_at or datetime.now(UTC),
+        return AirPollution(
+            location=location,
 
-        temp=hour["temp"],
-        feels_like=hour.get("feels_like"),
-        pressure=hour.get("pressure"),
-        humidity=hour.get("humidity"),
-        dew_point=hour.get("dew_point"),
-        uvi=hour.get("uvi"),
-        clouds=hour.get("clouds"),
-        visibility=hour.get("visibility"),
-        pop=hour.get("pop"),
-        wind_speed=hour.get("wind_speed"),
-        wind_deg=hour.get("wind_deg"),
-        wind_gust=hour.get("wind_gust"),
-        rain_1h=hour.get("rain", {}).get("1h"),
-        snow_1h=hour.get("snow", {}).get("1h"),
-    )
+            observed_at=ts(item["dt"]),
+            aqi=item["main"]["aqi"],
 
+            co=components.get("co"),
+            no=components.get("no"),
+            no2=components.get("no2"),
+            o3=components.get("o3"),
+            so2=components.get("so2"),
+            pm2_5=components.get("pm2_5"),
+            pm10=components.get("pm10"),
+            nh3=components.get("nh3"),
+        )
 
-def parse_minutely_forecast(
-    minute: dict,
-    location: Location,
-    retrieved_at: datetime | None = None,
-) -> MinutelyForecast:
-    return MinutelyForecast(
-        location=location,
-        forecast_for=ts(minute["dt"]),
-        retrieved_at=retrieved_at or datetime.now(UTC),
-        precipitation=minute["precipitation"],
-    )
+    def parse_weather_alert(
+        self,
+        alert: dict,
+        location: Location,
+    ) -> WeatherAlert:
+        return WeatherAlert(
+            location=location,
 
+            sender_name=alert.get("sender_name"),
+            event=alert["event"],
+            start_at=ts(alert["start"]),
+            end_at=ts(alert["end"]),
+            description=alert.get("description"),
+            tags=",".join(alert.get("tags", [])) if alert.get("tags") else None,
+        )
 
-def parse_air_pollution(
-    data: dict,
-    location: Location,
-) -> AirPollution:
-    item = data["list"][0]
-    components = item["components"]
+    def parse_data(
+        self,
+        current_weather_data: dict,
+        daily_forecast_data: dict,
+        hourly_forecast_data: dict,
+        minutely_forecast_data: dict,
+        weather_alerts_data: dict,
+        air_pollution_data: dict,
+        city_name: str | None = None,
+        country_code: str | None = None,
+    ) -> dict[str, object]:
+        location = self.parse_location(
+            daily_forecast_data,
+            city_name=city_name,
+            country_code=country_code,
+        )
+        retrieved_at = datetime.now(UTC)
 
-    return AirPollution(
-        location=location,
-
-        observed_at=ts(item["dt"]),
-        aqi=item["main"]["aqi"],
-
-        co=components.get("co"),
-        no=components.get("no"),
-        no2=components.get("no2"),
-        o3=components.get("o3"),
-        so2=components.get("so2"),
-        pm2_5=components.get("pm2_5"),
-        pm10=components.get("pm10"),
-        nh3=components.get("nh3"),
-    )
-
-
-def parse_weather_alert(
-    alert: dict,
-    location: Location,
-) -> WeatherAlert:
-    return WeatherAlert(
-        location=location,
-
-        sender_name=alert.get("sender_name"),
-        event=alert["event"],
-        start_at=ts(alert["start"]),
-        end_at=ts(alert["end"]),
-        description=alert.get("description"),
-        tags=",".join(alert.get("tags", [])) if alert.get("tags") else None,
-    )
+        return {
+            "current_weather": self.parse_current_weather(
+                current_weather_data,
+                city_name=city_name,
+                country_code=country_code,
+            ),
+            "daily_forecasts": [
+                self.parse_daily_forecast(day, location, retrieved_at)
+                for day in daily_forecast_data["daily"]
+            ],
+            "hourly_forecasts": [
+                self.parse_hourly_forecast(hour, location, retrieved_at)
+                for hour in hourly_forecast_data["hourly"]
+            ],
+            "minutely_forecasts": [
+                self.parse_minutely_forecast(minute, location, retrieved_at)
+                for minute in minutely_forecast_data["minutely"]
+            ],
+            "weather_alerts": [
+                self.parse_weather_alert(alert, location)
+                for alert in weather_alerts_data.get("alerts", [])
+            ],
+            "air_pollution": self.parse_air_pollution(
+                air_pollution_data,
+                location,
+            ),
+        }
