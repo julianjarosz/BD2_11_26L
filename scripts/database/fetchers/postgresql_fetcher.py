@@ -18,6 +18,9 @@ from scripts.database.models.query import Query
 
 
 class PostgreSQLCursorFetchCallback:
+
+    __slots__ = "cb_logger"
+
     def __init__(self, logger: Logger | None = None) -> None:
         self.cb_logger: Logger | None = logger
 
