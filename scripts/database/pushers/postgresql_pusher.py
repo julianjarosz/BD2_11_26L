@@ -20,53 +20,60 @@ class PostgreSQLDatabasePusher:
         self.autocommit: bool = autocommit
         self.builder_t: type[BaseQueryBuilder] = builder_t
 
-    def _prepare_query_and_params(self, table_name: str, data) -> tuple:
+        self.successful_rows: list[DatabaseRow] = []
+        self.failed_rows: list[FailedRow] = []
+
+    def _clean_buffers(self) -> None:
+        self.successful_rows.clear()
+        self.failed_rows.clear()
+
+    def _build_result(self) -> DatabaseOperationResult:
+        return DatabaseOperationResult(
+            successful_rows=self.successful_rows, failed_rows=self.failed_rows
+        )
+
+    def _prepare_insert_items(self, table_name: str, data: list[DatabaseRow]) -> list[tuple]:
         query_builder = self.builder_t(table_name=table_name, data=data)
-        return query_builder.get_query(), query_builder.get_params()
 
-    def _normalize_query_param(self, q: Any, p: Any) -> dict:
-        # Maps queries to params
-        # Batch version
-        if isinstance(q, dict) and isinstance(p, dict):
-            assert q.keys() == p.keys()
-            return {q[columns_key]: p[columns_key] for columns_key in list(q.keys())}
+        query = query_builder.get_query()
+        params = query_builder.get_params()
 
-        # Single row version
-        elif isinstance(q, sql.Composed) and isinstance(p, tuple):
-            return {q: p}
-        
-        else:
-            raise TypeError("Unsupported type of quries or params")
+        if isinstance(query, dict) and isinstance(params, dict):
+            grouped_rows = query_builder.get_grouped_rows_by_columns()
+
+            return [
+                (query[columns], params[columns], grouped_rows[columns])
+                for columns in query
+            ]
+
+        return [(query, params, data)]
 
     def insert(self, table_name: str, rows: list[DatabaseRow]) -> DatabaseOperationResult:
+        self._clean_buffers()
         if not rows:
-            return DatabaseOperationResult(successful_rows=[], failed_rows=[])
-        query, params = self._prepare_query_and_params(table_name, rows)
-        query_params_map: dict = self._normalize_query_param(query, params)
+            return self._build_result()
+        query_params_row_collection: list[tuple] = self._prepare_insert_items(table_name=table_name, data=rows)
 
         with self.connection.cursor() as conn_cursor:
 
-            try:
-                for query, params in query_params_map.items():
+            for query, params, grouped_rows in query_params_row_collection:
+                try:
                     conn_cursor.execute(query, params)
+                    if not self.autocommit:
+                        self.connection.commit()
+                    self.successful_rows.extend(grouped_rows)
 
-                if not self.autocommit:
-                    self.connection.commit()
-
-                return DatabaseOperationResult(successful_rows=rows, failed_rows=[])
-            except Exception as exce:
-                if not self.autocommit:
-                    self.connection.rollback()
-
-                return DatabaseOperationResult(
-                    successful_rows=[],
-                    failed_rows=[
+                except Exception as error:
+                    if not self.autocommit:
+                        self.connection.rollback()
+                    self.failed_rows.extend(
                         FailedRow(
                             table_name=table_name,
                             row=row,
-                            message="Failed to insert row",
-                            exception=exce,
+                            message="Row failed during insertion",
+                            exception=error
                         )
-                        for row in rows
-                    ],
-                )
+                        for row in grouped_rows
+                    )
+
+        return self._build_result()
