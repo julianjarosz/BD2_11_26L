@@ -10,19 +10,15 @@ from scripts.api.api_data_struct import (
     Wind,
 )
 from scripts.api.weather_api_fetch import (
-    DEFAULT_CITY,
     OpenWeatherFetchManager,
-    OPENWEATHER_BASE_URL,
 )
 
 __all__ = [
-    "DEFAULT_CITY",
     "Clouds",
     "Coordinates",
     "MainWeather",
     "OpenWeatherData",
     "OpenWeatherFetchManager",
-    "OPENWEATHER_BASE_URL",
     "SystemInfo",
     "WeatherCondition",
     "Wind",
