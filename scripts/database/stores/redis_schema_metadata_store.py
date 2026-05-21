@@ -5,8 +5,8 @@ from __future__ import annotations
 import json
 import os
 
-from scripts.database.redis_database_manager import RedisDatabaseManager
-from scripts.database.schema_metadata_store import (
+from scripts.database.managers.redis_database_manager import RedisDatabaseManager
+from scripts.database.stores.schema_metadata_store import (
     SchemaMetadataStore,
     TableSchemaMetadata,
 )
