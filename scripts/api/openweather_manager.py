@@ -5,7 +5,10 @@ import os
 from pathlib import Path
 from urllib.request import urlopen
 
-from api_struct import OpenWeatherDataParser
+try:
+    from api_struct import OpenWeatherDataParser
+except ModuleNotFoundError:
+    from scripts.api.api_struct import OpenWeatherDataParser
 
 OPENWEATHER_API_KEY_ENV_VAR = "OPENWEATHER_API_KEY"
 DEFAULT_CITY_NAME = "Warsaw"
