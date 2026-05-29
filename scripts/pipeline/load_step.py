@@ -1,9 +1,16 @@
 from dataclasses import dataclass
 
+try:
+    from source import Source
+    from sink import Sink
+except ModuleNotFoundError:
+    from scripts.pipeline.sink import Sink
+    from scripts.pipeline.source import Source
+
 
 @dataclass(frozen=True)
 class LoadStep:
-    source_name: str  # from where do we take?
+    source: Source  # from where do we take?
     source_resource: str  # what do we take?
-    sink_name: str  # to where we take?
+    sink: Sink  # to where we take?
     staging_table: str  # where do we stage?

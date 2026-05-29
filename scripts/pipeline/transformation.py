@@ -2,7 +2,7 @@
 
 from typing import Protocol
 
-from scripts.database.database_manager import DatabaseManager
+from scripts.database.managers.database_manager import DatabaseManagerInterface
 
 
 class Transformation(Protocol):
@@ -16,7 +16,7 @@ class Transformation(Protocol):
     name: str
     """Transformation identifier used in logs, warnings, and errors."""
 
-    def run(self, database: DatabaseManager) -> None:
+    def run(self, database: DatabaseManagerInterface) -> None:
         """Run the transformation using the provided database manager.
 
         Args:

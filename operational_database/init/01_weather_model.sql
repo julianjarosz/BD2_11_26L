@@ -1,7 +1,5 @@
--- Hurtownia: znormalizowany model docelowy.
--- Cala baza dedykowana modelowi - obiekty trzymamy w schemacie public.
 
-CREATE TABLE location (
+CREATE TABLE IF NOT EXISTS location (
     location_id      bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     city_name        varchar(100),
     country_code     char(2),
@@ -23,14 +21,14 @@ CREATE TABLE location (
         UNIQUE (lat, lon)
 );
 
-CREATE TABLE weather_condition (
+CREATE TABLE IF NOT EXISTS weather_condition (
     openweather_weather_id   bigint PRIMARY KEY,
     main                     varchar(50) NOT NULL,
     description              varchar(100) NOT NULL,
     icon                     varchar(4)
 );
 
-CREATE TABLE current_weather (
+CREATE TABLE IF NOT EXISTS current_weather (
     current_weather_id       bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL
@@ -80,7 +78,7 @@ CREATE TABLE current_weather (
         UNIQUE (location_id, observed_at)
 );
 
-CREATE TABLE hourly_forecast (
+CREATE TABLE IF NOT EXISTS hourly_forecast (
     hourly_forecast_id       bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL
@@ -133,7 +131,7 @@ CREATE TABLE hourly_forecast (
         UNIQUE (location_id, forecast_for, retrieved_at)
 );
 
-CREATE TABLE daily_forecast (
+CREATE TABLE IF NOT EXISTS daily_forecast (
     daily_forecast_id        bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL
@@ -200,7 +198,7 @@ CREATE TABLE daily_forecast (
         UNIQUE (location_id, forecast_date, retrieved_at)
 );
 
-CREATE TABLE minutely_forecast (
+CREATE TABLE IF NOT EXISTS minutely_forecast (
     minutely_forecast_id     bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL
@@ -217,7 +215,7 @@ CREATE TABLE minutely_forecast (
         UNIQUE (location_id, forecast_for, retrieved_at)
 );
 
-CREATE TABLE air_pollution (
+CREATE TABLE IF NOT EXISTS air_pollution (
     air_pollution_id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL
@@ -254,7 +252,7 @@ CREATE TABLE air_pollution (
         UNIQUE (location_id, observed_at)
 );
 
-CREATE TABLE weather_alert (
+CREATE TABLE IF NOT EXISTS weather_alert (
     weather_alert_id         bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 
     location_id              bigint NOT NULL

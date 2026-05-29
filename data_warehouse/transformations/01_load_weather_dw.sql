@@ -1,27 +1,31 @@
 WITH source_dates AS (
-    SELECT observed_at::date AS full_date
-    FROM stg.current_weather
-    WHERE observed_at IS NOT NULL
+    SELECT current_observed_at::date AS full_date
+    FROM stg.mapped_data_buffer
+    WHERE current_observed_at IS NOT NULL
     UNION
-    SELECT forecast_for::date
-    FROM stg.hourly_forecast
-    WHERE forecast_for IS NOT NULL
+    SELECT hourly_forecast_for::date
+    FROM stg.mapped_data_buffer
+    WHERE hourly_forecast_for IS NOT NULL
     UNION
-    SELECT forecast_date
-    FROM stg.daily_forecast
-    WHERE forecast_date IS NOT NULL
+    SELECT daily_forecast_date
+    FROM stg.mapped_data_buffer
+    WHERE daily_forecast_date IS NOT NULL
     UNION
-    SELECT observed_at::date
-    FROM stg.air_pollution
-    WHERE observed_at IS NOT NULL
+    SELECT minutely_forecast_for::date
+    FROM stg.mapped_data_buffer
+    WHERE minutely_forecast_for IS NOT NULL
     UNION
-    SELECT start_at::date
-    FROM stg.weather_alert
-    WHERE start_at IS NOT NULL
+    SELECT air_observed_at::date
+    FROM stg.mapped_data_buffer
+    WHERE air_observed_at IS NOT NULL
     UNION
-    SELECT end_at::date
-    FROM stg.weather_alert
-    WHERE end_at IS NOT NULL
+    SELECT alert_start_at::date
+    FROM stg.mapped_data_buffer
+    WHERE alert_start_at IS NOT NULL
+    UNION
+    SELECT alert_end_at::date
+    FROM stg.mapped_data_buffer
+    WHERE alert_end_at IS NOT NULL
 )
 INSERT INTO dw.dim_date (
     date_key,
@@ -59,25 +63,29 @@ ON CONFLICT (date_key) DO UPDATE SET
     is_weekend = EXCLUDED.is_weekend;
 
 WITH source_times AS (
-    SELECT date_trunc('second', observed_at)::time AS full_time
-    FROM stg.current_weather
-    WHERE observed_at IS NOT NULL
+    SELECT date_trunc('second', current_observed_at)::time AS full_time
+    FROM stg.mapped_data_buffer
+    WHERE current_observed_at IS NOT NULL
     UNION
-    SELECT date_trunc('second', forecast_for)::time
-    FROM stg.hourly_forecast
-    WHERE forecast_for IS NOT NULL
+    SELECT date_trunc('second', hourly_forecast_for)::time
+    FROM stg.mapped_data_buffer
+    WHERE hourly_forecast_for IS NOT NULL
     UNION
-    SELECT date_trunc('second', observed_at)::time
-    FROM stg.air_pollution
-    WHERE observed_at IS NOT NULL
+    SELECT date_trunc('second', minutely_forecast_for)::time
+    FROM stg.mapped_data_buffer
+    WHERE minutely_forecast_for IS NOT NULL
     UNION
-    SELECT date_trunc('second', start_at)::time
-    FROM stg.weather_alert
-    WHERE start_at IS NOT NULL
+    SELECT date_trunc('second', air_observed_at)::time
+    FROM stg.mapped_data_buffer
+    WHERE air_observed_at IS NOT NULL
     UNION
-    SELECT date_trunc('second', end_at)::time
-    FROM stg.weather_alert
-    WHERE end_at IS NOT NULL
+    SELECT date_trunc('second', alert_start_at)::time
+    FROM stg.mapped_data_buffer
+    WHERE alert_start_at IS NOT NULL
+    UNION
+    SELECT date_trunc('second', alert_end_at)::time
+    FROM stg.mapped_data_buffer
+    WHERE alert_end_at IS NOT NULL
 )
 INSERT INTO dw.dim_time (
     time_key,
@@ -109,8 +117,20 @@ ON CONFLICT (time_key) DO UPDATE SET
     second = EXCLUDED.second,
     part_of_the_day = EXCLUDED.part_of_the_day;
 
+WITH source_locations AS (
+    SELECT DISTINCT ON (location_lat, location_lon)
+        location_city_name,
+        location_country_code,
+        location_lat,
+        location_lon,
+        location_timezone,
+        location_timezone_offset
+    FROM stg.mapped_data_buffer
+    WHERE location_lat IS NOT NULL
+      AND location_lon IS NOT NULL
+    ORDER BY location_lat, location_lon, fetched_at DESC, mapped_data_buffer_id DESC
+)
 INSERT INTO dw.dim_location (
-    location_id_nk,
     city_name,
     country_code,
     latitude,
@@ -119,38 +139,72 @@ INSERT INTO dw.dim_location (
     timezone_offset
 )
 SELECT
-    location_id AS location_id_nk,
-    city_name,
-    country_code,
-    lat AS latitude,
-    lon AS longitude,
-    timezone,
-    timezone_offset
-FROM stg.location
-ON CONFLICT (location_id_nk) DO UPDATE SET
+    location_city_name,
+    location_country_code,
+    location_lat,
+    location_lon,
+    location_timezone,
+    location_timezone_offset
+FROM source_locations
+ON CONFLICT (latitude, longitude) DO UPDATE SET
     city_name = EXCLUDED.city_name,
     country_code = EXCLUDED.country_code,
-    latitude = EXCLUDED.latitude,
-    longitude = EXCLUDED.longitude,
     timezone = EXCLUDED.timezone,
     timezone_offset = EXCLUDED.timezone_offset;
 
+WITH source_conditions AS (
+    SELECT
+        current_openweather_weather_id AS openweather_weather_id,
+        current_condition_main AS main,
+        current_condition_description AS description,
+        current_condition_icon AS icon,
+        fetched_at,
+        mapped_data_buffer_id
+    FROM stg.mapped_data_buffer
+    WHERE current_openweather_weather_id IS NOT NULL
+    UNION ALL
+    SELECT
+        daily_openweather_weather_id,
+        daily_condition_main,
+        daily_condition_description,
+        daily_condition_icon,
+        fetched_at,
+        mapped_data_buffer_id
+    FROM stg.mapped_data_buffer
+    WHERE daily_openweather_weather_id IS NOT NULL
+    UNION ALL
+    SELECT
+        hourly_openweather_weather_id,
+        hourly_condition_main,
+        hourly_condition_description,
+        hourly_condition_icon,
+        fetched_at,
+        mapped_data_buffer_id
+    FROM stg.mapped_data_buffer
+    WHERE hourly_openweather_weather_id IS NOT NULL
+),
+deduped_conditions AS (
+    SELECT DISTINCT ON (openweather_weather_id)
+        openweather_weather_id,
+        main,
+        description,
+        icon
+    FROM source_conditions
+    ORDER BY openweather_weather_id, fetched_at DESC, mapped_data_buffer_id DESC
+)
 INSERT INTO dw.dim_weather_condition (
-    condition_id_nk,
     openweather_weather_id,
     main,
     description,
     icon
 )
 SELECT
-    condition_id AS condition_id_nk,
     openweather_weather_id,
     main,
     description,
     icon
-FROM stg.weather_condition
-ON CONFLICT (condition_id_nk) DO UPDATE SET
-    openweather_weather_id = EXCLUDED.openweather_weather_id,
+FROM deduped_conditions
+ON CONFLICT (openweather_weather_id) DO UPDATE SET
     main = EXCLUDED.main,
     description = EXCLUDED.description,
     icon = EXCLUDED.icon;
@@ -159,133 +213,270 @@ TRUNCATE TABLE
     dw.fact_forecast_accuracy,
     dw.fact_weather_alert,
     dw.fact_air_pollution,
+    dw.fact_minutely_forecast,
     dw.fact_daily_forecast,
     dw.fact_hourly_forecast,
     dw.fact_current_weather
 RESTART IDENTITY;
 
+WITH source_current AS (
+    SELECT DISTINCT ON (loc.location_key, buf.current_observed_at)
+        buf.*,
+        loc.location_key,
+        cond.weather_condition_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    JOIN dw.dim_weather_condition cond
+        ON cond.openweather_weather_id = buf.current_openweather_weather_id
+    WHERE buf.current_observed_at IS NOT NULL
+      AND buf.current_openweather_weather_id IS NOT NULL
+    ORDER BY loc.location_key, buf.current_observed_at, buf.fetched_at DESC, buf.mapped_data_buffer_id DESC
+)
 INSERT INTO dw.fact_current_weather (
+    source_buffer_id,
     location_key,
     observed_date_key,
     observed_time_key,
     weather_condition_key,
+    observed_at,
     temp,
     feels_like,
     pressure,
     humidity,
+    dew_point,
+    uvi,
     clouds,
     visibility,
     wind_speed,
     wind_deg,
+    wind_gust,
     rain_1h,
     snow_1h
 )
 SELECT
-    dl.location_key,
-    to_char(cw.observed_at::date, 'YYYYMMDD')::integer AS observed_date_key,
-    extract(hour FROM cw.observed_at)::integer * 10000
-        + extract(minute FROM cw.observed_at)::integer * 100
-        + floor(extract(second FROM cw.observed_at))::integer AS observed_time_key,
-    dwc.weather_condition_key,
-    cw.temp,
-    cw.feels_like,
-    cw.pressure,
-    cw.humidity,
-    cw.clouds,
-    cw.visibility,
-    cw.wind_speed,
-    cw.wind_deg,
-    cw.rain_1h,
-    cw.snow_1h
-FROM stg.current_weather cw
-JOIN dw.dim_location dl
-    ON dl.location_id_nk = cw.location_id
-JOIN dw.dim_weather_condition dwc
-    ON dwc.condition_id_nk = cw.condition_id
-WHERE cw.observed_at IS NOT NULL;
+    mapped_data_buffer_id,
+    location_key,
+    to_char(current_observed_at::date, 'YYYYMMDD')::integer,
+    extract(hour FROM current_observed_at)::integer * 10000
+        + extract(minute FROM current_observed_at)::integer * 100
+        + floor(extract(second FROM current_observed_at))::integer,
+    weather_condition_key,
+    current_observed_at,
+    current_temp,
+    current_feels_like,
+    current_pressure,
+    current_humidity,
+    current_dew_point,
+    current_uvi,
+    current_clouds,
+    current_visibility,
+    current_wind_speed,
+    current_wind_deg,
+    current_wind_gust,
+    current_rain_1h,
+    current_snow_1h
+FROM source_current;
 
+WITH source_hourly AS (
+    SELECT DISTINCT ON (loc.location_key, buf.hourly_forecast_for, buf.hourly_retrieved_at)
+        buf.*,
+        loc.location_key,
+        cond.weather_condition_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    JOIN dw.dim_weather_condition cond
+        ON cond.openweather_weather_id = buf.hourly_openweather_weather_id
+    WHERE buf.hourly_forecast_for IS NOT NULL
+      AND buf.hourly_openweather_weather_id IS NOT NULL
+    ORDER BY
+        loc.location_key,
+        buf.hourly_forecast_for,
+        buf.hourly_retrieved_at,
+        buf.fetched_at DESC,
+        buf.mapped_data_buffer_id DESC
+)
 INSERT INTO dw.fact_hourly_forecast (
+    source_buffer_id,
     location_key,
     forecast_date_key,
     forecast_time_key,
     weather_condition_key,
+    forecast_for,
+    retrieved_at,
     temp,
     feels_like,
     pressure,
     humidity,
+    dew_point,
+    uvi,
     clouds,
+    visibility,
     pop,
     wind_speed,
     wind_deg,
+    wind_gust,
     rain_1h,
     snow_1h
 )
 SELECT
-    dl.location_key,
-    to_char(hf.forecast_for::date, 'YYYYMMDD')::integer AS forecast_date_key,
-    extract(hour FROM hf.forecast_for)::integer * 10000
-        + extract(minute FROM hf.forecast_for)::integer * 100
-        + floor(extract(second FROM hf.forecast_for))::integer AS forecast_time_key,
-    dwc.weather_condition_key,
-    hf.temp,
-    hf.feels_like,
-    hf.pressure,
-    hf.humidity,
-    hf.clouds,
-    hf.pop,
-    hf.wind_speed,
-    hf.wind_deg,
-    hf.rain_1h,
-    hf.snow_1h
-FROM stg.hourly_forecast hf
-JOIN dw.dim_location dl
-    ON dl.location_id_nk = hf.location_id
-JOIN dw.dim_weather_condition dwc
-    ON dwc.condition_id_nk = hf.condition_id
-WHERE hf.forecast_for IS NOT NULL;
+    mapped_data_buffer_id,
+    location_key,
+    to_char(hourly_forecast_for::date, 'YYYYMMDD')::integer,
+    extract(hour FROM hourly_forecast_for)::integer * 10000
+        + extract(minute FROM hourly_forecast_for)::integer * 100
+        + floor(extract(second FROM hourly_forecast_for))::integer,
+    weather_condition_key,
+    hourly_forecast_for,
+    hourly_retrieved_at,
+    hourly_temp,
+    hourly_feels_like,
+    hourly_pressure,
+    hourly_humidity,
+    hourly_dew_point,
+    hourly_uvi,
+    hourly_clouds,
+    hourly_visibility,
+    hourly_pop,
+    hourly_wind_speed,
+    hourly_wind_deg,
+    hourly_wind_gust,
+    hourly_rain_1h,
+    hourly_snow_1h
+FROM source_hourly;
 
+WITH source_daily AS (
+    SELECT DISTINCT ON (loc.location_key, buf.daily_forecast_date, buf.daily_retrieved_at)
+        buf.*,
+        loc.location_key,
+        cond.weather_condition_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    JOIN dw.dim_weather_condition cond
+        ON cond.openweather_weather_id = buf.daily_openweather_weather_id
+    WHERE buf.daily_forecast_date IS NOT NULL
+      AND buf.daily_openweather_weather_id IS NOT NULL
+    ORDER BY
+        loc.location_key,
+        buf.daily_forecast_date,
+        buf.daily_retrieved_at,
+        buf.fetched_at DESC,
+        buf.mapped_data_buffer_id DESC
+)
 INSERT INTO dw.fact_daily_forecast (
+    source_buffer_id,
     location_key,
     forecast_date_key,
     weather_condition_key,
+    forecast_date,
+    retrieved_at,
     temp_day,
     temp_min,
     temp_max,
+    temp_night,
+    temp_evening,
+    temp_morning,
+    feels_like_day,
+    feels_like_night,
     pressure,
     humidity,
+    dew_point,
     clouds,
     pop,
     rain,
     snow,
     wind_speed,
-    wind_deg
+    wind_deg,
+    wind_gust,
+    uvi
 )
 SELECT
-    dl.location_key,
-    to_char(df.forecast_date, 'YYYYMMDD')::integer AS forecast_date_key,
-    dwc.weather_condition_key,
-    df.temp_day,
-    df.temp_min,
-    df.temp_max,
-    df.pressure,
-    df.humidity,
-    df.clouds,
-    df.pop,
-    df.rain,
-    df.snow,
-    df.wind_speed,
-    df.wind_deg
-FROM stg.daily_forecast df
-JOIN dw.dim_location dl
-    ON dl.location_id_nk = df.location_id
-JOIN dw.dim_weather_condition dwc
-    ON dwc.condition_id_nk = df.condition_id
-WHERE df.forecast_date IS NOT NULL;
+    mapped_data_buffer_id,
+    location_key,
+    to_char(daily_forecast_date, 'YYYYMMDD')::integer,
+    weather_condition_key,
+    daily_forecast_date,
+    daily_retrieved_at,
+    daily_temp_day,
+    daily_temp_min,
+    daily_temp_max,
+    daily_temp_night,
+    daily_temp_evening,
+    daily_temp_morning,
+    daily_feels_like_day,
+    daily_feels_like_night,
+    daily_pressure,
+    daily_humidity,
+    daily_dew_point,
+    daily_clouds,
+    daily_pop,
+    daily_rain,
+    daily_snow,
+    daily_wind_speed,
+    daily_wind_deg,
+    daily_wind_gust,
+    daily_uvi
+FROM source_daily;
 
+WITH source_minutely AS (
+    SELECT DISTINCT ON (loc.location_key, buf.minutely_forecast_for, buf.minutely_retrieved_at)
+        buf.*,
+        loc.location_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    WHERE buf.minutely_forecast_for IS NOT NULL
+    ORDER BY
+        loc.location_key,
+        buf.minutely_forecast_for,
+        buf.minutely_retrieved_at,
+        buf.fetched_at DESC,
+        buf.mapped_data_buffer_id DESC
+)
+INSERT INTO dw.fact_minutely_forecast (
+    source_buffer_id,
+    location_key,
+    forecast_date_key,
+    forecast_time_key,
+    forecast_for,
+    retrieved_at,
+    precipitation
+)
+SELECT
+    mapped_data_buffer_id,
+    location_key,
+    to_char(minutely_forecast_for::date, 'YYYYMMDD')::integer,
+    extract(hour FROM minutely_forecast_for)::integer * 10000
+        + extract(minute FROM minutely_forecast_for)::integer * 100
+        + floor(extract(second FROM minutely_forecast_for))::integer,
+    minutely_forecast_for,
+    minutely_retrieved_at,
+    minutely_precipitation
+FROM source_minutely;
+
+WITH source_air AS (
+    SELECT DISTINCT ON (loc.location_key, buf.air_observed_at)
+        buf.*,
+        loc.location_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    WHERE buf.air_observed_at IS NOT NULL
+    ORDER BY loc.location_key, buf.air_observed_at, buf.fetched_at DESC, buf.mapped_data_buffer_id DESC
+)
 INSERT INTO dw.fact_air_pollution (
+    source_buffer_id,
     location_key,
     observed_date_key,
     observed_time_key,
+    observed_at,
     aqi,
     co,
     no,
@@ -297,68 +488,101 @@ INSERT INTO dw.fact_air_pollution (
     nh3
 )
 SELECT
-    dl.location_key,
-    to_char(ap.observed_at::date, 'YYYYMMDD')::integer AS observed_date_key,
-    extract(hour FROM ap.observed_at)::integer * 10000
-        + extract(minute FROM ap.observed_at)::integer * 100
-        + floor(extract(second FROM ap.observed_at))::integer AS observed_time_key,
-    ap.aqi,
-    ap.co,
-    ap.no,
-    ap.no2,
-    ap.o3,
-    ap.so2,
-    ap.pm2_5,
-    ap.pm10,
-    ap.nh3
-FROM stg.air_pollution ap
-JOIN dw.dim_location dl
-    ON dl.location_id_nk = ap.location_id
-WHERE ap.observed_at IS NOT NULL;
+    mapped_data_buffer_id,
+    location_key,
+    to_char(air_observed_at::date, 'YYYYMMDD')::integer,
+    extract(hour FROM air_observed_at)::integer * 10000
+        + extract(minute FROM air_observed_at)::integer * 100
+        + floor(extract(second FROM air_observed_at))::integer,
+    air_observed_at,
+    air_aqi,
+    air_co,
+    air_no,
+    air_no2,
+    air_o3,
+    air_so2,
+    air_pm2_5,
+    air_pm10,
+    air_nh3
+FROM source_air;
 
+WITH source_alert AS (
+    SELECT DISTINCT ON (
+        loc.location_key,
+        buf.alert_sender_name,
+        buf.alert_event,
+        buf.alert_start_at,
+        buf.alert_end_at
+    )
+        buf.*,
+        loc.location_key
+    FROM stg.mapped_data_buffer buf
+    JOIN dw.dim_location loc
+        ON loc.latitude = buf.location_lat
+       AND loc.longitude = buf.location_lon
+    WHERE buf.alert_event IS NOT NULL
+      AND buf.alert_start_at IS NOT NULL
+      AND buf.alert_end_at IS NOT NULL
+      AND buf.alert_end_at >= buf.alert_start_at
+    ORDER BY
+        loc.location_key,
+        buf.alert_sender_name,
+        buf.alert_event,
+        buf.alert_start_at,
+        buf.alert_end_at,
+        buf.fetched_at DESC,
+        buf.mapped_data_buffer_id DESC
+)
 INSERT INTO dw.fact_weather_alert (
+    source_buffer_id,
     location_key,
     start_date_key,
     start_time_key,
     end_date_key,
     end_time_key,
+    sender_name,
+    event,
+    start_at,
+    end_at,
+    description,
+    tags,
     alert_count
 )
 SELECT
-    dl.location_key,
-    to_char(wa.start_at::date, 'YYYYMMDD')::integer AS start_date_key,
-    extract(hour FROM wa.start_at)::integer * 10000
-        + extract(minute FROM wa.start_at)::integer * 100
-        + floor(extract(second FROM wa.start_at))::integer AS start_time_key,
-    to_char(wa.end_at::date, 'YYYYMMDD')::integer AS end_date_key,
-    extract(hour FROM wa.end_at)::integer * 10000
-        + extract(minute FROM wa.end_at)::integer * 100
-        + floor(extract(second FROM wa.end_at))::integer AS end_time_key,
-    1 AS alert_count
-FROM stg.weather_alert wa
-JOIN dw.dim_location dl
-    ON dl.location_id_nk = wa.location_id
-WHERE wa.start_at IS NOT NULL
-  AND wa.end_at IS NOT NULL
-  AND wa.end_at >= wa.start_at;
+    mapped_data_buffer_id,
+    location_key,
+    to_char(alert_start_at::date, 'YYYYMMDD')::integer,
+    extract(hour FROM alert_start_at)::integer * 10000
+        + extract(minute FROM alert_start_at)::integer * 100
+        + floor(extract(second FROM alert_start_at))::integer,
+    to_char(alert_end_at::date, 'YYYYMMDD')::integer,
+    extract(hour FROM alert_end_at)::integer * 10000
+        + extract(minute FROM alert_end_at)::integer * 100
+        + floor(extract(second FROM alert_end_at))::integer,
+    alert_sender_name,
+    alert_event,
+    alert_start_at,
+    alert_end_at,
+    alert_description,
+    alert_tags,
+    1
+FROM source_alert;
 
 WITH matched_forecasts AS (
-    SELECT DISTINCT ON (hf.hourly_forecast_id)
-        hf.hourly_forecast_id,
+    SELECT DISTINCT ON (hf.hourly_forecast_fact_key)
+        hf.hourly_forecast_fact_key,
         cw.observed_at,
         cw.temp AS actual_temp,
         hf.temp AS forecast_temp,
-        dl.location_key
-    FROM stg.hourly_forecast hf
-    JOIN stg.current_weather cw
-        ON cw.location_id = hf.location_id
+        cw.location_key
+    FROM dw.fact_hourly_forecast hf
+    JOIN dw.fact_current_weather cw
+        ON cw.location_key = hf.location_key
        AND date_trunc('hour', cw.observed_at) = date_trunc('hour', hf.forecast_for)
-    JOIN dw.dim_location dl
-        ON dl.location_id_nk = hf.location_id
     WHERE hf.forecast_for IS NOT NULL
       AND cw.observed_at IS NOT NULL
     ORDER BY
-        hf.hourly_forecast_id,
+        hf.hourly_forecast_fact_key,
         abs(extract(epoch FROM (cw.observed_at - hf.forecast_for)))
 )
 INSERT INTO dw.fact_forecast_accuracy (
@@ -372,12 +596,12 @@ INSERT INTO dw.fact_forecast_accuracy (
 )
 SELECT
     location_key,
-    to_char(observed_at::date, 'YYYYMMDD')::integer AS observed_date_key,
+    to_char(observed_at::date, 'YYYYMMDD')::integer,
     extract(hour FROM observed_at)::integer * 10000
         + extract(minute FROM observed_at)::integer * 100
-        + floor(extract(second FROM observed_at))::integer AS observed_time_key,
+        + floor(extract(second FROM observed_at))::integer,
     forecast_temp,
     actual_temp,
-    actual_temp - forecast_temp AS temp_error,
-    abs(actual_temp - forecast_temp) AS abs_temp_error
+    actual_temp - forecast_temp,
+    abs(actual_temp - forecast_temp)
 FROM matched_forecasts;

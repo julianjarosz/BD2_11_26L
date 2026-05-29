@@ -1,68 +1,52 @@
 """OpenWeather API-backed source for the ELT pipeline."""
 
-import asyncio
-
-from scripts.api.weather_api_fetch import (
-    API_KEY_ENV_VAR,
-    DEFAULT_CITY,
-    OpenWeatherFetchManager,
-)
+from scripts.api.openweather_manager import DEFAULT_CITY_NAME, OpenWeatherManager
 from scripts.errors.pipeline_errors import OpenWeatherApiSourceError
 from scripts.pipeline.source import Row
-from scripts.utils import load_api_key
 
 
 class OpenWeatherApiSource:
-    """Extract current weather rows from the OpenWeather API.
+    """Extract mapped OpenWeather rows for the ELT pipeline.
 
     The source name is used by ``LoadStep.source_name`` to connect configured
-    load steps to this source. ``resource_name`` values passed to
-    :meth:`extract` are treated as city names. When ``resource_name`` is empty,
-    the configured default city is used.
+    load steps to this source.
     """
 
     def __init__(
         self,
         name: str,
-        fetch_manager: OpenWeatherFetchManager | None = None,
+        manager: OpenWeatherManager | None = None,
     ) -> None:
         """Create an OpenWeather API source.
 
         Args:
             name: Source identifier referenced by pipeline load steps.
-            fetch_manager: Optional fetch manager. When omitted, a manager is
-                created from the configured OpenWeather API key environment
-                variable.
+            manager: Optional OpenWeather manager. When omitted, a manager is
+                created for the requested resource/city during extraction.
         """
         self.name: str = name
-        self.fetch_manager: OpenWeatherFetchManager = fetch_manager or OpenWeatherFetchManager(
-            load_api_key(API_KEY_ENV_VAR)
-        )
+        self.manager = manager
 
     def extract(self, resource_name: str) -> list[Row]:
-        """Fetch current weather for one city.
+        """Fetch one flattened OpenWeather row.
 
         Args:
-            resource_name: City name to fetch. Uses the configured default city
-                when empty.
+            resource_name: City label for the row. Current API URLs are configured
+                for Warsaw coordinates.
 
         Returns:
-            A one-row list containing the OpenWeather data buffer row.
+            A one-row list containing the mapped data buffer row.
 
         Raises:
             OpenWeatherApiSourceError: If the API request or row conversion
             fails.
         """
-        city = resource_name or DEFAULT_CITY
+        city_name = resource_name or DEFAULT_CITY_NAME
         try:
-            weather_data = asyncio.run(self.fetch_manager.fetch_city(city, units="metric"))
-            return [weather_data.to_data_buffer_row()]
+            manager = self.manager or OpenWeatherManager(city_name=city_name)
+            return [manager.get_data()]
         except Exception as exc:
             raise OpenWeatherApiSourceError(
-                f"Failed to extract OpenWeather data for city {city!r} "
+                f"Failed to extract OpenWeather data for city {city_name!r} "
                 f"from source {self.name!r}: {exc}"
             ) from exc
-
-    def close(self) -> None:
-        """Close the underlying OpenWeather fetch manager session."""
-        self.fetch_manager.close()

@@ -1,25 +1,27 @@
-"""API module for fetching and handling OpenWeather data."""
+"""API module for fetching and parsing OpenWeather data."""
 
-from scripts.api.api_data_struct import (
-    Clouds,
-    Coordinates,
-    MainWeather,
-    OpenWeatherData,
-    SystemInfo,
+from scripts.api.api_struct import (
+    AirPollution,
+    CurrentWeather,
+    DailyForecast,
+    HourlyForecast,
+    Location,
+    MinutelyForecast,
+    OpenWeatherDataParser,
+    WeatherAlert,
     WeatherCondition,
-    Wind,
 )
-from scripts.api.weather_api_fetch import (
-    OpenWeatherFetchManager,
-)
+from scripts.api.openweather_manager import OpenWeatherManager
 
 __all__ = [
-    "Clouds",
-    "Coordinates",
-    "MainWeather",
-    "OpenWeatherData",
-    "OpenWeatherFetchManager",
-    "SystemInfo",
+    "AirPollution",
+    "CurrentWeather",
+    "DailyForecast",
+    "HourlyForecast",
+    "Location",
+    "MinutelyForecast",
+    "OpenWeatherDataParser",
+    "OpenWeatherManager",
+    "WeatherAlert",
     "WeatherCondition",
-    "Wind",
 ]

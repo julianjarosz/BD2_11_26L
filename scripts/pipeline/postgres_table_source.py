@@ -1,6 +1,6 @@
 """PostgreSQL table-backed source for the ELT pipeline."""
 
-from scripts.database.database_manager import DatabaseManager
+from scripts.database.managers.database_manager import DatabaseManagerInterface
 from scripts.errors.pipeline_errors import PostgresTableSourceError
 from scripts.pipeline.source import Row
 
@@ -13,7 +13,7 @@ class PostgresTableSource:
         :meth:`extract` are treated as table names.
     """
 
-    def __init__(self, name: str, database: DatabaseManager) -> None:
+    def __init__(self, name: str, database: DatabaseManagerInterface) -> None:
         """Create a PostgreSQL table source.
 
         Args:
@@ -36,7 +36,7 @@ class PostgresTableSource:
             PostgresTableSourceError: If the database query fails.
         """
         try:
-            return self.database.fetch_data(f"SELECT * FROM {resource_name}")
+            return list(self.database.fetch_data(f"SELECT * FROM {resource_name}").successful_rows)
         except Exception as exc:
             raise PostgresTableSourceError(
                 f"Failed to extract table {resource_name!r} " f"from source {self.name!r}: {exc}"

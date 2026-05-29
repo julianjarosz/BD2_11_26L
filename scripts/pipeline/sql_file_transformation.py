@@ -1,5 +1,6 @@
 from pathlib import Path
-from scripts.database.database_manager import DatabaseManager
+
+from scripts.database.managers.database_manager import DatabaseManagerInterface
 
 
 class SqlFileTransformation:
@@ -7,6 +8,6 @@ class SqlFileTransformation:
         self.name = name
         self.path = path
 
-    def run(self, database: DatabaseManager) -> None:
+    def run(self, database: DatabaseManagerInterface) -> None:
         sql = self.path.read_text(encoding="utf-8")
         database.execute(sql)
