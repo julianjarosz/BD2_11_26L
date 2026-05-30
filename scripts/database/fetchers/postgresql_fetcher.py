@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from typing import cast, Any
-from logging import Logger
-from psycopg import sql
+from typing import Any, cast
+
 import psycopg
+from psycopg import sql
 
 from scripts.database.executors.postgresql_query_executor import PostgreSQLQueryExecutor
 from scripts.database.fetchers.base_fetcher import BaseFetcher
@@ -18,30 +18,13 @@ from scripts.database.models.query import Query
 
 
 class PostgreSQLCursorFetchCallback:
-
-    __slots__ = "cb_logger"
-
-    def __init__(self, logger: Logger | None = None) -> None:
-        self.cb_logger: Logger | None = logger
-
     def __call__(self, cursor: psycopg.cursor.Cursor) -> list[DatabaseRow] | None:
-        try:
-            result = [cast(DatabaseRow, row) for row in cursor.fetchall()]
-            if self.cb_logger is not None:
-                self.cb_logger.info("Fetched %s rows", len(result))
-            return result
-        except psycopg.ProgrammingError:
-            if self.cb_logger is not None:
-                self.cb_logger.exception("cursor.fetchall() failed to fetch all rows\n")
-            raise
+        return [cast(DatabaseRow, row) for row in cursor.fetchall()]
 
 
 class PostgreSQLDatabaseFetcher(BaseFetcher[Query | str | sql.Composed, DatabaseParams | None]):
-    def __init__(
-        self, query_executor: PostgreSQLQueryExecutor, logger: Logger | None = None
-    ) -> None:
+    def __init__(self, query_executor: PostgreSQLQueryExecutor) -> None:
         self.query_executor: PostgreSQLQueryExecutor = query_executor
-        self.logger: Logger | None = logger
 
     def fetch(
         self,
@@ -52,7 +35,7 @@ class PostgreSQLDatabaseFetcher(BaseFetcher[Query | str | sql.Composed, Database
         fetched_rows: list[DatabaseRow] | None = self.query_executor.execute(
             query=query,
             params=params,
-            cursor_callback=PostgreSQLCursorFetchCallback(self.logger),
+            cursor_callback=PostgreSQLCursorFetchCallback(),
             **exec_kwargs,
         )
 

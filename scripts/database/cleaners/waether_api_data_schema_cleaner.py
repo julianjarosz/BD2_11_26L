@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-
 from copy import deepcopy
 from typing import final, Any
-from logging import Logger
+
 from scripts.database.stores.schema_metadata_store import SchemaMetadataStore, TableSchemaMetadata
 from scripts.database.models.step_raport_generator import StepRaportGenerator
 from scripts.database.cleaners.data_schema_cleaner import CleaningResults, CleaningStep
@@ -17,12 +16,10 @@ class ToPostgreSQLDataSchemaCleaner:
     def __init__(
         self,
         schema_store: SchemaMetadataStore,
-        logger: Logger | None = None,
         raport_generator: StepRaportGenerator | None = None,
     ) -> None:
         self.schema_store: SchemaMetadataStore = schema_store
         self.cleaning_steps: list[CleaningStep] = []
-        self.logger: Logger | None = logger
         self.raport_generator: StepRaportGenerator | None = raport_generator
 
     @final

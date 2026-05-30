@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from logging import Logger
 from typing import Protocol, Any, runtime_checkable, final
 from scripts.database.stores.schema_metadata_store import SchemaMetadataStore
 from dataclasses import dataclass
@@ -42,7 +41,6 @@ class DataSchemaCleaner(Protocol):
     cleaning_steps: list[CleaningStep]
 
     raport_generator: StepRaportGenerator | None
-    logger: Logger | None
 
     @final
     def clean_buffer(self) -> None:
@@ -57,19 +55,6 @@ class DataSchemaCleaner(Protocol):
         Parameters:
             args: Provided arguments by user to provide sufficient raport generating
             kwargs: Provided keyword arguments by user to provide sufficient raport generating
-        """
-        ...
-
-    def log_cleaning(
-        self, cleaning_step: CleaningStep, *args: tuple, **kwargs: dict[str, Any]
-    ) -> None:
-        """
-        Logs single cleaning_step during cleaning
-
-        Parameters:
-            cleaning_step: Cleaning step to be logged
-            args: Provided arguments by user to provide sufficient logging
-            kwargs: Provided keyword arguments by user to provide sufficient logging
         """
         ...
 
