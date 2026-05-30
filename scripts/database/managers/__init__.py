@@ -1,12 +1,12 @@
 from scripts.database.managers.base import (
     DatabaseManagerInterface,
+    DatabasePayloadPreparer,
     DatabasePayloadNormalizer,
     PayloadNormalizerInterface,
     PayloadSchemaValidatorInterface,
     PreparedDatabasePayload,
     RejectedDatabaseRow,
     TableSchemaRowValidator,
-    ValidatingDatabaseManager,
 )
 from scripts.database.managers.factory import (
     DatabaseManagerFactory,
@@ -27,6 +27,7 @@ __all__ = [
     "DatabaseManagerFactory",
     "DatabaseManagerInterface",
     "DatabaseManagerType",
+    "DatabasePayloadPreparer",
     "DatabasePayloadNormalizer",
     "PayloadNormalizerInterface",
     "PayloadSchemaValidatorInterface",
@@ -36,7 +37,6 @@ __all__ = [
     "PreparedDatabasePayload",
     "RejectedDatabaseRow",
     "TableSchemaRowValidator",
-    "ValidatingDatabaseManager",
     "create_manager",
     "create_manager_from_env",
 ]

@@ -13,16 +13,11 @@ from scripts.database.managers.base.tools import (
     RejectedDatabaseRow,
     TableSchemaRowValidator,
 )
-from scripts.database.managers.base.validating_manager import (
-    DatabaseManagerWithSchemaValidation,
-    ValidatingDatabaseManager,
-)
 
 __all__ = [
     "DatabaseManagerInterface",
     "DatabaseManagerLoggerInterface",
     "DatabasePayloadPreparer",
-    "DatabaseManagerWithSchemaValidation",
     "DatabasePayloadNormalizer",
     "log_database_lifecycle",
     "PayloadNormalizerInterface",
@@ -31,5 +26,4 @@ __all__ = [
     "PythonDatabaseManagerLogger",
     "RejectedDatabaseRow",
     "TableSchemaRowValidator",
-    "ValidatingDatabaseManager",
 ]
