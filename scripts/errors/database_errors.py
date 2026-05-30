@@ -38,3 +38,22 @@ class InvalidRequestType(ValueError):
     def __init__(self, error_msg: str, *, request_type: object | None = None) -> None:
         super().__init__(error_msg)
         self.request_type = request_type
+
+
+class DatabaseConnectionException(ConnectionError):
+    """Exception raised when a database connection cannot be established."""
+
+    def __init__(
+        self,
+        error_msg: str,
+        *,
+        database_name: str | None = None,
+        host: str | None = None,
+        port: int | None = None,
+        env_var: str | None = None,
+    ) -> None:
+        super().__init__(error_msg)
+        self.database_name = database_name
+        self.host = host
+        self.port = port
+        self.env_var = env_var
