@@ -6,7 +6,6 @@ from enum import StrEnum
 from typing import Any, final
 
 from scripts.database.managers.base import DatabaseManagerInterface
-from scripts.database.managers.postgresql import PostgreSQLDatabaseManager
 
 
 class DatabaseManagerType(StrEnum):
@@ -85,6 +84,3 @@ def create_manager_from_env(
     manager_type: str | DatabaseManagerType, *args: Any, **kwargs: Any
 ) -> DatabaseManagerInterface:
     return DatabaseManagerFactory.create_from_env(manager_type, *args, **kwargs)
-
-
-DatabaseManagerFactory.register("postgresql", PostgreSQLDatabaseManager)
