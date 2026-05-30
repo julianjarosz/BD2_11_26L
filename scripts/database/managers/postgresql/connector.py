@@ -2,15 +2,12 @@
 
 from __future__ import annotations
 
-import logging
 import typing
 
 import psycopg
 from psycopg.rows import dict_row
 
 from scripts.errors.database_errors import DatabaseConnectionException
-
-LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 class PostgreSQLDatabaseConnector:
@@ -20,12 +17,10 @@ class PostgreSQLDatabaseConnector:
         self,
         dsn: str,
         *,
-        logger: logging.Logger | None = None,
         autocommit: bool = False,
         **connection_kwargs: typing.Any,
     ) -> None:
         self.dsn: str = dsn
-        self.logger: logging.Logger = logger or LOGGER
         self.autocommit: bool = autocommit
         self.connection_kwargs: dict[str, typing.Any] = connection_kwargs
         self.connection: psycopg.Connection | None = None
@@ -42,7 +37,6 @@ class PostgreSQLDatabaseConnector:
                 **self.connection_kwargs,
             )
         except psycopg.OperationalError as exc:
-            self.logger.exception("Could not connect to PostgreSQL database.")
             raise DatabaseConnectionException("Could not connect to PostgreSQL database.") from exc
 
         return self.connection
@@ -59,7 +53,6 @@ class PostgreSQLDatabaseConnector:
         try:
             self.connection.close()
         except psycopg.OperationalError as exc:
-            self.logger.exception("Could not close PostgreSQL database connection.")
             raise DatabaseConnectionException(
                 "Could not close PostgreSQL database connection."
             ) from exc
