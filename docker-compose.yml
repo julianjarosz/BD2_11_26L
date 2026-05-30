@@ -41,23 +41,6 @@ services:
     networks:
       - weather-net
 
-  redis:
-    image: redis:7-alpine
-    container_name: weather-redis
-    restart: unless-stopped
-    ports:
-      - "${REDIS_PORT:-6379}:6379"
-    volumes:
-      - redis_data:/data
-    command: ["redis-server", "--appendonly", "yes"]
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 5s
-      retries: 10
-    networks:
-      - weather-net
-
   python-app:
     build:
       context: .

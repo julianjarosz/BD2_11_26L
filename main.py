@@ -8,10 +8,12 @@ from pathlib import Path
 from typing import Iterable
 
 from scripts.api.openweather_manager import DEFAULT_CITY_NAME
-from scripts.database.managers.postgresql_database_manager import (
+from scripts.database.managers.base import PythonDatabaseManagerLogger
+from scripts.database.managers.postgresql import (
     PostgreSQLDatabaseManager,
     PostgreSQLDatabaseManagerContext,
 )
+from scripts.database.managers.factory import create_manager_from_env
 from scripts.pipeline.api_source import OpenWeatherApiSource
 from scripts.pipeline.load_step import LoadStep
 from scripts.pipeline.pipeline_elt import PipelineELT
@@ -52,21 +54,8 @@ WAREHOUSE_TABLES = (
     "dw.fact_forecast_accuracy",
 )
 
-
 def sql_path(*parts: str) -> Path:
     return PROJECT_ROOT.joinpath(*parts)
-
-
-def create_postgres_manager(env_var: str) -> PostgreSQLDatabaseManager:
-    context = PostgreSQLDatabaseManagerContext(
-        autocommit=False,
-        schema_metadata_store=None,
-        data_schema_cleaner=None,
-        logger=logging.getLogger(__name__),
-        connection_kwargs={},
-    )
-    return PostgreSQLDatabaseManager.create_from_env(context, env_var)
-
 
 def staging_sink(
     name: str,
@@ -80,7 +69,6 @@ def staging_sink(
         setup_sql_paths=[sql_path(*path_parts) for path_parts in setup_sql],
         transformations=transformations or [],
     )
-
 
 def create_api_to_warehouse_staging_pipeline(
     operational_database: PostgreSQLDatabaseManager,
@@ -138,22 +126,17 @@ def create_api_to_warehouse_staging_pipeline(
         ]
     )
 
-
 def fetch_warehouse_staging_preview(
     database: PostgreSQLDatabaseManager,
     limit: int = 5,
 ) -> list[dict[str, object]]:
-    return list(
-        database.fetch_data(
-            f"""
+    result = database.fetch_data(f"""
             SELECT *
             FROM {WAREHOUSE_STAGING_TABLE}
             ORDER BY mapped_data_buffer_id DESC NULLS LAST
             LIMIT {limit}
-            """
-        ).successful_rows
-    )
-
+            """)
+    return list(result.successful_rows)
 
 def fetch_warehouse_counts(database: PostgreSQLDatabaseManager) -> list[dict[str, object]]:
     rows = []
@@ -162,14 +145,12 @@ def fetch_warehouse_counts(database: PostgreSQLDatabaseManager) -> list[dict[str
         rows.append({"table": table_name, "rows": result.successful_rows[0]["row_count"]})
     return rows
 
-
 def fetch_operational_counts(database: PostgreSQLDatabaseManager) -> list[dict[str, object]]:
     rows = []
     for table_name in OPERATIONAL_MODEL_TABLES:
         result = database.fetch_data(f"SELECT count(*) AS row_count FROM {table_name}")
         rows.append({"table": table_name, "rows": result.successful_rows[0]["row_count"]})
     return rows
-
 
 def print_rows(rows: Iterable[dict[str, object]]) -> None:
     rows = [dict(row) for row in rows]
@@ -180,12 +161,27 @@ def print_rows(rows: Iterable[dict[str, object]]) -> None:
     for row in rows:
         print(row)
 
+operational_context = PostgreSQLDatabaseManagerContext(
+        autocommit=False,
+        schema_metadata_store=None,
+        data_schema_cleaner=None,
+        connection_kwargs={},
+        database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.{"OperationalDB"}")),
+)
+
+warehouse_context = PostgreSQLDatabaseManagerContext(
+    autocommit=False,
+    schema_metadata_store=None,
+    connection_kwargs={},
+    data_schema_cleaner=None,
+    database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.{"WarehouseDB"}")),
+)
 
 def run_api_to_warehouse_staging_once(city: str = DEFAULT_CITY_NAME) -> None:
-    operational_database = create_postgres_manager(OPERATIONAL_DSN_ENV_VAR)
-    warehouse_database = create_postgres_manager(WAREHOUSE_DSN_ENV_VAR)
-
-    try:
+    with (
+        create_manager_from_env("pg", operational_context, OPERATIONAL_DSN_ENV_VAR) as operational_database,
+        create_manager_from_env("pg", warehouse_context, WAREHOUSE_DSN_ENV_VAR) as warehouse_database,
+    ):
         create_api_to_warehouse_staging_pipeline(
             operational_database=operational_database,
             warehouse_database=warehouse_database,
@@ -200,9 +196,6 @@ def run_api_to_warehouse_staging_once(city: str = DEFAULT_CITY_NAME) -> None:
 
         print("\n=== warehouse table counts ===")
         print_rows(fetch_warehouse_counts(warehouse_database))
-    finally:
-        operational_database.close()
-        warehouse_database.close()
 
 
 def main() -> None:
