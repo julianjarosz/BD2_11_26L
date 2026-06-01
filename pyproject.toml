@@ -13,6 +13,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "black>=24.0.0",
+    "mypy>=1.10.0",
     "pylint>=3.0.0",
 ]
 
@@ -34,3 +35,8 @@ extend-exclude = '''
 
 [tool.pylint."messages control"]
 disable = ["R0902"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+check_untyped_defs = true
