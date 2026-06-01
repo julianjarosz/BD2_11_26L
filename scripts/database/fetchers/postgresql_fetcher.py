@@ -35,7 +35,7 @@ class PostgreSQLDatabaseFetcher(BaseFetcher[Query | str | sql.Composed, Database
         fetched_rows: list[DatabaseRow] | None = self.query_executor.execute(
             query=query,
             params=params,
-            cursor_callback=PostgreSQLCursorFetchCallback(),
+            callback=PostgreSQLCursorFetchCallback(),
             **exec_kwargs,
         )
 

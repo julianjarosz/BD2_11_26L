@@ -1,18 +1,21 @@
-from scripts.database.executors.postgresql_query_executor import PostgreSQLQueryExecutor
+from __future__ import annotations
+
+import typing
+
+from scripts.database.executors.base_executor import BaseExecutor
 from scripts.database.models.database_types import DatabaseRow, DatabaseOperationResult, FailedRow
 from scripts.database.builders.base_query_builder import BaseQueryBuilder
+from scripts.database.pushers.base_pusher import BasePusher
 
-
-class PostgreSQLDatabasePusher:
+class PostgreSQLDatabasePusher(BasePusher):
 
     def __init__(
         self,
-        query_executor: PostgreSQLQueryExecutor,
+        query_executor: BaseExecutor[typing.Any, typing.Any],
         builder_t: type[BaseQueryBuilder],
     ) -> None:
-        self.query_executor: PostgreSQLQueryExecutor = query_executor
-        self.builder_t: type[BaseQueryBuilder] = builder_t
-
+        super().__init__(query_executor, builder_t)
+        
         self.successful_rows: list[DatabaseRow] = []
         self.failed_rows: list[FailedRow] = []
 
