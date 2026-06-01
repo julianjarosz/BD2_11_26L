@@ -2,8 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable, TypeVar, final
-from logging import Logger
+from typing import Any, Callable, final
 
 import psycopg
 from psycopg import sql
@@ -11,8 +10,6 @@ from psycopg import sql
 from scripts.database.models.database_types import DatabaseParams
 from scripts.database.models.query import Query
 from scripts.database.executors.base_executor import BaseExecutor
-
-CursorCallbackResultT = TypeVar("CursorCallbackResultT")
 
 
 @final
@@ -35,14 +32,14 @@ class PostgreSQLQueryExecutor(BaseExecutor[str | Query | sql.Composed, DatabaseP
         self,
         query: Query | str | sql.Composable,
         params: DatabaseParams | None = None,
-        cursor_callback: Callable[[psycopg.Cursor], CursorCallbackResultT] | None = None,
+        callback: Callable[..., Any] | None = None,
         **exec_kwargs: dict[str, Any],
-    ) -> CursorCallbackResultT | None:
+    ) -> Any:
         normalized_query: str | sql.Composable = PostgreSQLQueryExecutor.normalize_query(query)
         try:
             with self.db_connection.cursor() as cursor:
                 cursor.execute(normalized_query, params, **exec_kwargs)
-                result = cursor_callback(cursor) if cursor_callback is not None else None
+                result = callback(cursor) if callback is not None else None
             if not self.autocommit:
                 self.db_connection.commit()
 
