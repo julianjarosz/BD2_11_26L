@@ -15,16 +15,16 @@ class BasePusher(abc.ABC):
     A pusher owns a query executor and query-builder type, then exposes insert
     operations that return per-row success and failure metadata.
     """
-    
-    def __init__(self, 
-                 query_executor: BaseExecutor[typing.Any, typing.Any],
-                 builder_t: type[BaseQueryBuilder]
-                 ) -> None:
-        
+
+    def __init__(
+        self,
+        query_executor: BaseExecutor[typing.Any, typing.Any],
+        builder_t: type[BaseQueryBuilder],
+    ) -> None:
+
         self.query_executor: BaseExecutor[typing.Any, typing.Any] = query_executor
         self.builder_t: type[BaseQueryBuilder] = builder_t
-        
-    
+
     @abc.abstractmethod
     def insert(self, table_name: str, rows: list[DatabaseRow]) -> DatabaseOperationResult:
         """

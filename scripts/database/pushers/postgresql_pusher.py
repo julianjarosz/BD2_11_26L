@@ -7,6 +7,7 @@ from scripts.database.models.database_types import DatabaseRow, DatabaseOperatio
 from scripts.database.builders.base_query_builder import BaseQueryBuilder
 from scripts.database.pushers.base_pusher import BasePusher
 
+
 class PostgreSQLDatabasePusher(BasePusher):
 
     def __init__(
@@ -15,7 +16,7 @@ class PostgreSQLDatabasePusher(BasePusher):
         builder_t: type[BaseQueryBuilder],
     ) -> None:
         super().__init__(query_executor, builder_t)
-        
+
         self.successful_rows: list[DatabaseRow] = []
         self.failed_rows: list[FailedRow] = []
 
