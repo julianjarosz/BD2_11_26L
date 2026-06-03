@@ -2,7 +2,7 @@
 
 from typing import Protocol
 
-from scripts.database.managers.database_manager import DatabaseManagerInterface
+from scripts.database.managers.base import DatabaseManagerInterface
 
 
 class Transformation(Protocol):

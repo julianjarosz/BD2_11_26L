@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts.database.managers.database_manager import DatabaseManagerInterface
+from scripts.database.managers.base import DatabaseManagerInterface
 
 
 class SqlFileTransformation:

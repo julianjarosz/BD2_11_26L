@@ -1,6 +1,6 @@
 """PostgreSQL table-backed source for the ELT pipeline."""
 
-from scripts.database.managers.database_manager import DatabaseManagerInterface
+from scripts.database.managers.base import DatabaseManagerInterface
 from scripts.errors.pipeline_errors import PostgresTableSourceError
 from scripts.pipeline.source import Row
 

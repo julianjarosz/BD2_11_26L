@@ -17,9 +17,9 @@ from scripts.database.managers.factory import create_manager_from_env
 from scripts.pipeline.api_source import OpenWeatherApiSource
 from scripts.pipeline.load_step import LoadStep
 from scripts.pipeline.pipeline_elt import PipelineELT
-from scripts.pipeline.postgres_table_source import PostgresTableSource
 from scripts.pipeline.postgres_warehouse_sink import PostgresWarehouseSink
 from scripts.pipeline.sql_file_transformation import SqlFileTransformation
+from scripts.pipeline.watermarked_postgres_table_source import WatermarkedPostgresTableSource
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 
@@ -27,7 +27,16 @@ OPERATIONAL_DSN_ENV_VAR = "POSTGRES_DSN"
 WAREHOUSE_DSN_ENV_VAR = "WAREHOUSE_POSTGRES_DSN"
 
 OPERATIONAL_STAGING_TABLE = "mapped_data_buffer"
-WAREHOUSE_STAGING_TABLE = "stg.mapped_data_buffer"
+OPERATIONAL_TO_WAREHOUSE_TABLES = (
+    ("location", "location_id", "stg.location"),
+    ("weather_condition", "openweather_weather_id", "stg.weather_condition"),
+    ("current_weather", "current_weather_id", "stg.current_weather"),
+    ("hourly_forecast", "hourly_forecast_id", "stg.hourly_forecast"),
+    ("daily_forecast", "daily_forecast_id", "stg.daily_forecast"),
+    ("minutely_forecast", "minutely_forecast_id", "stg.minutely_forecast"),
+    ("air_pollution", "air_pollution_id", "stg.air_pollution"),
+    ("weather_alert", "weather_alert_id", "stg.weather_alert"),
+)
 
 OPERATIONAL_MODEL_TABLES = (
     "location",
@@ -70,9 +79,8 @@ def staging_sink(
         transformations=transformations or [],
     )
 
-def create_api_to_warehouse_staging_pipeline(
+def create_api_to_operational_pipeline(
     operational_database: PostgreSQLDatabaseManager,
-    warehouse_database: PostgreSQLDatabaseManager,
     city: str = DEFAULT_CITY_NAME,
 ) -> PipelineELT:
     operational_staging_sink = staging_sink(
@@ -93,11 +101,37 @@ def create_api_to_warehouse_staging_pipeline(
             )
         ],
     )
+
+    return PipelineELT(
+        load_steps=[
+            LoadStep(
+                source=OpenWeatherApiSource("openweather_api"),
+                source_resource=city,
+                sink=operational_staging_sink,
+                staging_table=OPERATIONAL_STAGING_TABLE,
+            ),
+        ]
+    )
+
+
+def create_operational_to_warehouse_pipeline(
+    operational_database: PostgreSQLDatabaseManager,
+    warehouse_database: PostgreSQLDatabaseManager,
+) -> PipelineELT:
+    operational_source = WatermarkedPostgresTableSource(
+        name="operational_model",
+        operational_database=operational_database,
+        warehouse_database=warehouse_database,
+        id_columns={
+            table_name: id_column
+            for table_name, id_column, _staging_table in OPERATIONAL_TO_WAREHOUSE_TABLES
+        },
+        full_load_tables={"location", "weather_condition"},
+    )
     warehouse_staging_sink = staging_sink(
         name="warehouse_staging",
         database=warehouse_database,
         setup_sql=(
-            ("data_warehouse", "init", "00_reset_warehouse_schema.sql"),
             ("data_warehouse", "init", "01_warehouse_schema.sql"),
             ("data_warehouse", "init", "03_staging_schema.sql"),
         ),
@@ -112,31 +146,40 @@ def create_api_to_warehouse_staging_pipeline(
     return PipelineELT(
         load_steps=[
             LoadStep(
-                source=OpenWeatherApiSource("openweather_api"),
-                source_resource=city,
-                sink=operational_staging_sink,
-                staging_table=OPERATIONAL_STAGING_TABLE,
-            ),
-            LoadStep(
-                source=PostgresTableSource("operational_staging", operational_database),
-                source_resource=OPERATIONAL_STAGING_TABLE,
+                source=operational_source,
+                source_resource=table_name,
                 sink=warehouse_staging_sink,
-                staging_table=WAREHOUSE_STAGING_TABLE,
-            ),
+                staging_table=staging_table,
+            )
+            for table_name, _id_column, staging_table in OPERATIONAL_TO_WAREHOUSE_TABLES
         ]
     )
 
-def fetch_warehouse_staging_preview(
-    database: PostgreSQLDatabaseManager,
-    limit: int = 5,
-) -> list[dict[str, object]]:
-    result = database.fetch_data(f"""
-            SELECT *
-            FROM {WAREHOUSE_STAGING_TABLE}
-            ORDER BY mapped_data_buffer_id DESC NULLS LAST
-            LIMIT {limit}
-            """)
-    return list(result.successful_rows)
+
+def create_api_to_warehouse_staging_pipeline(
+    operational_database: PostgreSQLDatabaseManager,
+    warehouse_database: PostgreSQLDatabaseManager,
+    city: str = DEFAULT_CITY_NAME,
+) -> PipelineELT:
+    return PipelineELT(
+        load_steps=[
+            *create_api_to_operational_pipeline(
+                operational_database=operational_database,
+                city=city,
+            ).load_steps,
+            *create_operational_to_warehouse_pipeline(
+                operational_database=operational_database,
+                warehouse_database=warehouse_database,
+            ).load_steps,
+        ]
+    )
+
+def fetch_warehouse_staging_counts(database: PostgreSQLDatabaseManager) -> list[dict[str, object]]:
+    rows = []
+    for _table_name, _id_column, staging_table in OPERATIONAL_TO_WAREHOUSE_TABLES:
+        result = database.fetch_data(f"SELECT count(*) AS row_count FROM {staging_table}")
+        rows.append({"table": staging_table, "rows": result.successful_rows[0]["row_count"]})
+    return rows
 
 def fetch_warehouse_counts(database: PostgreSQLDatabaseManager) -> list[dict[str, object]]:
     rows = []
@@ -166,7 +209,7 @@ operational_context = PostgreSQLDatabaseManagerContext(
         schema_metadata_store=None,
         data_schema_cleaner=None,
         connection_kwargs={},
-        database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.{"OperationalDB"}")),
+        database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.OperationalDB")),
 )
 
 warehouse_context = PostgreSQLDatabaseManagerContext(
@@ -174,37 +217,56 @@ warehouse_context = PostgreSQLDatabaseManagerContext(
     schema_metadata_store=None,
     connection_kwargs={},
     data_schema_cleaner=None,
-    database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.{"WarehouseDB"}")),
+    database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.WarehouseDB")),
 )
 
-def run_api_to_warehouse_staging_once(city: str = DEFAULT_CITY_NAME) -> None:
-    with (
-        create_manager_from_env("pg", operational_context, OPERATIONAL_DSN_ENV_VAR) as operational_database,
-        create_manager_from_env("pg", warehouse_context, WAREHOUSE_DSN_ENV_VAR) as warehouse_database,
-    ):
-        create_api_to_warehouse_staging_pipeline(
+def run_api_to_operational_once(city: str = DEFAULT_CITY_NAME) -> None:
+    with create_manager_from_env("pg", operational_context, OPERATIONAL_DSN_ENV_VAR) as operational_database:
+        create_api_to_operational_pipeline(
             operational_database=operational_database,
-            warehouse_database=warehouse_database,
             city=city,
         ).run()
 
         print("\n=== operational model table counts ===")
         print_rows(fetch_operational_counts(operational_database))
 
-        print(f"\n=== {WAREHOUSE_STAGING_TABLE} ===")
-        print_rows(fetch_warehouse_staging_preview(warehouse_database))
+
+def run_operational_to_warehouse_once() -> None:
+    with (
+        create_manager_from_env("pg", operational_context, OPERATIONAL_DSN_ENV_VAR) as operational_database,
+        create_manager_from_env("pg", warehouse_context, WAREHOUSE_DSN_ENV_VAR) as warehouse_database,
+    ):
+        create_operational_to_warehouse_pipeline(
+            operational_database=operational_database,
+            warehouse_database=warehouse_database,
+        ).run()
+
+        print("\n=== warehouse staging table counts ===")
+        print_rows(fetch_warehouse_staging_counts(warehouse_database))
 
         print("\n=== warehouse table counts ===")
         print_rows(fetch_warehouse_counts(warehouse_database))
 
 
+def run_api_to_warehouse_staging_once(city: str = DEFAULT_CITY_NAME) -> None:
+    run_api_to_operational_once(city)
+    run_operational_to_warehouse_once()
+
+
 def main() -> None:
     logging.basicConfig(
-        level=os.getenv("LOG_LEVEL", "INFO").upper(),
+        level=os.getenv("LOG_LEVEL", "WARNING").upper(),
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
-    run_api_to_warehouse_staging_once()
-
+    pipeline_mode = os.getenv("PIPELINE_MODE", "all").lower()
+    if pipeline_mode == "api_to_operational":
+        run_api_to_operational_once()
+    elif pipeline_mode == "operational_to_warehouse":
+        run_operational_to_warehouse_once()
+    elif pipeline_mode == "all":
+        run_api_to_warehouse_staging_once()
+    else:
+        raise ValueError("Invalid PIPELINE_MODE")
 
 if __name__ == "__main__":
     main()

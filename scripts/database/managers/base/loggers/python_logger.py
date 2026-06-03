@@ -66,7 +66,7 @@ class PythonDatabaseManagerLogger:
         )
 
     def fetch_started(self, manager_name: str, query: Query | str) -> None:
-        self.logger.info("Starting %s fetch: query=%s", manager_name, query)
+        self.logger.info("Starting %s fetch.", manager_name)
 
     def fetch_succeeded(self, manager_name: str, result: DatabaseOperationResult) -> None:
         self.logger.info(
@@ -78,22 +78,20 @@ class PythonDatabaseManagerLogger:
 
     def fetch_failed(self, manager_name: str, query: Query | str, error: Exception) -> None:
         self.logger.error(
-            "Failed %s fetch: query=%s error=%s",
+            "Failed %s fetch: error=%s",
             manager_name,
-            query,
             error,
         )
 
     def execute_started(self, manager_name: str, query: Query | str) -> None:
-        self.logger.info("Starting %s execute: query=%s", manager_name, query)
+        self.logger.info("Starting %s execute.", manager_name)
 
     def execute_succeeded(self, manager_name: str, query: Query | str) -> None:
-        self.logger.info("Finished %s execute: query=%s", manager_name, query)
+        self.logger.info("Finished %s execute.", manager_name)
 
     def execute_failed(self, manager_name: str, query: Query | str, error: Exception) -> None:
         self.logger.error(
-            "Failed %s execute: query=%s error=%s",
+            "Failed %s execute: error=%s",
             manager_name,
-            query,
             error,
         )

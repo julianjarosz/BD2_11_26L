@@ -1,5 +1,11 @@
 CREATE SCHEMA IF NOT EXISTS dw;
 
+CREATE TABLE IF NOT EXISTS dw.etl_watermark (
+    source_name varchar(100) PRIMARY KEY,
+    last_loaded_id bigint NOT NULL DEFAULT 0,
+    updated_at timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS dw.dim_date (
     date_key integer PRIMARY KEY,
     full_date date NOT NULL UNIQUE,

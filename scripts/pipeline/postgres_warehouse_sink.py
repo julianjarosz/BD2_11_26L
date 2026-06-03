@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-from scripts.database.managers.database_manager import DatabaseManagerInterface
+from scripts.database.managers.base import DatabaseManagerInterface
 from scripts.database.models.database_payload import DatabasePayload
 from scripts.database.models.database_types import DatabaseRequestType
 from scripts.errors.pipeline_errors import PostgresWarehouseSinkError
