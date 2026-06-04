@@ -1,0 +1,155 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4A39177A-C523-85FA-DAC0-0A9CFA420AE5" name="DIM DATE">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:57:16 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="DATE KEY" id="A51270C6-51FC-F4B9-301A-4E21AAD0E31F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FULL DATE" id="4A5E463D-07CC-29D5-532F-7F324B01990F">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY" id="B247F4F3-DA90-FB58-D922-4C9A8C7EF6E0">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MONTH" id="B13F84EE-31E5-204D-8ABA-B76FD30D940B">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MONTH NAME" id="6FFE80A4-D705-8E05-2D79-11B398C558C8">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="QUARTER" id="11794019-10BC-EE49-8FED-5DFC2345A879">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="YEAR" id="7AA8F3B0-7447-C293-D945-0B59E2015BC3">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY OF THE WEEK" id="7F455F19-3A12-9A2D-1F9F-2E946C6ECC64">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DAY NAME" id="4AD6700F-CF6F-4301-8644-917BAEB19AE9">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="IS WEEKEND" id="D977FBAF-2D71-0C55-8B5B-75175143211C">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:25 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+<ownDataTypeParameters>1,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D8889163-7D4C-E244-2549-C455B1E7AB1D" name="DIM_START_DATE_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-05-04 19:59:37 UTC</createdTime>
+<ownerDesignName>fact_weather_alert</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="900DE962-7B5E-52E4-5DEF-4C139B490FA3" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A51270C6-51FC-F4B9-301A-4E21AAD0E31F</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
