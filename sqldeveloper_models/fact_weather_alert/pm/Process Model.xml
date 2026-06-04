@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<ProcessModel class="oracle.dbtools.crest.model.design.process.ProcessModel" name="Process Model" id="A4120235-A054-2E43-E0DC-7C4F3F3F11DB">
-<createdBy>inne</createdBy>
-<createdTime>2026-05-04 19:56:23 UTC</createdTime>
-<ownerDesignName>fact_weather_alert</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-</ProcessModel>

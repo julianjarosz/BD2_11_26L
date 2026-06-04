@@ -1,7 +1,0 @@
-<?xml version = '1.0' encoding = 'UTF-8'?>
-<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="441012C8-C680-F07B-F4A1-229690C7BBB1" mainViewID="456F3313-D524-1606-A209-03737BBC6724">
-<createdBy>inne</createdBy>
-<createdTime>2026-05-04 19:56:23 UTC</createdTime>
-<ownerDesignName>fact_weather_alert</ownerDesignName>
-<shouldBeOpen>false</shouldBeOpen>
-</LogicalDesign>
