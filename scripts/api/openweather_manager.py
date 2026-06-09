@@ -23,6 +23,7 @@ DEFAULT_CITY_NAMES = (
     "Ostroleka",
     "Dzialdowo",
     "Wroclaw",
+    "Pęcice-Małe",
 )
 
 CITY_COORDINATES = {
@@ -34,6 +35,7 @@ CITY_COORDINATES = {
     "ostroleka": (53.0833, 21.5667),
     "dzialdowo": (53.2396, 20.1801),
     "wroclaw": (51.1079, 17.0385),
+    "pecice-male": (52.143889, 20.836389),
 }
 
 
