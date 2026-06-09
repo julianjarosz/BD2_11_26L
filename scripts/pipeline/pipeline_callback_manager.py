@@ -1,11 +1,3 @@
-"""Callback events and manager for ELT pipeline stages.
-
-Pipeline callbacks receive a single :class:`PipelineEvent` object that
-describes the stage, success state, related load step, row counts, and any
-exception raised by the stage. The callback manager stores separate callback
-lists for successful and failed events in each pipeline stage.
-"""
-
 from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any

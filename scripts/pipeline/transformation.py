@@ -1,5 +1,3 @@
-"""Transformation protocol for post-load pipeline steps."""
-
 from typing import Protocol
 
 from scripts.database.managers.base import DatabaseManagerInterface

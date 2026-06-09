@@ -1,5 +1,3 @@
-"""Source protocol for pipeline extractors."""
-
 from typing import Any, Mapping, Protocol
 
 Row = Mapping[str, Any]
