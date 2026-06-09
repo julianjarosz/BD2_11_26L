@@ -1,5 +1,3 @@
-"""OpenWeather API-backed source for the ELT pipeline."""
-
 from scripts.api.openweather_manager import DEFAULT_CITY_NAME, OpenWeatherManager
 from scripts.errors.pipeline_errors import OpenWeatherApiSourceError
 from scripts.pipeline.source import Row
