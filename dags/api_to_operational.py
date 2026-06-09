@@ -20,7 +20,7 @@ if not PROJECT_ROOT.exists():
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from scripts.api.openweather_manager import DEFAULT_CITY_NAME
+from scripts.api.openweather_manager import DEFAULT_CITY_NAMES
 from scripts.database.managers.base import PythonDatabaseManagerLogger
 from scripts.database.managers.factory import create_manager_from_env
 from scripts.database.managers.postgresql import (
@@ -83,13 +83,14 @@ operational_context = PostgreSQLDatabaseManagerContext(
 
 def create_api_to_operational_pipeline(
     operational_database: PostgreSQLDatabaseManager,
-    city: str = DEFAULT_CITY_NAME,
+    cities: Iterable[str] = DEFAULT_CITY_NAMES,
 ) -> PipelineELT:
     operational_staging_sink = PostgresWarehouseSink(
         name="operational_staging",
         database=operational_database,
         setup_sql_paths=[
             sql_path("operational_database", "init", "01_weather_model.sql"),
+            sql_path("operational_database", "init", "02_migrate_weather_condition_keys.sql"),
             sql_path("operational_database", "init", "03_mapped_raw_data_buffer.sql"),
         ],
         transformations=[
@@ -111,12 +112,13 @@ def create_api_to_operational_pipeline(
                 source_resource=city,
                 sink=operational_staging_sink,
                 staging_table=OPERATIONAL_STAGING_TABLE,
-            ),
+            )
+            for city in cities
         ]
     )
 
 
-def run_api_to_operational_once(city: str = DEFAULT_CITY_NAME) -> None:
+def run_api_to_operational_once(cities: Iterable[str] = DEFAULT_CITY_NAMES) -> None:
     with create_manager_from_env(
         "pg",
         operational_context,
@@ -124,7 +126,7 @@ def run_api_to_operational_once(city: str = DEFAULT_CITY_NAME) -> None:
     ) as operational_database:
         create_api_to_operational_pipeline(
             operational_database=operational_database,
-            city=city,
+            cities=cities,
         ).run()
 
         print("\n=== operational model table counts ===")

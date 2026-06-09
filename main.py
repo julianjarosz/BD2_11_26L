@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 from typing import Iterable
 
-from scripts.api.openweather_manager import DEFAULT_CITY_NAME
+from scripts.api.openweather_manager import DEFAULT_CITY_NAMES
 from scripts.database.managers.base import PythonDatabaseManagerLogger
 from scripts.database.managers.postgresql import (
     PostgreSQLDatabaseManager,
@@ -81,13 +81,14 @@ def staging_sink(
 
 def create_api_to_operational_pipeline(
     operational_database: PostgreSQLDatabaseManager,
-    city: str = DEFAULT_CITY_NAME,
+    cities: Iterable[str] = DEFAULT_CITY_NAMES,
 ) -> PipelineELT:
     operational_staging_sink = staging_sink(
         name="operational_staging",
         database=operational_database,
         setup_sql=(
             ("operational_database", "init", "01_weather_model.sql"),
+            ("operational_database", "init", "02_migrate_weather_condition_keys.sql"),
             ("operational_database", "init", "03_mapped_raw_data_buffer.sql"),
         ),
         transformations=[
@@ -109,7 +110,8 @@ def create_api_to_operational_pipeline(
                 source_resource=city,
                 sink=operational_staging_sink,
                 staging_table=OPERATIONAL_STAGING_TABLE,
-            ),
+            )
+            for city in cities
         ]
     )
 
@@ -159,13 +161,13 @@ def create_operational_to_warehouse_pipeline(
 def create_api_to_warehouse_staging_pipeline(
     operational_database: PostgreSQLDatabaseManager,
     warehouse_database: PostgreSQLDatabaseManager,
-    city: str = DEFAULT_CITY_NAME,
+    cities: Iterable[str] = DEFAULT_CITY_NAMES,
 ) -> PipelineELT:
     return PipelineELT(
         load_steps=[
             *create_api_to_operational_pipeline(
                 operational_database=operational_database,
-                city=city,
+                cities=cities,
             ).load_steps,
             *create_operational_to_warehouse_pipeline(
                 operational_database=operational_database,
@@ -220,11 +222,11 @@ warehouse_context = PostgreSQLDatabaseManagerContext(
     database_logger=PythonDatabaseManagerLogger(logging.getLogger(f"{__name__}.WarehouseDB")),
 )
 
-def run_api_to_operational_once(city: str = DEFAULT_CITY_NAME) -> None:
+def run_api_to_operational_once(cities: Iterable[str] = DEFAULT_CITY_NAMES) -> None:
     with create_manager_from_env("pg", operational_context, OPERATIONAL_DSN_ENV_VAR) as operational_database:
         create_api_to_operational_pipeline(
             operational_database=operational_database,
-            city=city,
+            cities=cities,
         ).run()
 
         print("\n=== operational model table counts ===")
@@ -248,8 +250,8 @@ def run_operational_to_warehouse_once() -> None:
         print_rows(fetch_warehouse_counts(warehouse_database))
 
 
-def run_api_to_warehouse_staging_once(city: str = DEFAULT_CITY_NAME) -> None:
-    run_api_to_operational_once(city)
+def run_api_to_warehouse_staging_once(cities: Iterable[str] = DEFAULT_CITY_NAMES) -> None:
+    run_api_to_operational_once(cities)
     run_operational_to_warehouse_once()
 
 

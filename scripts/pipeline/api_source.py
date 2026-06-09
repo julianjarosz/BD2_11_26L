@@ -31,8 +31,7 @@ class OpenWeatherApiSource:
         """Fetch one flattened OpenWeather row.
 
         Args:
-            resource_name: City label for the row. Current API URLs are configured
-                for Warsaw coordinates.
+            resource_name: City label for the row.
 
         Returns:
             A one-row list containing the mapped data buffer row.

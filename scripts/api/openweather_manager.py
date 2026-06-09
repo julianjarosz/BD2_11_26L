@@ -1,6 +1,7 @@
 import configparser
 import json
 import os
+import unicodedata
 
 from pathlib import Path
 from urllib.request import urlopen
@@ -13,6 +14,36 @@ except ModuleNotFoundError:
 OPENWEATHER_API_KEY_ENV_VAR = "OPENWEATHER_API_KEY"
 DEFAULT_CITY_NAME = "Warsaw"
 DEFAULT_COUNTRY_CODE = "PL"
+DEFAULT_CITY_NAMES = (
+    "Warsaw",
+    "Bialystok",
+    "Poznan",
+    "Krakow",
+    "Gdansk",
+    "Ostroleka",
+    "Dzialdowo",
+    "Wroclaw",
+)
+
+CITY_COORDINATES = {
+    "warsaw": (52.2297, 21.0122),
+    "bialystok": (53.1325, 23.1688),
+    "poznan": (52.4064, 16.9252),
+    "krakow": (50.0647, 19.9450),
+    "gdansk": (54.3520, 18.6466),
+    "ostroleka": (53.0833, 21.5667),
+    "dzialdowo": (53.2396, 20.1801),
+    "wroclaw": (51.1079, 17.0385),
+}
+
+
+def normalize_city_name(city_name: str) -> str:
+    translated = city_name.strip().lower().translate(str.maketrans({"ł": "l"}))
+    return "".join(
+        character
+        for character in unicodedata.normalize("NFKD", translated)
+        if not unicodedata.combining(character)
+    )
 
 
 class OpenWeatherManager:
@@ -27,6 +58,7 @@ class OpenWeatherManager:
         self.api_key = self.load_openweather_api_key(self.config)
         self.city_name = city_name
         self.country_code = country_code
+        self.lat, self.lon = self.resolve_city_coordinates(city_name)
         self.parser = parser or OpenWeatherDataParser()
 
     def get_data(self) -> dict[str, object]:
@@ -189,5 +221,19 @@ class OpenWeatherManager:
         with urlopen(url) as response:
             return json.loads(response.read().decode("utf-8"))
 
+    @staticmethod
+    def resolve_city_coordinates(city_name: str) -> tuple[float, float]:
+        city_key = normalize_city_name(city_name)
+        if city_key not in CITY_COORDINATES:
+            supported_cities = ", ".join(DEFAULT_CITY_NAMES)
+            raise ValueError(f"Unsupported city {city_name!r}. Supported cities: {supported_cities}.")
+        return CITY_COORDINATES[city_key]
+
     def build_url(self, base_url: str) -> str:
-        return base_url.format(OPENWEATHER_API_KEY=self.api_key)
+        return base_url.format(
+            OPENWEATHER_API_KEY=self.api_key,
+            LAT=self.lat,
+            LON=self.lon,
+            CITY_NAME=self.city_name,
+            COUNTRY_CODE=self.country_code,
+        )
