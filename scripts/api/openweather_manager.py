@@ -16,13 +16,13 @@ DEFAULT_CITY_NAME = "Warsaw"
 DEFAULT_COUNTRY_CODE = "PL"
 DEFAULT_CITY_NAMES = (
     "Warsaw",
-    "Bialystok",
-    "Poznan",
-    "Krakow",
-    "Gdansk",
-    "Ostroleka",
-    "Dzialdowo",
-    "Wroclaw",
+    "Białystok",
+    "Poznań",
+    "Kraków",
+    "Gdańsk",
+    "Ostrołęka",
+    "Działdowo",
+    "Wrocław",
     "Pęcice-Małe",
 )
 
