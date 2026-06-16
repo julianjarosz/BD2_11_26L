@@ -12,3 +12,4 @@ scripts/api.conf
 scripts/api/api.conf
 .DS_Store
 *Zone.Identifier
+.vscode/
