@@ -1,5 +1,3 @@
-"""OpenWeather API-backed source for the ELT pipeline."""
-
 from scripts.api.openweather_manager import DEFAULT_CITY_NAME, OpenWeatherManager
 from scripts.errors.pipeline_errors import OpenWeatherApiSourceError
 from scripts.pipeline.source import Row
@@ -31,8 +29,7 @@ class OpenWeatherApiSource:
         """Fetch one flattened OpenWeather row.
 
         Args:
-            resource_name: City label for the row. Current API URLs are configured
-                for Warsaw coordinates.
+            resource_name: City label for the row.
 
         Returns:
             A one-row list containing the mapped data buffer row.

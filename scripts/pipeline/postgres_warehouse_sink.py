@@ -1,5 +1,3 @@
-"""PostgreSQL warehouse sink for staging loads and transformations."""
-
 from pathlib import Path
 
 from scripts.database.managers.base import DatabaseManagerInterface

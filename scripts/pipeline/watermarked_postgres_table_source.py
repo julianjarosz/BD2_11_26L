@@ -1,5 +1,3 @@
-"""PostgreSQL source that extracts only rows newer than a warehouse watermark."""
-
 from scripts.database.managers.base import DatabaseManagerInterface
 from scripts.errors.pipeline_errors import PostgresTableSourceError
 from scripts.pipeline.source import Row

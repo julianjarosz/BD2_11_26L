@@ -1,5 +1,3 @@
-"""Sink protocol for pipeline loaders and transformations."""
-
 from typing import Any, Mapping, Protocol, runtime_checkable
 
 Row = Mapping[str, Any]
