@@ -60,6 +60,7 @@ services:
       - weather-net
 
   python-app:
+    image: weather-python-app-image
     build:
       context: .
       dockerfile: scripts/Dockerfile
@@ -80,7 +81,10 @@ services:
       - weather-net
 
   airflow-init:
-    image: apache/airflow:2.10.5-python3.12
+    image: weather-airflow-image
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile
     container_name: weather-airflow-init
     restart: "no"
     environment:
@@ -94,11 +98,11 @@ services:
       AIRFLOW_FIRSTNAME: ${AIRFLOW_FIRSTNAME:-Admin}
       AIRFLOW_LASTNAME: ${AIRFLOW_LASTNAME:-User}
       AIRFLOW_EMAIL: ${AIRFLOW_EMAIL:-admin@example.com}
-      _PIP_ADDITIONAL_REQUIREMENTS: "dotenv>=0.9.9 psycopg[binary]>=3.2.0 redis>=6.0.0 requests>=2.32.0"
       AIRFLOW_CONN_OPERATIONAL_POSTGRES: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       AIRFLOW_CONN_WAREHOUSE_POSTGRES: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       POSTGRES_DSN: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       WAREHOUSE_POSTGRES_DSN: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
+      DATABASE_URL: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
       LOG_LEVEL: ${LOG_LEVEL:-WARNING}
     command: >
@@ -120,7 +124,7 @@ services:
       - weather-net
 
   airflow-webserver:
-    image: apache/airflow:2.10.5-python3.12
+    image: weather-airflow-image
     container_name: weather-airflow-webserver
     restart: unless-stopped
     environment:
@@ -131,11 +135,11 @@ services:
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_SECRET_KEY:-weather-airflow-secret-key}
       AIRFLOW__WEBSERVER__WORKERS: 1
       AIRFLOW__WEBSERVER__WEB_SERVER_WORKER_TIMEOUT: 300
-      _PIP_ADDITIONAL_REQUIREMENTS: "dotenv>=0.9.9 psycopg[binary]>=3.2.0 redis>=6.0.0 requests>=2.32.0"
       AIRFLOW_CONN_OPERATIONAL_POSTGRES: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       AIRFLOW_CONN_WAREHOUSE_POSTGRES: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       POSTGRES_DSN: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       WAREHOUSE_POSTGRES_DSN: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
+      DATABASE_URL: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
       LOG_LEVEL: ${LOG_LEVEL:-WARNING}
     command: webserver
@@ -155,7 +159,7 @@ services:
       - weather-net
 
   airflow-scheduler:
-    image: apache/airflow:2.10.5-python3.12
+    image: weather-airflow-image
     container_name: weather-airflow-scheduler
     restart: unless-stopped
     environment:
@@ -164,11 +168,11 @@ services:
       AIRFLOW__CORE__LOAD_EXAMPLES: "false"
       AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${AIRFLOW_DB_USER:-airflow}:${AIRFLOW_DB_PASSWORD:-airflow}@airflow-db:5432/${AIRFLOW_DB_NAME:-airflow}
       AIRFLOW__WEBSERVER__SECRET_KEY: ${AIRFLOW_SECRET_KEY:-weather-airflow-secret-key}
-      _PIP_ADDITIONAL_REQUIREMENTS: "dotenv>=0.9.9 psycopg[binary]>=3.2.0 redis>=6.0.0 requests>=2.32.0"
       AIRFLOW_CONN_OPERATIONAL_POSTGRES: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       AIRFLOW_CONN_WAREHOUSE_POSTGRES: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       POSTGRES_DSN: postgresql://${OPERATIONAL_DB_USER:-postgres}:${OPERATIONAL_DB_PASSWORD:-postgres}@operational-db:5432/${OPERATIONAL_DB_NAME:-weather_operational}
       WAREHOUSE_POSTGRES_DSN: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
+      DATABASE_URL: postgresql://${WAREHOUSE_DB_USER:-postgres}:${WAREHOUSE_DB_PASSWORD:-postgres}@warehouse-db:5432/${WAREHOUSE_DB_NAME:-weather_warehouse}
       OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
       LOG_LEVEL: ${LOG_LEVEL:-WARNING}
     command: scheduler

@@ -12,3 +12,5 @@ scripts/api.conf
 scripts/api/api.conf
 .DS_Store
 *Zone.Identifier
+models/*.pt
+models/*.pkl
