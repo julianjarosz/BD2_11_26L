@@ -16,3 +16,9 @@ CREATE TABLE IF NOT EXISTS dw.fact_air_pollution_forecast (
     created_at timestamptz NOT NULL DEFAULT now(),
     CONSTRAINT uq_fact_air_pollution_forecast UNIQUE (location_key, forecast_for, model_version)
 );
+
+CREATE INDEX IF NOT EXISTS idx_fact_air_pollution_forecast_date_location
+    ON dw.fact_air_pollution_forecast (forecast_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_air_pollution_forecast_model_created
+    ON dw.fact_air_pollution_forecast (model_version, created_at DESC);
