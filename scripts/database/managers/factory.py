@@ -12,6 +12,20 @@ class DatabaseManagerType(StrEnum):
     POSTGRESQL = "postgresql"
 
 
+_DEFAULT_MANAGERS_REGISTERED = False
+
+
+def _ensure_default_managers_registered() -> None:
+    global _DEFAULT_MANAGERS_REGISTERED
+    if _DEFAULT_MANAGERS_REGISTERED:
+        return
+
+    from scripts.database.managers import _registry as _registry
+
+    _registry.register_database_managers()
+    _DEFAULT_MANAGERS_REGISTERED = True
+
+
 @final
 class DatabaseManagerFactory:
     """Create concrete database managers from a requested backend type."""
@@ -47,6 +61,7 @@ class DatabaseManagerFactory:
     def get_manager_class(
         cls, manager_type: str | DatabaseManagerType
     ) -> type[DatabaseManagerInterface]:
+        _ensure_default_managers_registered()
         normalized_type: str = cls._normalize_manager_type(manager_type)
         manager_cls = cls._FACTORY_REGISTRY.get(normalized_type)
 

@@ -18,6 +18,8 @@ dev = [
     "black>=24.0.0",
     "mypy>=1.10.0",
     "pylint>=3.0.0",
+    "pytest>=8.0.0",
+    "testcontainers[postgres]>=4.8.0",
 ]
 
 [tool.black]
@@ -43,3 +45,9 @@ disable = ["R0902"]
 python_version = "3.12"
 ignore_missing_imports = true
 check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["scripts/tests"]
+markers = [
+    "integration: tests that require Docker and PostgreSQL via testcontainers",
+]

@@ -14,13 +14,13 @@ from scripts.database.managers.factory import (
     create_manager,
     create_manager_from_env,
 )
-from scripts.database.managers.postgresql import (
-    POSTGRES_DSN_ENV_VAR,
-    PostgreSQLDatabaseConnector,
-    PostgreSQLDatabaseManager,
-    PostgreSQLDatabaseManagerContext,
-)
-from scripts.database.managers import _registry as _registry
+
+_POSTGRESQL_EXPORTS = {
+    "POSTGRES_DSN_ENV_VAR",
+    "PostgreSQLDatabaseConnector",
+    "PostgreSQLDatabaseManager",
+    "PostgreSQLDatabaseManagerContext",
+}
 
 __all__ = [
     "POSTGRES_DSN_ENV_VAR",
@@ -40,3 +40,14 @@ __all__ = [
     "create_manager",
     "create_manager_from_env",
 ]
+
+
+def __getattr__(name: str):
+    if name not in _POSTGRESQL_EXPORTS:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+    from scripts.database.managers import postgresql
+
+    value = getattr(postgresql, name)
+    globals()[name] = value
+    return value
