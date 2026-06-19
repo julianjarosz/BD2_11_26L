@@ -8,6 +8,9 @@ dependencies = [
     "psycopg[binary]>=3.2.0",
     "redis>=6.0.0",
     "requests>=2.32.0",
+    "pandas>=2.2.0",
+    "scikit-learn>=1.4.0",
+    "torch>=2.2.0",
 ]
 
 [dependency-groups]
@@ -15,6 +18,8 @@ dev = [
     "black>=24.0.0",
     "mypy>=1.10.0",
     "pylint>=3.0.0",
+    "pytest>=8.0.0",
+    "testcontainers[postgres]>=4.8.0",
 ]
 
 [tool.black]
@@ -40,3 +45,9 @@ disable = ["R0902"]
 python_version = "3.12"
 ignore_missing_imports = true
 check_untyped_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["scripts/tests"]
+markers = [
+    "integration: tests that require Docker and PostgreSQL via testcontainers",
+]

@@ -150,3 +150,87 @@ CREATE TABLE IF NOT EXISTS mapped_data_buffer (
             OR alert_end_at >= alert_start_at
         )
 );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_location_fetch
+    ON mapped_data_buffer (location_lat, location_lon, fetched_at DESC, mapped_data_buffer_id DESC);
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_current_weather_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        current_observed_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_daily_forecast_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        daily_forecast_date,
+        daily_retrieved_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_hourly_forecast_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        hourly_forecast_for,
+        hourly_retrieved_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_minutely_forecast_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        minutely_forecast_for,
+        minutely_retrieved_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_air_pollution_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        air_observed_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_alert_load
+    ON mapped_data_buffer (
+        location_lat,
+        location_lon,
+        alert_event,
+        alert_start_at,
+        alert_end_at,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    )
+    WHERE alert_event IS NOT NULL;
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_current_condition
+    ON mapped_data_buffer (
+        current_openweather_weather_id,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_daily_condition
+    ON mapped_data_buffer (
+        daily_openweather_weather_id,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );
+
+CREATE INDEX IF NOT EXISTS idx_mapped_data_buffer_hourly_condition
+    ON mapped_data_buffer (
+        hourly_openweather_weather_id,
+        fetched_at DESC,
+        mapped_data_buffer_id DESC
+    );

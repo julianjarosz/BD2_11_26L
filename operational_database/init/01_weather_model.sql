@@ -268,3 +268,18 @@ CREATE TABLE IF NOT EXISTS weather_alert (
     CONSTRAINT chk_alert_time_order
         CHECK (end_at >= start_at)
 );
+
+CREATE INDEX IF NOT EXISTS idx_current_weather_weather_condition
+    ON current_weather (openweather_weather_id);
+
+CREATE INDEX IF NOT EXISTS idx_hourly_forecast_weather_condition
+    ON hourly_forecast (openweather_weather_id);
+
+CREATE INDEX IF NOT EXISTS idx_daily_forecast_weather_condition
+    ON daily_forecast (openweather_weather_id);
+
+CREATE INDEX IF NOT EXISTS idx_weather_alert_location_start_end
+    ON weather_alert (location_id, start_at, end_at);
+
+CREATE INDEX IF NOT EXISTS idx_weather_alert_event_start_end
+    ON weather_alert (event, start_at, end_at);

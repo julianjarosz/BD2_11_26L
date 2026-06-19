@@ -197,3 +197,64 @@ CREATE TABLE IF NOT EXISTS dw.fact_forecast_accuracy (
     temp_error numeric(6, 2),
     abs_temp_error numeric(6, 2) CHECK (abs_temp_error IS NULL OR abs_temp_error >= 0)
 );
+
+CREATE INDEX IF NOT EXISTS idx_fact_current_weather_date_location
+    ON dw.fact_current_weather (observed_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_current_weather_time
+    ON dw.fact_current_weather (observed_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_current_weather_condition
+    ON dw.fact_current_weather (weather_condition_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_current_weather_observed_at
+    ON dw.fact_current_weather (observed_at);
+
+CREATE INDEX IF NOT EXISTS idx_fact_hourly_forecast_date_location
+    ON dw.fact_hourly_forecast (forecast_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_hourly_forecast_time
+    ON dw.fact_hourly_forecast (forecast_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_hourly_forecast_condition
+    ON dw.fact_hourly_forecast (weather_condition_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_daily_forecast_date_location
+    ON dw.fact_daily_forecast (forecast_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_daily_forecast_condition
+    ON dw.fact_daily_forecast (weather_condition_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_minutely_forecast_date_location
+    ON dw.fact_minutely_forecast (forecast_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_minutely_forecast_time
+    ON dw.fact_minutely_forecast (forecast_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_air_pollution_date_location
+    ON dw.fact_air_pollution (observed_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_air_pollution_time
+    ON dw.fact_air_pollution (observed_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_air_pollution_observed_at
+    ON dw.fact_air_pollution (observed_at);
+
+CREATE INDEX IF NOT EXISTS idx_fact_weather_alert_start_date_location
+    ON dw.fact_weather_alert (start_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_weather_alert_end_date_location
+    ON dw.fact_weather_alert (end_date_key, location_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_weather_alert_start_time
+    ON dw.fact_weather_alert (start_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_weather_alert_end_time
+    ON dw.fact_weather_alert (end_time_key);
+
+CREATE INDEX IF NOT EXISTS idx_fact_forecast_accuracy_date_location_time
+    ON dw.fact_forecast_accuracy (
+        observed_date_key,
+        location_key,
+        observed_time_key
+    );
