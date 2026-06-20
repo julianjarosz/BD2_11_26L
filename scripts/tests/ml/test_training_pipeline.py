@@ -7,7 +7,7 @@ import torch.optim as optim
 from torch.utils.data import DataLoader
 from sklearn.preprocessing import MinMaxScaler
 
-from scripts.ml.dataset import PollutionDataset, prepare_sliding_windows, interpolate_missing, scale_data
+from scripts.ml.dataset import PollutionDataset, prepare_sliding_windows, interpolate_missing
 from scripts.ml.model import PollutionLSTM
 from scripts.tests.ml.conftest import FEATURE_COLS, TARGET_COLS, PAST_DAYS, FUTURE_DAYS
 
@@ -40,7 +40,7 @@ class TestTrainingPipelineEndToEnd:
         model.train()
         first_loss = None
         last_loss = None
-        for epoch in range(15):
+        for _ in range(15):
             epoch_loss = 0.0
             for batch_X, batch_y in loader:
                 optimizer.zero_grad()
