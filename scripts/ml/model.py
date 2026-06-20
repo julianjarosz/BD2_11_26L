@@ -2,15 +2,19 @@ import torch
 import torch.nn as nn
 
 class PollutionLSTM(nn.Module):
-    def __init__(self, input_size, hidden_size, num_layers, output_size, future_days):
+    def __init__(self, input_size, hidden_size, num_layers, output_size, future_days, dropout=0.2):
         super(PollutionLSTM, self).__init__()
         self.hidden_size = hidden_size
         self.num_layers = num_layers
         self.future_days = future_days
         self.output_size = output_size
 
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
-        # we predict future_days * output_size values and then reshape
+        self.lstm = nn.LSTM(
+            input_size, hidden_size, num_layers,
+            batch_first=True,
+            dropout=dropout if num_layers > 1 else 0.0,
+        )
+        self.dropout = nn.Dropout(p=dropout)
         self.fc = nn.Linear(hidden_size, future_days * output_size)
 
     def forward(self, x):
@@ -22,8 +26,8 @@ class PollutionLSTM(nn.Module):
         # forward propagate LSTM
         out, _ = self.lstm(x, (h0, c0))
 
-        # decode the hidden state of the last time step
-        out = self.fc(out[:, -1, :])
+        out = self.dropout(out[:, -1, :])
+        out = self.fc(out)
 
         # reshape to (batch_size, future_days, output_size)
         out = out.view(-1, self.future_days, self.output_size)
