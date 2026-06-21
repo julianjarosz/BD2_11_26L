@@ -141,6 +141,10 @@ def predict():
             last_date = recent_df.index[-1]
 
             recent_df[FEATURE_COLS] = recent_df[FEATURE_COLS].fillna(0)
+            if not np.isfinite(recent_df[FEATURE_COLS].values).all():
+                print(f"Non-finite values detected for location {loc}. Skipping.")
+                continue
+
             scaled_features = scaler_X.transform(recent_df[FEATURE_COLS])
             X_tensor = torch.tensor(scaled_features, dtype=torch.float32).unsqueeze(0).to(device)
 
@@ -148,6 +152,7 @@ def predict():
             output_np = output.squeeze(0).cpu().numpy()
 
             predictions = scaler_y.inverse_transform(output_np)
+            predictions = np.clip(predictions, 0, None)
 
             for i in range(FUTURE_DAYS):
                 forecast_date = last_date + timedelta(days=i+1)
