@@ -1,0 +1,193 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="B539FBEA-864B-D489-359A-0751E4D6332C" name="AIR_POLLUTION">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:01:08 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<ordsAlias>table_8</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="AIR_POLLUTION_ID" id="06ED1003-6D80-DCD0-56F9-D96994A63269">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>D3C5D1FF-7E84-A6D7-E7C8-DABA96A4D3B7</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID" id="084C3E43-B71A-A9D7-E1BA-0721741C4A19">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>105F3342-5347-CF04-BD32-9D4FCD9E8A1B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="OBSERVED_AT" id="C9E0461A-C1F8-2FE4-5EE8-AC0209E0597A">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>5CD51D37-2DF0-DDDD-8AC5-BA8D77C65F3C</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="AQI" id="8C606A91-D5D3-A3B7-184D-E0815EF800A5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>7BD57F6F-1C10-6EB1-9498-0538530E6360</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CO" id="2FE6AC47-7AC6-4EAD-2567-77F065360D13">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>FA70C81D-47BA-10B2-3A89-958E35B8C64B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NO" id="A338B7FB-C274-62DB-7FD4-D84A441F09FE">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>BDFB3624-813D-B11E-244D-359336EC007A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="NO2" id="126F5FF3-751F-6ADF-1A42-31D9FB6D8AC1">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>9B7F2DD1-2B7F-3DAB-4148-1478E118D9E7</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="O3" id="F1B6CFD4-0127-C8F7-3535-9F9DDEBC6FDE">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>29413417-AFD2-6A7F-CB5C-5AF1C4D89120</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SO2" id="FC0CF9C4-9A27-757B-09A7-94C9324AEE13">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>89D38768-05E4-C21B-D8A9-73BFC1D8E01D</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PM2_5" id="8B16B09F-3AB3-2445-DF4C-47D15BA16CB2">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>C8E50850-7D26-9CB5-D409-58C7E03C77EE</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PM10" id="8C7B441C-0F16-CEDF-64F4-5440C07EC669">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>B52838F1-B6B0-4F07-5510-488A1E1D22EF</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,8,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_LOCATION_ID" id="242ABDA6-A74C-9AE5-8A42-4A2F9EA87CC3">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>F979D7BA-CE28-ECF3-1A4F-DB0AC60A5267</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EE3BB9CD-C87F-6C6A-FE42-BAA8305BA208" referredColumn="A2A94516-8650-18B3-B960-009035BCF8B8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="D4DF895A-2740-08FA-39D3-C1C157430649" name="AIR_POLLUTION_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>DD8B31A0-307B-AFED-001F-592B5537C68E</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06ED1003-6D80-DCD0-56F9-D96994A63269"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7AA0169F-DE6D-9CD2-308F-5BAC92D5DAEF" name="AIR_POLLUTION_LOCATION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>5F9EFBB8-8434-7AAB-4621-F0E3F0BC766B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="242ABDA6-A74C-9AE5-8A42-4A2F9EA87CC3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

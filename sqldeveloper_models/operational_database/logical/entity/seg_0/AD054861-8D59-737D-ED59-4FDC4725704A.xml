@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="AD054861-8D59-737D-ED59-4FDC4725704A" name="WEATHER CONDITION">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:04:27 UTC</createdTime>
+<generatorID>3F4ECB54-2516-9190-9CAD-C70DCDE931C8</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="CONDITION ID" id="482D2D0E-2CE7-AAC3-5FFB-D39431E17C37">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:51 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="OPENWEATHER WEATHER ID" id="1C197956-C136-DB95-FDC8-40F010296D40">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:59 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="MAIN" id="1C81D494-D30E-2403-FD47-411C0DCD7788">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:07:09 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 CHAR</dataTypeSize>
+<ownDataTypeParameters>50 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DESCRIPTION" id="3EE16B4C-B2BE-3D67-2154-A9611D511B84">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:07:12 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ICON" id="14ED4C8D-91F5-397F-6C90-1E939186162C">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:07:17 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4 CHAR</dataTypeSize>
+<ownDataTypeParameters>4 CHAR,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="159F983B-E628-B41C-FD98-20C6F8FD5DFE" name="WEATHER CONDITION PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:58 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>482D2D0E-2CE7-AAC3-5FFB-D39431E17C37</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

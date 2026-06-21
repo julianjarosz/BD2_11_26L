@@ -1,0 +1,138 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A5C83798-B868-3B63-6447-33E15BCB7949" name="WEATHER ALERT">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:04:27 UTC</createdTime>
+<generatorID>97237843-EAAC-B650-AD61-DA5359169794</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="WEATHER ALERT ID" id="85FEC286-ADA6-72A0-4DA6-85E5ED305716">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:01 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="SENDER NAME" id="0719CAB4-ECDC-1F4D-02E1-D0F9BFE9CBA2">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:14 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>150 CHAR</dataTypeSize>
+<ownDataTypeParameters>150 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="EVENT" id="19E3671C-4B9D-4110-65C9-8B95207434C8">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:22 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>150 BYTE</dataTypeSize>
+<ownDataTypeParameters>150 BYTE,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="START AT" id="DC3F7994-5DDB-2EE2-4E13-81C3698C64FC">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:26 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="END AT" id="7AF26F94-9AC9-D0FC-F0EB-A94BA5BF4F8F">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:30 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="DESCRIPTION" id="7299C44B-8AA5-3E98-E983-80510796D8D5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:33 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TAGS" id="9187AC53-4A73-1C27-95EC-93B6A7F700E9">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:38 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION ID" id="F04EB5DD-BDE6-20BC-5F6A-9FAE60A21391">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:26:13 UTC</createdTime>
+<generatorID>10F99BA4-BEDF-7E76-3D63-E6AE11E07CEA</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<referedAttribute>E3E1978F-B15C-DF54-C9B9-2962E5298CE4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="F2DE0F7D-001B-DE57-F026-21EA042FC302" name="WEATHER ALERT PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:17:07 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>85FEC286-ADA6-72A0-4DA6-85E5ED305716</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

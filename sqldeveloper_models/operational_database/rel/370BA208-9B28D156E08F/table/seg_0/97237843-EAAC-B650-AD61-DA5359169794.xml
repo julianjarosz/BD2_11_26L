@@ -1,0 +1,144 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="97237843-EAAC-B650-AD61-DA5359169794" name="WEATHER_ALERT">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:01:02 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<ordsAlias>table_7</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="WEATHER_ALERT_ID" id="4C97F40A-B34F-7101-4284-221B43CD8AD7">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>85FEC286-ADA6-72A0-4DA6-85E5ED305716</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID" id="20A2A524-07D3-1A3E-A8B2-72666ADCEC05">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>EC7CB7EE-F1B2-8DAC-A626-34FB74195AA4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SENDER_NAME" id="8A441575-AE0B-9538-813D-4583203661E7">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>0719CAB4-ECDC-1F4D-02E1-D0F9BFE9CBA2</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>150 CHAR</dataTypeSize>
+<ownDataTypeParameters>150 CHAR,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EVENT" id="5D81735A-4ED9-66AB-8FB7-66E33A60CB02">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>19E3671C-4B9D-4110-65C9-8B95207434C8</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>150 BYTE</dataTypeSize>
+<ownDataTypeParameters>150 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="START_AT" id="AB17C81E-599B-7649-19CD-759ABA039059">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>DC3F7994-5DDB-2EE2-4E13-81C3698C64FC</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="END_AT" id="2174E4BD-92BA-CF42-B9B8-F6083D8757A4">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>7AF26F94-9AC9-D0FC-F0EB-A94BA5BF4F8F</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DESCRIPTION" id="9179CDD7-6A72-A985-F03E-F5483545E5C3">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>7299C44B-8AA5-3E98-E983-80510796D8D5</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TAGS" id="77ED073C-1B6A-646D-C83B-EA64E2B133B9">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>9187AC53-4A73-1C27-95EC-93B6A7F700E9</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT040</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_LOCATION_ID" id="65B30618-0ED1-1023-B28D-406269C62EE7">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>F04EB5DD-BDE6-20BC-5F6A-9FAE60A21391</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A4781998-3DCA-C2E5-D32E-37F6012DF11C" referredColumn="A2A94516-8650-18B3-B960-009035BCF8B8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C9296F7D-20D1-D03E-22A3-94836BCD6E82" name="WEATHER_ALERT_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>F2DE0F7D-001B-DE57-F026-21EA042FC302</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4C97F40A-B34F-7101-4284-221B43CD8AD7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="11D24F81-D173-C53D-4641-25DF092C8E68" name="WEATHER_ALERT_LOCATION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>10F99BA4-BEDF-7E76-3D63-E6AE11E07CEA</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="65B30618-0ED1-1023-B28D-406269C62EE7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

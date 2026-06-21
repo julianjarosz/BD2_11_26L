@@ -1,0 +1,130 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="353DE537-A911-47A2-5DB4-7D1B5ACAE189" name="LOCATION">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:04:27 UTC</createdTime>
+<generatorID>DA209275-0F1D-0BE1-E80F-E69CA20D0500</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="LOCATION ID" id="E3E1978F-B15C-DF54-C9B9-2962E5298CE4">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:04:54 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="CITY NAME" id="999D4D35-150D-7B01-1FD6-6D914B8D3DED">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:05:22 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 CHAR</dataTypeSize>
+<ownDataTypeParameters>100 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="COUNTRY CODE" id="A9A3490F-947C-FF36-6E99-7C6997664A01">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:05:40 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>2 CHAR</dataTypeSize>
+<ownDataTypeParameters>2 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LAT" id="177A7904-7D11-3D5D-4502-C96FADBE6D5A">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:05:48 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>5</dataTypeScale>
+<ownDataTypeParameters>,8,5</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LON" id="874EEA28-301D-8228-7AD7-7FDB5BAEC23B">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:04 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>8</dataTypePrecision>
+<dataTypeScale>5</dataTypeScale>
+<ownDataTypeParameters>,8,5</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE" id="CF5F17C0-8ED4-760C-1875-9E36F57A667E">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:07 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>64 CHAR</dataTypeSize>
+<ownDataTypeParameters>64 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="TIMEZONE OFFSET" id="6A97F1FE-6E38-2499-BF64-3AD4CBA63049">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:06:17 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D798946E-EE87-2B39-D284-B826490C5F11" name="LOCATION PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:05:15 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E3E1978F-B15C-DF54-C9B9-2962E5298CE4</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="CURRENT WEATHER LOCATION FK" directorySegmentName="seg_0" id="ED85ADC7-8980-B129-7959-0A0312BEA048">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:19:17 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<sourcePk>D798946E-EE87-2B39-D284-B826490C5F11</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>353DE537-A911-47A2-5DB4-7D1B5ACAE189</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>74D0943F-9FB7-9606-4C10-42C4CC575923</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

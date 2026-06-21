@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CB53AA25-B3CA-6C3D-EB39-746B5BE90E97" name="MINUTELY FORECAST">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:04:27 UTC</createdTime>
+<generatorID>043F5F36-7C24-33C9-5FD4-04B762BFE5D4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="MINUTELY FORECAST ID" id="48D7FF20-68EE-9B14-CFE8-FE2AF33DB9D5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:15:55 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="FORECAST FOR" id="42F8C735-86E7-3321-6111-16A378E7D59F">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:16:22 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="RETRIEVED AT" id="B25A2FA1-25B4-8311-C529-56BC531B4AC0">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:16:28 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="PRECIPITATION" id="570C3128-6E40-B003-F854-B40EBE72769F">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:16:36 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+</Attribute>
+<Attribute name="LOCATION ID" id="2788133F-F751-1FF3-FF3F-DA0354725B94">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:25:50 UTC</createdTime>
+<generatorID>56E68D93-649C-0A46-F6F5-4353E2465CC9</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<referedAttribute>E3E1978F-B15C-DF54-C9B9-2962E5298CE4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="06F9594B-48E4-E7E8-9F68-58ED9FA5F51E" name="MINUTELY FORECAST PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:16:02 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>48D7FF20-68EE-9B14-CFE8-FE2AF33DB9D5</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

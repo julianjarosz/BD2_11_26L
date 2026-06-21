@@ -1,0 +1,317 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7A7C39EB-7450-EDDC-FFE0-35842A1D2D31" name="HOURLY_FORECAST">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:00:29 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<ordsAlias>table_4</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="HOURLY_FORECAST_ID" id="FE410665-055F-A4D9-E0AD-C131EF3BE33A">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>B5D8D4A9-4993-8631-B5F8-9BA27F8FF555</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_ID" id="36E02422-6BC4-C791-D2CE-DA02EA079F1C">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>05DFC343-5683-8087-DF2E-1D3E3B211BF3</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CONDITION_ID" id="5FDD0C49-7670-F890-DEB4-278B8F250061">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>DD4988D5-56DE-F811-D6BE-9E040D9E254E</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FORECAST_FOR" id="C6BC0D9D-CB33-9EAA-042E-DAD6C73E3616">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>49A0CC95-4583-143B-5C43-DF773D0EBE78</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RETRIEVED_AT" id="6A0C67CB-2118-DD8C-93D2-0F1EC8992BDF">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>027C778B-909E-ABFA-B168-7E7B9DE6C236</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="TEMP" id="29CE9FD3-F393-4B41-9DEA-F6F36E7AD442">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>E4A33BA5-3B06-A9CF-AAE6-2B91218DD1FF</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="FEELS_LIKE" id="639C2225-6156-FD2C-694B-F4CDC06BC71D">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>C2B218C4-B22F-ADD2-39F2-8900892C712D</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="PRESSURE" id="5A9B52F2-3AF3-B5CA-2928-AD7AD89BA519">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>43204CC4-CE4A-8BF2-7C21-817A578D44B4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="HUMIDITY" id="1E27D36D-5E56-8EB5-870F-15A2E0BEA784">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>0397C8B7-C98A-3E42-8DE4-903E50A0BAD4</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="DEW_POINT" id="8283AB3C-78CB-782E-F965-AEC5E2085351">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>9C689F18-20A5-CF40-55BC-666C28401AFE</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UVI" id="CCBD4B10-D130-1D69-7190-70380EAF8A49">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>B6B52B62-0A79-A143-B4A0-253B44F406C0</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,4,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="CLOUDS" id="110F0D19-C941-8D42-09A4-0A79C98D4822">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>F0383AFD-E455-A7CA-AB14-0B5E184ECE92</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="VISIBILITY" id="7C8C2AB3-2865-1672-B10B-6B304805ED88">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>74711448-BA6B-3920-1986-24F99EC13F78</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="POP" id="068E7ABC-EA31-2603-95AA-2DAFA7CEF069">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>177D5071-C0C0-39A3-D2AA-2AB59928ED20</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>4</dataTypePrecision>
+<dataTypeScale>3</dataTypeScale>
+<ownDataTypeParameters>,4,3</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WIND_SPEED" id="D1AC9D11-DA4D-1D9D-4DA4-A28928938E6D">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>9D54A25F-72FC-BB7C-F336-75AB75BD9EAF</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WIND_DEG" id="4492DCE0-FC69-1A26-606F-AF4F16A1D9C3">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>9D59B485-588C-628B-185B-5D91B0341A26</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT018</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="WIND_GUST" id="2BFFFDD8-AB07-A968-33EB-EFD293EC447B">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>E5D74D78-90D7-CA19-83D9-B9AF28CC672A</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="RAIN_1H" id="E88C6551-5DF0-1B5A-2FF9-B961EDE91CD0">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>97782913-27EE-973F-5A65-5AAF018EF821</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="SNOW_1H" id="E616FEA8-D71A-8F9E-FC77-B38C2F6EBA60">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>4F9E128B-A275-E5E0-2A1C-AC768D06816B</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>5</dataTypePrecision>
+<dataTypeScale>2</dataTypeScale>
+<ownDataTypeParameters>,5,2</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LOCATION_LOCATION_ID" id="67064D21-7F93-B03E-B3E5-82B45CB5B2B5">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>3006F8A2-BC10-4DD1-17AF-04A46010D18C</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B3B7CD3A-1C98-B788-52B6-455FA6EF2DDC" referredColumn="A2A94516-8650-18B3-B960-009035BCF8B8"/>
+</associations>
+</Column>
+<Column name="WEATHER_CONDITION_CONDITION_ID" id="09590CCA-5BC6-BDB3-28B8-A8478626B086">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>C486BF3F-024A-7A91-4FF3-BD5625C747F3</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT027</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A8A58F3E-7290-364D-BD4F-7CE8C6FCEE67" referredColumn="BC3D081D-AF11-D2D2-B4F4-DE3F3840B220"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0A109F56-DC14-D4FF-DC23-C3E4A439CE0F" name="HOURLY_FORECAST_PK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:21:24 UTC</createdTime>
+<generatorID>25426293-39E5-F80E-3C27-EB91061B66C2</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FE410665-055F-A4D9-E0AD-C131EF3BE33A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA6EE2B4-5812-AEE9-3B22-C90B0A50600A" name="HOURLY_FORECAST_WEATHER_CONDITION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>D104112C-1AB0-FDB7-2E5F-2C94740A80A2</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="09590CCA-5BC6-BDB3-28B8-A8478626B086"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="964157B1-C1B3-D4AC-32D6-8E3C0C06B3FA" name="HOURLY_FORECAST_LOCATION_FK">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-16 14:37:02 UTC</createdTime>
+<generatorID>41EAB4E7-BB82-3EC3-7DAD-ECB21597B7EE</generatorID>
+<ownerDesignName>model</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="67064D21-7F93-B03E-B3E5-82B45CB5B2B5"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

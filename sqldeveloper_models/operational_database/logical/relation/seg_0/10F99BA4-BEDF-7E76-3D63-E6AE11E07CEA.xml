@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="LOCATION_WEATHER_ALERT" directorySegmentName="seg_0" id="10F99BA4-BEDF-7E76-3D63-E6AE11E07CEA">
+<createdBy>inne</createdBy>
+<createdTime>2026-04-14 20:26:13 UTC</createdTime>
+<ownerDesignName>model</ownerDesignName>
+<engineerTo>
+<item key="370BA208-A478-ECAB-871C-9B28D156E08F" value="true"/>
+</engineerTo>
+<sourcePk>D798946E-EE87-2B39-D284-B826490C5F11</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>353DE537-A911-47A2-5DB4-7D1B5ACAE189</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>A5C83798-B868-3B63-6447-33E15BCB7949</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>
