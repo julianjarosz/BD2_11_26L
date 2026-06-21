@@ -1,3 +1,4 @@
+import json
 import os
 import pickle
 import torch
@@ -20,6 +21,7 @@ HIDDEN_SIZE = 64
 NUM_LAYERS = 2
 TEST_SIZE = 0.2
 RANDOM_STATE = 42
+EARLY_STOPPING_PATIENCE = 10
 FEATURE_COLS = ['aqi', 'co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3', 'temp', 'humidity', 'wind_speed']
 TARGET_COLS = ['aqi', 'co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3']
 
@@ -75,8 +77,13 @@ def train():
 
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=5)
 
     print("Starting training...")
+    training_history = []
+    best_test_loss = float('inf')
+    epochs_without_improvement = 0
+
     for epoch in range(NUM_EPOCHS):
         model.train()
         train_loss = 0.0
@@ -87,6 +94,7 @@ def train():
             outputs = model(batch_X)
             loss = criterion(outputs, batch_y)
             loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
             optimizer.step()
 
             train_loss += loss.item() * batch_X.size(0)
@@ -103,9 +111,27 @@ def train():
                 loss = criterion(outputs, batch_y)
                 test_loss += loss.item() * batch_X.size(0)
         test_loss /= len(test_loader.dataset)
+        scheduler.step(test_loss)
+
+        if test_loss < best_test_loss:
+            best_test_loss = test_loss
+            epochs_without_improvement = 0
+        else:
+            epochs_without_improvement += 1
+
+        training_history.append({
+            "epoch": epoch + 1,
+            "train_loss": round(train_loss, 6),
+            "test_loss": round(test_loss, 6),
+            "lr": optimizer.param_groups[0]["lr"],
+        })
 
         if (epoch + 1) % 10 == 0 or epoch == 0:
             print(f"Epoch {epoch+1}/{NUM_EPOCHS} - Train Loss: {train_loss:.6f} - Test Loss: {test_loss:.6f}")
+
+        if epochs_without_improvement >= EARLY_STOPPING_PATIENCE:
+            print(f"Early stopping at epoch {epoch+1} (no improvement for {EARLY_STOPPING_PATIENCE} epochs)")
+            break
 
     # save the model and scalers for prediction later on
     os.makedirs('models', exist_ok=True)
@@ -114,6 +140,20 @@ def train():
         pickle.dump(scaler_X, f)
     with open('models/scaler_y.pkl', 'wb') as f:
         pickle.dump(scaler_y, f)
+
+    with open('models/training_metrics.json', 'w') as f:
+        json.dump({
+            "num_epochs": NUM_EPOCHS,
+            "learning_rate": LEARNING_RATE,
+            "hidden_size": HIDDEN_SIZE,
+            "num_layers": NUM_LAYERS,
+            "batch_size": BATCH_SIZE,
+            "past_days": PAST_DAYS,
+            "future_days": FUTURE_DAYS,
+            "feature_cols": FEATURE_COLS,
+            "target_cols": TARGET_COLS,
+            "history": training_history,
+        }, f, indent=2)
 
     print("Training finished. Models saved to 'models/' directory.")
 
