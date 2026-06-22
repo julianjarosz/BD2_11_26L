@@ -1,14 +1,29 @@
 from __future__ import annotations
 
+# pylint: disable=redefined-outer-name
+
 import numpy as np
 import pandas as pd
 import pytest
 import torch
 
-from scripts.ml.dataset import PollutionDataset
+from scripts.ml.dataset import PollutionDataset, prepare_sliding_windows
 from scripts.ml.model import PollutionLSTM
 
-FEATURE_COLS = ["aqi", "co", "no", "no2", "o3", "so2", "pm2_5", "pm10", "nh3", "temp", "humidity", "wind_speed"]
+FEATURE_COLS = [
+    "aqi",
+    "co",
+    "no",
+    "no2",
+    "o3",
+    "so2",
+    "pm2_5",
+    "pm10",
+    "nh3",
+    "temp",
+    "humidity",
+    "wind_speed",
+]
 TARGET_COLS = ["aqi", "co", "no", "no2", "o3", "so2", "pm2_5", "pm10", "nh3"]
 
 PAST_DAYS = 30
@@ -48,9 +63,9 @@ def sample_pollution_df_with_gaps(sample_pollution_df: pd.DataFrame) -> pd.DataF
 
 @pytest.fixture()
 def sample_sliding_windows(sample_pollution_df: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
-    from scripts.ml.dataset import prepare_sliding_windows
-
-    return prepare_sliding_windows(sample_pollution_df, PAST_DAYS, FUTURE_DAYS, FEATURE_COLS, TARGET_COLS)
+    return prepare_sliding_windows(
+        sample_pollution_df, PAST_DAYS, FUTURE_DAYS, FEATURE_COLS, TARGET_COLS
+    )
 
 
 @pytest.fixture()

@@ -20,4 +20,4 @@ class Transformation(Protocol):
         Args:
             database: Database manager connected to the transformation target.
         """
-        ...
+        raise NotImplementedError

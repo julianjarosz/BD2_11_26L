@@ -31,35 +31,29 @@ class WatermarkedPostgresTableSource:
 
         try:
             if resource_name in self.full_load_tables:
-                result = self.operational_database.fetch_data(
-                    f"""
+                result = self.operational_database.fetch_data(f"""
                     SELECT *
                     FROM {resource_name}
                     ORDER BY {id_column}
-                    """
-                )
+                    """)
                 return list(result.successful_rows)
 
-            watermark_result = self.warehouse_database.fetch_data(
-                f"""
+            watermark_result = self.warehouse_database.fetch_data(f"""
                 SELECT COALESCE(last_loaded_id, 0) AS last_loaded_id
                 FROM dw.etl_watermark
                 WHERE source_name = '{source_name}'
-                """
-            )
+                """)
             if watermark_result.successful_rows:
                 last_loaded_id = watermark_result.successful_rows[0]["last_loaded_id"]
             else:
                 last_loaded_id = 0
 
-            result = self.operational_database.fetch_data(
-                f"""
+            result = self.operational_database.fetch_data(f"""
                 SELECT *
                 FROM {resource_name}
                 WHERE {id_column} > {int(last_loaded_id)}
                 ORDER BY {id_column}
-                """
-            )
+                """)
             return list(result.successful_rows)
         except Exception as exc:
             raise PostgresTableSourceError(

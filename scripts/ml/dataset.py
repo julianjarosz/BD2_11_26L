@@ -1,10 +1,11 @@
-import pandas as pd
 import numpy as np
-import torch
-from torch.utils.data import Dataset
-from sklearn.preprocessing import MinMaxScaler
+import pandas as pd
 import psycopg
 from psycopg.rows import dict_row
+from sklearn.preprocessing import MinMaxScaler
+import torch
+from torch.utils.data import Dataset
+
 
 class PollutionDataset(Dataset):
     def __init__(self, X, y):
@@ -16,6 +17,7 @@ class PollutionDataset(Dataset):
 
     def __getitem__(self, idx):
         return self.X[idx], self.y[idx]
+
 
 def load_data_from_db(db_url: str) -> pd.DataFrame:
     query = """
@@ -54,12 +56,17 @@ def load_data_from_db(db_url: str) -> pd.DataFrame:
 
     df = pd.DataFrame(rows)
     if not df.empty:
-        df['obs_date'] = pd.to_datetime(df['obs_date']) # convert date to datetime for the sliding windows
-        numeric_cols = df.columns.drop(['location_key', 'obs_date'])
-        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+        df["obs_date"] = pd.to_datetime(
+            df["obs_date"]
+        )  # convert date to datetime for the sliding windows
+        numeric_cols = df.columns.drop(["location_key", "obs_date"])
+        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
     return df
 
-def prepare_sliding_windows(df: pd.DataFrame, past_days: int, future_days: int, feature_cols: list, target_cols: list):
+
+def prepare_sliding_windows(
+    df: pd.DataFrame, past_days: int, future_days: int, feature_cols: list, target_cols: list
+):
     """
     prepares sliding windows used for training and prediction
     (we can't train the model on every single day - hence sliding windows)
@@ -67,32 +74,41 @@ def prepare_sliding_windows(df: pd.DataFrame, past_days: int, future_days: int, 
     sliding prediction window Y: (future_days x num_targets)
     """
     X, y = [], []
-    locations = df['location_key'].unique()
+    locations = df["location_key"].unique()
 
     for loc in locations:
-        loc_df = df[df['location_key'] == loc].copy()
+        loc_df = df[df["location_key"] == loc].copy()
 
         features_array = loc_df[feature_cols].values
         targets_array = loc_df[target_cols].values
 
         for i in range(len(loc_df) - past_days - future_days + 1):
-            X.append(features_array[i:i + past_days])
-            y.append(targets_array[i + past_days:i + past_days + future_days])
+            X.append(features_array[i : i + past_days])
+            y.append(targets_array[i + past_days : i + past_days + future_days])
 
     return np.array(X), np.array(y)
+
 
 def interpolate_missing(df: pd.DataFrame, feature_cols: list, target_cols: list) -> pd.DataFrame:
     all_cols = list(set(feature_cols + target_cols))
     parts = []
-    for loc in df['location_key'].unique():
-        loc_df = df[df['location_key'] == loc].copy()
-        loc_df = loc_df.set_index('obs_date').asfreq('D')
-        loc_df['location_key'] = loc
-        loc_df[all_cols] = loc_df[all_cols].interpolate(method='linear').bfill().ffill()
+    for loc in df["location_key"].unique():
+        loc_df = df[df["location_key"] == loc].copy()
+        loc_df = loc_df.set_index("obs_date").asfreq("D")
+        loc_df["location_key"] = loc
+        loc_df[all_cols] = loc_df[all_cols].interpolate(method="linear").bfill().ffill()
         parts.append(loc_df.reset_index())
     return pd.concat(parts, ignore_index=True)
 
-def scale_data(df: pd.DataFrame, feature_cols: list, target_cols: list, scaler_X: MinMaxScaler, scaler_y: MinMaxScaler, fit: bool = True):
+
+def scale_data(
+    df: pd.DataFrame,
+    feature_cols: list,
+    target_cols: list,
+    scaler_X: MinMaxScaler,
+    scaler_y: MinMaxScaler,
+    fit: bool = True,
+):  # pylint: disable=too-many-arguments,too-many-positional-arguments
     df_scaled = df.copy()
     if fit:
         df_scaled[feature_cols] = scaler_X.fit_transform(df_scaled[feature_cols])

@@ -51,7 +51,7 @@ class DatabaseConnectionException(ConnectionError):
         host: str | None = None,
         port: int | None = None,
         env_var: str | None = None,
-    ) -> None:
+    ) -> None:  # pylint: disable=too-many-arguments
         super().__init__(error_msg)
         self.database_name = database_name
         self.host = host

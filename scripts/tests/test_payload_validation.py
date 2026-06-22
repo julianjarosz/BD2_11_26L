@@ -57,7 +57,7 @@ def test_schema_validator_accepts_all_rows_when_schema_is_not_available() -> Non
     valid_rows, rejected_rows = TableSchemaRowValidator().validate(None, rows)
 
     assert valid_rows == rows
-    assert rejected_rows == []
+    assert not rejected_rows
 
 
 def test_payload_normalizer_wraps_single_mapping_into_insert_payload() -> None:

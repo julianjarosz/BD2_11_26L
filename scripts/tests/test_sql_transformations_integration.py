@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# pylint: disable=redefined-outer-name,broad-exception-caught
+
 from decimal import Decimal
 from pathlib import Path
 from typing import Any
@@ -247,6 +249,7 @@ def test_mapped_buffer_transformation_loads_operational_model(postgres_dsn: str)
             "tags": "wind,warning",
         }
 
+
 def _seed_warehouse_staging(conn: Any) -> None:
     statements = [
         (
@@ -364,7 +367,8 @@ def _seed_warehouse_staging(conn: Any) -> None:
         (
             """
             INSERT INTO stg.air_pollution (
-                air_pollution_id, location_id, observed_at, aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3
+                air_pollution_id, location_id, observed_at, aqi, co, no, no2,
+                o3, so2, pm2_5, pm10, nh3
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
             """,
             (
@@ -385,7 +389,8 @@ def _seed_warehouse_staging(conn: Any) -> None:
         (
             """
             INSERT INTO stg.weather_alert (
-                weather_alert_id, location_id, sender_name, event, start_at, end_at, description, tags
+                weather_alert_id, location_id, sender_name, event, start_at,
+                end_at, description, tags
             ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """,
             (
@@ -474,18 +479,27 @@ def test_warehouse_transformation_loads_dimensions_facts_and_watermarks(postgres
         )
         assert weather_alert == {"source_buffer_id": 60, "event": "Wind", "alert_count": 1}
 
-        assert _fetch_value(
-            conn,
-            "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
-            ("operational.location",),
-        ) == 1
-        assert _fetch_value(
-            conn,
-            "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
-            ("operational.current_weather",),
-        ) == 10
-        assert _fetch_value(
-            conn,
-            "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
-            ("operational.weather_alert",),
-        ) == 60
+        assert (
+            _fetch_value(
+                conn,
+                "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
+                ("operational.location",),
+            )
+            == 1
+        )
+        assert (
+            _fetch_value(
+                conn,
+                "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
+                ("operational.current_weather",),
+            )
+            == 10
+        )
+        assert (
+            _fetch_value(
+                conn,
+                "SELECT last_loaded_id FROM dw.etl_watermark WHERE source_name = %s",
+                ("operational.weather_alert",),
+            )
+            == 60
+        )

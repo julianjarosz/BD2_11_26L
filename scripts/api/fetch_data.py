@@ -1,11 +1,13 @@
 import configparser
 import json
-
 from pathlib import Path
 from pprint import pprint
 from urllib.request import urlopen
 
-from api_struct import OpenWeatherDataParser
+try:
+    from api_struct import OpenWeatherDataParser
+except ModuleNotFoundError:
+    from scripts.api.api_struct import OpenWeatherDataParser
 
 config = configparser.ConfigParser()
 

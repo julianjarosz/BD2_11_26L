@@ -1,14 +1,22 @@
 from __future__ import annotations
 
-import numpy as np
 import pickle
-import torch
-import pytest
 
+import numpy as np
+import torch
 from sklearn.preprocessing import MinMaxScaler
 
 from scripts.ml.model import PollutionLSTM
-from scripts.tests.ml.conftest import FEATURE_COLS, TARGET_COLS, PAST_DAYS, FUTURE_DAYS, HIDDEN_SIZE, NUM_LAYERS
+from scripts.tests.ml.conftest import (
+    FEATURE_COLS,
+    TARGET_COLS,
+    PAST_DAYS,
+    FUTURE_DAYS,
+    HIDDEN_SIZE,
+    NUM_LAYERS,
+)
+
+# pylint: disable=too-few-public-methods
 
 
 class TestPredictionOutputRange:

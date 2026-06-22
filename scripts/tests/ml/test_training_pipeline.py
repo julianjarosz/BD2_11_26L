@@ -2,8 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.optim as optim
+from torch import nn, optim
 from torch.utils.data import DataLoader
 from sklearn.preprocessing import MinMaxScaler
 
@@ -13,7 +12,9 @@ from scripts.tests.ml.conftest import FEATURE_COLS, TARGET_COLS, PAST_DAYS, FUTU
 
 
 class TestTrainingPipelineEndToEnd:
-    def test_loss_decreases_after_training(self, sample_pollution_df) -> None:
+    def test_loss_decreases_after_training(
+        self, sample_pollution_df
+    ) -> None:  # pylint: disable=too-many-locals
         df = interpolate_missing(sample_pollution_df, FEATURE_COLS, TARGET_COLS)
         X, y = prepare_sliding_windows(df, PAST_DAYS, FUTURE_DAYS, FEATURE_COLS, TARGET_COLS)
 

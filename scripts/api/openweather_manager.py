@@ -228,7 +228,9 @@ class OpenWeatherManager:
         city_key = normalize_city_name(city_name)
         if city_key not in CITY_COORDINATES:
             supported_cities = ", ".join(DEFAULT_CITY_NAMES)
-            raise ValueError(f"Unsupported city {city_name!r}. Supported cities: {supported_cities}.")
+            raise ValueError(
+                f"Unsupported city {city_name!r}. Supported cities: {supported_cities}."
+            )
         return CITY_COORDINATES[city_key]
 
     def build_url(self, base_url: str) -> str:

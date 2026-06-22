@@ -1,10 +1,15 @@
 from __future__ import annotations
 
 import torch
-import pytest
 
 from scripts.ml.model import PollutionLSTM
-from scripts.tests.ml.conftest import FEATURE_COLS, TARGET_COLS, PAST_DAYS, FUTURE_DAYS, HIDDEN_SIZE, NUM_LAYERS, BATCH_SIZE
+from scripts.tests.ml.conftest import (
+    FEATURE_COLS,
+    TARGET_COLS,
+    PAST_DAYS,
+    FUTURE_DAYS,
+    BATCH_SIZE,
+)
 
 
 class TestPollutionLSTMOutputShape:

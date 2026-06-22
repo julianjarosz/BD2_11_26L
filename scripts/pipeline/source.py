@@ -23,4 +23,4 @@ class Source(Protocol):
         Returns:
             Extracted rows as mappings of column names to values.
         """
-        ...
+        raise NotImplementedError

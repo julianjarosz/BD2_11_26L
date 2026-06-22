@@ -68,7 +68,7 @@ def test_load_staging_returns_zero_without_pushing_empty_rows() -> None:
     )
 
     assert sink.load_staging("stg.weather", []) == 0
-    assert database.push_calls == []
+    assert not database.push_calls
 
 
 def test_load_staging_builds_insert_payload_and_returns_success_count() -> None:

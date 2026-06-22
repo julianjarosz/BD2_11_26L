@@ -1,26 +1,42 @@
 import os
 import pickle
+from datetime import timedelta
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
 import torch
 import psycopg
-import pandas as pd
-import numpy as np
-from pathlib import Path
-from datetime import timedelta
 from psycopg.rows import dict_row
 
 from scripts.ml.model import PollutionLSTM
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-MODEL_DIR = PROJECT_ROOT / 'models'
+MODEL_DIR = PROJECT_ROOT / "models"
 
-DB_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5433/weather_warehouse")
+DB_URL = os.getenv(
+    "DATABASE_URL", "postgresql://postgres:postgres@localhost:5433/weather_warehouse"
+)
 PAST_DAYS = 30
 FUTURE_DAYS = 14
 HIDDEN_SIZE = 64
 NUM_LAYERS = 2
 
-FEATURE_COLS = ['aqi', 'co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3', 'temp', 'humidity', 'wind_speed']
-TARGET_COLS = ['aqi', 'co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3']
+FEATURE_COLS = [
+    "aqi",
+    "co",
+    "no",
+    "no2",
+    "o3",
+    "so2",
+    "pm2_5",
+    "pm10",
+    "nh3",
+    "temp",
+    "humidity",
+    "wind_speed",
+]
+TARGET_COLS = ["aqi", "co", "no", "no2", "o3", "so2", "pm2_5", "pm10", "nh3"]
 
 
 def load_recent_data(db_url: str, days: int) -> pd.DataFrame:
@@ -62,9 +78,9 @@ def load_recent_data(db_url: str, days: int) -> pd.DataFrame:
 
     df = pd.DataFrame(rows)
     if not df.empty:
-        df['obs_date'] = pd.to_datetime(df['obs_date'])
-        numeric_cols = df.columns.drop(['location_key', 'obs_date'])
-        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors='coerce')
+        df["obs_date"] = pd.to_datetime(df["obs_date"])
+        numeric_cols = df.columns.drop(["location_key", "obs_date"])
+        df[numeric_cols] = df[numeric_cols].apply(pd.to_numeric, errors="coerce")
     return df
 
 
@@ -72,45 +88,53 @@ def ensure_forecast_dates(conn, forecast_dates):
     with conn.cursor() as cur:
         for d in forecast_dates:
             date_key = int(d.strftime("%Y%m%d"))
-            cur.execute("""
+            cur.execute(
+                """
                 INSERT INTO dw.dim_date
                     (date_key, full_date, day, month, month_name, quarter, year,
                      day_of_the_week, day_name, is_weekend)
                 VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 ON CONFLICT DO NOTHING;
-            """, (
-                date_key, d.date() if hasattr(d, 'date') else d,
-                d.day, d.month, d.strftime("%B"),
-                (d.month - 1) // 3 + 1, d.year,
-                d.isoweekday(), d.strftime("%A"),
-                d.weekday() >= 5,
-            ))
+            """,
+                (
+                    date_key,
+                    d.date() if hasattr(d, "date") else d,
+                    d.day,
+                    d.month,
+                    d.strftime("%B"),
+                    (d.month - 1) // 3 + 1,
+                    d.year,
+                    d.isoweekday(),
+                    d.strftime("%A"),
+                    d.weekday() >= 5,
+                ),
+            )
         conn.commit()
 
 
-def predict():
+def predict():  # pylint: disable=too-many-locals,too-many-statements
     print("Loading models and scalers...")
     try:
-        with open(MODEL_DIR / 'scaler_X.pkl', 'rb') as f:
+        with open(MODEL_DIR / "scaler_X.pkl", "rb") as f:
             scaler_X = pickle.load(f)
-        with open(MODEL_DIR / 'scaler_y.pkl', 'rb') as f:
+        with open(MODEL_DIR / "scaler_y.pkl", "rb") as f:
             scaler_y = pickle.load(f)
     except FileNotFoundError:
         print("Models or scalers not found. Train the model first.")
         return
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model = PollutionLSTM(
         input_size=len(FEATURE_COLS),
         hidden_size=HIDDEN_SIZE,
         num_layers=NUM_LAYERS,
         output_size=len(TARGET_COLS),
-        future_days=FUTURE_DAYS
+        future_days=FUTURE_DAYS,
     ).to(device)
 
     try:
-        model.load_state_dict(torch.load(MODEL_DIR / 'pollution_lstm.pt', map_location=device))
+        model.load_state_dict(torch.load(MODEL_DIR / "pollution_lstm.pt", map_location=device))
     except FileNotFoundError:
         print("Model weights not found. Train the model first.")
         return
@@ -123,15 +147,15 @@ def predict():
         print("No data available.")
         return
 
-    locations = df['location_key'].unique()
+    locations = df["location_key"].unique()
     predictions_to_insert = []
     all_forecast_dates = set()
 
     with torch.no_grad():
         for loc in locations:
-            loc_df = df[df['location_key'] == loc].copy()
-            loc_df = loc_df.set_index('obs_date').asfreq('D')
-            loc_df[FEATURE_COLS] = loc_df[FEATURE_COLS].interpolate(method='linear').bfill().ffill()
+            loc_df = df[df["location_key"] == loc].copy()
+            loc_df = loc_df.set_index("obs_date").asfreq("D")
+            loc_df[FEATURE_COLS] = loc_df[FEATURE_COLS].interpolate(method="linear").bfill().ffill()
 
             recent_df = loc_df.tail(PAST_DAYS)
             if len(recent_df) < PAST_DAYS:
@@ -155,24 +179,26 @@ def predict():
             predictions = np.clip(predictions, 0, None)
 
             for i in range(FUTURE_DAYS):
-                forecast_date = last_date + timedelta(days=i+1)
+                forecast_date = last_date + timedelta(days=i + 1)
                 all_forecast_dates.add(forecast_date)
 
-                predictions_to_insert.append({
-                    'location_key': loc,
-                    'forecast_date_key': int(forecast_date.strftime("%Y%m%d")),
-                    'forecast_for': forecast_date,
-                    'predicted_aqi': float(predictions[i][0]),
-                    'predicted_co': float(predictions[i][1]),
-                    'predicted_no': float(predictions[i][2]),
-                    'predicted_no2': float(predictions[i][3]),
-                    'predicted_o3': float(predictions[i][4]),
-                    'predicted_so2': float(predictions[i][5]),
-                    'predicted_pm2_5': float(predictions[i][6]),
-                    'predicted_pm10': float(predictions[i][7]),
-                    'predicted_nh3': float(predictions[i][8]),
-                    'model_version': 'v1.0.0_lstm'
-                })
+                predictions_to_insert.append(
+                    {
+                        "location_key": loc,
+                        "forecast_date_key": int(forecast_date.strftime("%Y%m%d")),
+                        "forecast_for": forecast_date,
+                        "predicted_aqi": float(predictions[i][0]),
+                        "predicted_co": float(predictions[i][1]),
+                        "predicted_no": float(predictions[i][2]),
+                        "predicted_no2": float(predictions[i][3]),
+                        "predicted_o3": float(predictions[i][4]),
+                        "predicted_so2": float(predictions[i][5]),
+                        "predicted_pm2_5": float(predictions[i][6]),
+                        "predicted_pm10": float(predictions[i][7]),
+                        "predicted_nh3": float(predictions[i][8]),
+                        "model_version": "v1.0.0_lstm",
+                    }
+                )
 
     if not predictions_to_insert:
         print("No predictions to insert.")
@@ -210,5 +236,6 @@ def predict():
 
     print("Inference completed successfully.")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     predict()

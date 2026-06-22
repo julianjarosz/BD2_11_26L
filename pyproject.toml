@@ -39,7 +39,43 @@ extend-exclude = '''
 '''
 
 [tool.pylint."messages control"]
-disable = ["R0902"]
+disable = [
+    "R0902",
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "duplicate-code",
+    "too-few-public-methods",
+    "too-many-arguments",
+    "too-many-locals",
+    "too-many-positional-arguments",
+    "too-many-statements",
+]
+
+[tool.pylint.basic]
+good-names = [
+    "_",
+    "i",
+    "j",
+    "k",
+    "X",
+    "y",
+    "X0",
+    "X1",
+    "X_batch",
+    "X_flat",
+    "X_scaled",
+    "X_tensor",
+    "X_test",
+    "X_train",
+    "X_train_flat",
+    "batch_X",
+    "dict_row",
+    "psycopg",
+    "PostgresContainer",
+    "returned_X",
+    "scaler_X",
+]
 
 [tool.mypy]
 python_version = "3.12"

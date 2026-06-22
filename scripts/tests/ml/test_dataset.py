@@ -43,11 +43,13 @@ class TestPollutionDatasetGetItem:
         assert X.dtype == torch.float32
         assert y.dtype == torch.float32
 
-    def test_different_indices_return_different_data(self, sample_dataset: PollutionDataset) -> None:
+    def test_different_indices_return_different_data(
+        self, sample_dataset: PollutionDataset
+    ) -> None:
         X0, _ = sample_dataset[0]
         X1, _ = sample_dataset[1]
         assert not torch.allclose(X0, X1)
 
     def test_index_out_of_range_raises(self, sample_dataset: PollutionDataset) -> None:
         with pytest.raises(IndexError):
-            sample_dataset[len(sample_dataset)]
+            _ = sample_dataset[len(sample_dataset)]

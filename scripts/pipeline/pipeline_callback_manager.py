@@ -125,7 +125,7 @@ class PipelineELTCallbackManager:
         for callback in callbacks:
             try:
                 callback(event)
-            except Exception as exc:
+            except Exception as exc:  # pylint: disable=broad-exception-caught
                 callback_name = getattr(callback, "__name__", callback.__class__.__name__)
                 warn(
                     f"Pipeline callback {callback_name!r} failed during "

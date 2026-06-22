@@ -324,7 +324,7 @@ class OpenWeatherDataParser:
         air_pollution_data: dict,
         city_name: str | None = None,
         country_code: str | None = None,
-    ) -> dict[str, object]:
+    ) -> dict[str, object]:  # pylint: disable=too-many-arguments,too-many-positional-arguments
         location = self.parse_location(
             daily_forecast_data,
             city_name=city_name,
